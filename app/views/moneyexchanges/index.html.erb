@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Moneyexchanges</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Money</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @moneyexchanges.each do |moneyexchange| %>
+      <tr>
+        <td><%= moneyexchange.money %></td>
+        <td><%= link_to 'Show', moneyexchange %></td>
+        <td><%= link_to 'Edit', edit_moneyexchange_path(moneyexchange) %></td>
+        <td><%= link_to 'Destroy', moneyexchange, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Moneyexchange', new_moneyexchange_path %>

@@ -1,0 +1,21 @@
+<%= form_for(@moneyexchange) do |f| %>
+  <% if @moneyexchange.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@moneyexchange.errors.count, "error") %> prohibited this moneyexchange from being saved:</h2>
+
+      <ul>
+      <% @moneyexchange.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :money %><br>
+    <%= f.text_field :money %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
