@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
+  devise_for :users
+
   resources :expenses
   resources :trips
-  resources :users
+  
   resources :moneyexchanges
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
