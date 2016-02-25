@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Textmsg:</strong>
+  <%= @expense.textmsg %>
+</p>
+
+<p>
+  <strong>Cost:</strong>
+  <%= @expense.cost %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @expense.date %>
+</p>
+
+<p>
+  <strong>Time:</strong>
+  <%= @expense.time %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @expense.location %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @expense.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @expense.longitude %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @expense.user %>
+</p>
+
+<%= link_to 'Edit', edit_expense_path(@expense) %> |
+<%= link_to 'Back', expenses_path %>
