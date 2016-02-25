@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'devise', '~> 3.5', '>= 3.5.6'
 gem 'gravatar_image_tag', '~> 1.2'
 gem 'acts-as-taggable-on', '~> 3.5'
-gem 'active_enum', '~> 0.9.12'
+gem 'active_enum'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.1'
