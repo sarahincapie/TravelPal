@@ -64,6 +64,7 @@ class ExpensesController < ApplicationController
     end
   end
 
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_expense
@@ -72,6 +73,6 @@ class ExpensesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def expense_params
-      params.require(:expense).permit(:textmsg, :cost, :date, :time, :location, :latitude, :longitude, :user_id)
+      params.require(:expense).permit(:textmsg, :cost, :date, :time, :location, :latitude, :longitude, :user_id, :tag_list)
     end
 end

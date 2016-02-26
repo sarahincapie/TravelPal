@@ -36,6 +36,13 @@
 </p>
 
 <p>
+<strong>Tags:</strong>
+<% @expense.tags.each do |tag| %>
+  <%= tag.name %>
+   <%end%>
+</p>
+
+<p>
   <strong>User:</strong>
   <%= @expense.user %>
 </p>

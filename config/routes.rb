@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   resources :expenses
   resources :trips
+
   
   resources :moneyexchanges
   # The priority is based upon order of creation: first created -> highest priority.
