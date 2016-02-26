@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'devise', '~> 3.5', '>= 3.5.6'
+gem 'gravatar-ultimate', '~> 2.0'
 gem 'gravatar_image_tag', '~> 1.2'
 gem 'acts-as-taggable-on', '~> 3.5'
 gem 'active_enum'
