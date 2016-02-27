@@ -11,10 +11,12 @@
     </div>
   <% end %>
 
+
   <div class="field">
-     <%= f.label :expense, :as => :select, :collection => Expense.options.keys.to_a %>
-     <%= f.select :option, :option => Expense.options.symbolize_keys.keys %>
-     <br>
+    <%= f.label :option %><br>
+
+    <%= f.select :option, options_for_select(Expense.options.collect { |s| [s[0].humanize, s[0]] }, selected: Expense.options[:corroborated])%>
+   <br>
 
   </div>
 

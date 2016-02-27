@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20160226162623) do
     t.integer  "user_id"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.integer  "option",     default: 0
+    t.integer  "option",     
   end
 
   add_index "expenses", ["user_id"], name: "index_expenses_on_user_id", using: :btree

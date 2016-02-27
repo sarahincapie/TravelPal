@@ -4,6 +4,7 @@ class Expense < ActiveRecord::Base
   
   acts_as_taggable_on :tags
 
-  enum option: [ :nightlife, :food, :attractions, :lodging, :transportation, :flights, :miscellaneous ]
+  enum option: [:Food, :Accommodation, :Transport, :EntertainmentandAttractions,:NatureandOutdoor,
+   :Culture,:Nightlife ,:Sports,:ShoppingandGifts, :Business, :Health, :Miscellaneous ]
 
 end
