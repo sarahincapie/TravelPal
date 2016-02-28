@@ -1,14 +1,18 @@
 Rails.application.routes.draw do
-  
+  root 'expenses#index'
   devise_for :users
 
-  root 'expenses#index'
+  get 'messages/index'
+  get 'messages/client'
+  get '/incoming', to: 'incoming#send_message'
+  # get 'incoming/send_message'
+  
+
 
   resources :expenses
   resources :trips
-
-  
   resources :moneyexchanges
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

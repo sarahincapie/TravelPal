@@ -1,0 +1,11 @@
+<h1>Messages</h1>
+<% @client.account.messages.list({}).each do |message| %>
+<ul>
+  <li><%= message.body %></li>
+  <li><%= message.from %></li>
+  <li><%= message.to %></li>
+  <li><%= message.date_created %></li>
+  <li><%= message.status %></li>
+
+</ul>
+<% end %>
