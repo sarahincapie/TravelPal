@@ -9,6 +9,6 @@ class IncomingController < ApplicationController
       end
       # r.Message "What up bruh."
     end
-    render 'send_message.xml.erb', :content_type => 'text/plain'
+    render 'send_message.xml.erb', :content_type => 'text/html'
   end
 end
