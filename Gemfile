@@ -6,6 +6,8 @@ gem 'gravatar_image_tag', '~> 1.2'
 gem 'acts-as-taggable-on', '~> 3.5'
 gem 'active_enum'
 gem 'twilio-ruby'
+gem 'paperclip'
+gem 'aws-sdk'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
