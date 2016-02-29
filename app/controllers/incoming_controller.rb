@@ -111,7 +111,8 @@ class IncomingController < ApplicationController
                          "/careers"
       label = "Business"
 
-    elsif label.start_with? "/health and fitness/"
+    elsif label.start_with? "/health and fitness/",
+                            "/science/"
       label = "Health/Fitness"
 
     elsif label.start_with? "/sports/"
