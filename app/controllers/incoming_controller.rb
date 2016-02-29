@@ -15,16 +15,16 @@ class IncomingController < ApplicationController
   def process_text
     alchemyapi = AlchemyAPI.new(ENV['AL_CLIENT_ID'])
 
-    text_message = params[:id]
-    new_message = Message.create(textmsg: text_message)
+    # new text message body and date added to Expense model
+    text_body = params[:id]
+    text_date = params[:date_created]
+    new_message = Expense.create(textmsg: text_body, date: text_date)
 
-
-
-    puts 'Processing text: ' + text_message
+    puts 'Processing text: ' + text_body
     puts ''
 
-    response_taxonomy = alchemyapi.taxonomy('text', text_message)
-    response_entity = alchemyapi.entities('text', text_message)
+    response_taxonomy = alchemyapi.taxonomy('text', text_body)
+    response_entity = alchemyapi.entities('text', text_body)
 
     if response_taxonomy['status'] == 'OK' && response_entity['status'] == 'OK'
       puts '## Response Object ##'
