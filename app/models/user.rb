@@ -7,4 +7,13 @@ class User < ActiveRecord::Base
   has_many :trips
   has_many :expenses
 
+  # use this method in a controller method to create a json hash. Use json hash to pass into view for jquery to build
+  # the D3 graphs once its called on.
+
+
+  # def expense_cost_by_date
+  #   q = "select date, sum(cost) from expenses where user_id=#{self.id} group by date;"
+  #   Expense.connection.select_all q
+  # end
+
 end
