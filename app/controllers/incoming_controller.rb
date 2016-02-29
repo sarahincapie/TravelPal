@@ -62,4 +62,64 @@ class IncomingController < ApplicationController
     end
     redirect_to message_path
   end
+
+  def get_category
+    if label.include? "/art and entertainment/books and literature/" || 
+                      "/art and entertainment/theatre/" || 
+                      "/art and entertainment/music/" ||
+                      "/art and entertainment/visual art and design/"
+      label = "Culture"
+
+    elsif label.include? "/art and entertainment/dance/" ||
+                         "/food and drink/beverages/alcoholic beverages/"                     
+      label = "Nightlife"
+
+    elsif label.include? "/food and drink"
+      label = "Food"
+
+    elsif label.include? "/art and entertainment/movies and tv/" ||
+                         "/art and entertainment/movies/" ||
+                         "/art and entertainment/shows and events/" ||
+                         "/hobbies and interests/games/" ||
+                         "/travel/tourist destinations/" ||
+                         "/travel/specialty travel/sightseeing tours"
+      label = "Entertainment/Attractions"
+
+    elsif label.include? "/travel/tourist facilities/camping"
+      label = "Nature/Environment"
+
+    elsif label.include? "/travel/hotels" ||
+                         "/travel/tourist facilities/hotel" ||
+                         "/travel/tourist facilities/bed and breakfast" ||
+                         "/real estate/apartments"
+      label = "Accommodation"
+
+    elsif label.include? "/travel/transports/" ||
+                         "/travel/budget travel" ||
+                         "/travel/business travel" ||
+                         "/travel/honeymoons and getaways" ||
+                         "/automotive and vehicles/" ||
+                         "/business and industrial/logistics/"
+      label = "Transportation"
+
+    elsif label.include? "/shopping/" ||
+                         "/style and fashion/"
+      label = "Shopping"
+
+    elsif label.include? "/business and industrial/" ||
+                         "/finance/" ||
+                         "/careers"
+      label = "Business"
+
+    elsif label.include? "/health and fitness/"
+      label = "Health/Fitness"
+
+    elsif label.include? "/sports/"
+      label = "Sports/Outdoors"
+
+    else
+      label = "Miscellaneous"
+    end
+  end
+
 end
