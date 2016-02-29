@@ -6,6 +6,6 @@
   <li><%= message.to %></li>
   <li><%= message.date_created %></li>
   <li><%= message.status %></li>
-
+  <li><%= link_to "Process Text",{ :controller => "incoming", :action => "process_text", :id => message.body, :date_created => message.date_created } %></li>
 </ul>
 <% end %>

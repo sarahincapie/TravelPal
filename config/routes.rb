@@ -5,10 +5,11 @@ Rails.application.routes.draw do
   get 'messages/index'
   get 'messages/client'
   get '/incoming', to: 'incoming#send_message'
+  get '/incoming/process' => 'incoming#process_text'
   # get 'incoming/send_message'
   
 
-
+  resources :messages
   resources :expenses
   resources :trips
   resources :moneyexchanges
