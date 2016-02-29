@@ -7,7 +7,7 @@ gem 'acts-as-taggable-on', '~> 3.5'
 gem 'twilio-ruby'
 gem 'paperclip'
 gem 'aws-sdk'
-
+gem 'rails_12factor'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.1'
@@ -33,7 +33,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'json'
 
-gem 'money-rails'
+# gem 'money-rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
