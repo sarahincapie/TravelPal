@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160228002723) do
+ActiveRecord::Schema.define(version: 20160229035157) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,15 @@ ActiveRecord::Schema.define(version: 20160228002723) do
   end
 
   add_index "expenses", ["user_id"], name: "index_expenses_on_user_id", using: :btree
+
+  create_table "friends", force: :cascade do |t|
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+  end
 
   create_table "messages", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -72,15 +81,6 @@ ActiveRecord::Schema.define(version: 20160228002723) do
 
   add_index "trips", ["user_id"], name: "index_trips_on_user_id", using: :btree
 
-  create_table "types", force: :cascade do |t|
-    t.string   "category"
-    t.integer  "expense_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "types", ["expense_id"], name: "index_types_on_expense_id", using: :btree
-
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -104,5 +104,4 @@ ActiveRecord::Schema.define(version: 20160228002723) do
 
   add_foreign_key "expenses", "users"
   add_foreign_key "trips", "users"
-  add_foreign_key "types", "expenses"
 end

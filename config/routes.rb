@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :friends
   root 'expenses#index'
   devise_for :users
 
