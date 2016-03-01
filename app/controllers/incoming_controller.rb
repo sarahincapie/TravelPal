@@ -5,22 +5,20 @@ class IncomingController < ApplicationController
     @date_created = params[:date_created]
 
     @twiml = Twilio::TwiML::Response.new do |r|
-      if @body == "Hi"
-          r.Message "Hi there! I'm your TravelPal"
+      if @body.present?
+          process_long_text(@body)
+          r.Message "Hi there! I'm your TravelPal. You're text is being processed."
       else
           r.Message "I'll get back to you on that."
       end
-      r.Message "What up bruh."
     end
     # render 'send_message.xml.erb', :content_type => 'text/xml'
     render xml: @twiml.text
   end
 
   ## runs text message through Alchemy processing ##
-  def process_long_text
+  def process_long_text(body)
     alchemyapi = AlchemyAPI.new(ENV['AL_CLIENT_ID'])
-
-    @new_message = current_user.expenses.build(textmsg: @body, date: @date_created)
 
     puts 'Processing text: ' + @body
 
@@ -32,26 +30,42 @@ class IncomingController < ApplicationController
       puts JSON.pretty_generate(response_taxonomy)
 
       puts '## Taxonomy ##'
-      for taxonomy in response_taxonomy['taxonomy']
-        puts 'label: ' + taxonomy['label']
-        puts 'score: ' + taxonomy['score']
-        new_message.label = taxonomy['label']
-        new_message.score = taxonomy['score']
-      end
+      ## SET CATEGORY LABEL ##
+      @label = get_category(response_taxonomy['taxonomy']['label'])
+
+      ## IF ABOVE DOESN'T WORK ##
+      # 1.times do response_taxonomy['taxonomy']
+      #   @label = taxonomy['label']
+      # end
+
+      # for taxonomy in response_taxonomy['taxonomy']
+      #   puts 'label: ' + taxonomy['label']
+      #   puts 'score: ' + taxonomy['score']
+      #   new_message.label = taxonomy['label']
+      #   new_message.score = taxonomy['score']
+      # end
 
       puts '## Entity ##'
+      ## SET LOCATION CITY ##
       for entity in response_entity['entities']
         if entity['type'] == "City"
           puts 'text: ' + entity['text']
           puts 'type: ' + entity['type']
-          puts 'relevance: ' + entity['relevance']
+          @location = entity['text']
+          # puts 'relevance: ' + entity['relevance']
           # new_message.label = taxonomy['label']
           # new_message.score = taxonomy['score']
         end
       end
       puts '## Price ##'
-      price = text_message.scan(/\d/).join('')
-      puts price
+      ## SET COST OF EXPENSE ##
+      @cost = @body.scan(/\d/).join('')
+      puts @cost
+
+      @new_message = Expense.create(textmsg: @body, cost: @cost, date: @date_created, location: @location)
+      
+      ## ONCE USERS HAVE A PROFILE WITH PHONE NUMBER ##
+      # @new_message = current_user.expenses.build(textmsg: @body, cost: @cost, date: @date_created, location: @location)
 
     else
       puts 'Error in concept tagging call: ' + response_taxonomy['statusInfo']
@@ -74,7 +88,7 @@ class IncomingController < ApplicationController
   def get_spent
   end
 
-  def process_short_text
+  def process_short_text(body)
   end
 
 
@@ -84,14 +98,15 @@ class IncomingController < ApplicationController
     if label.start_with? "/art and entertainment/books and literature/",
                       "/art and entertainment/theatre/",
                       "/art and entertainment/music/",
-                      "/art and entertainment/visual art and design/"
+                      "/art and entertainment/visual art and design/",
+                      "/art and entertainment/shows and events/exhibition"
       label = "Culture"
 
     elsif label.start_with? "/art and entertainment/dance/",
                          "/food and drink/beverages/alcoholic beverages/"
       label = "Nightlife"
 
-    elsif label.start_with? "/food and drink"
+    elsif label.start_with? "/food and drink/"
       label = "Food"
 
     elsif label.start_with? "/art and entertainment/movies and tv/",
@@ -99,7 +114,9 @@ class IncomingController < ApplicationController
                          "/art and entertainment/shows and events/",
                          "/hobbies and interests/games/",
                          "/travel/tourist destinations/",
-                         "/travel/specialty travel/sightseeing tours"
+                         "/travel/specialty travel/sightseeing tours",
+                         "/travel/travel guides",
+                         "/art and entertainment/" ## if in A+E but not culture or nightlife
       label = "Entertainment/Attractions"
 
     elsif label.start_with? "/travel/tourist facilities/camping"
