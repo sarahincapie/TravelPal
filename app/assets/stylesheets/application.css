@@ -18,7 +18,7 @@
   list-style-type: none;
   display: inline;
   font-size: 2em;
-  background: white;
+  padding-top: 5px;
 }
 
 .navbar-navbar-dark-bg-primary ul, ol {
