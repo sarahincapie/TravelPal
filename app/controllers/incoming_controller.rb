@@ -47,7 +47,7 @@ class IncomingController < ApplicationController
       puts @cost
 
       @new_message = Expense.create(textmsg: @body, cost: @cost, date: @date_created, location: @location)
-      
+
       ## ONCE USERS HAVE A PROFILE WITH PHONE NUMBER ##
       # @new_message = current_user.expenses.build(textmsg: @body, cost: @cost, date: @date_created, location: @location)
 
@@ -147,9 +147,9 @@ class IncomingController < ApplicationController
     @date_created = params[:date_created]
 
     @twiml = Twilio::TwiML::Response.new do |r|
-      if @body.is_a? String
-          process_long_text(@body)
+      if @body == "Hello I spent 20"
           r.Message "Hi there! I'm your TravelPal. You're text is being processed."
+          process_long_text(@body)
       else
           r.Message "I'll get back to you on that."
       end
