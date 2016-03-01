@@ -1,8 +1,11 @@
 class IncomingController < ApplicationController
   def send_message
-    body = params[:Body]
+    @body = params[:body]
+    @number = params[:from]
+    @date_created = params[:date_created]
+
     @twiml = Twilio::TwiML::Response.new do |r|
-      if body == "Hi"
+      if @body == "Hi"
           r.Message "Hi there! I'm your TravelPal"
       else
           r.Message "I'll get back to you on that."
@@ -13,47 +16,39 @@ class IncomingController < ApplicationController
     render xml: @twiml.text
   end
 
-  def process_text
+  ## runs text message through Alchemy processing ##
+  def process_long_text
     alchemyapi = AlchemyAPI.new(ENV['AL_CLIENT_ID'])
 
-    # new text message body and date added to Expense model
-    text_body = params[:id]
-    text_date = params[:date_created]
-    new_message = Expense.create(textmsg: text_body, date: text_date)
+    @new_message = current_user.expenses.build(textmsg: @body, date: @date_created)
 
-    puts 'Processing text: ' + text_body
-    puts ''
+    puts 'Processing text: ' + @body
 
-    response_taxonomy = alchemyapi.taxonomy('text', text_body)
-    response_entity = alchemyapi.entities('text', text_body)
+    response_taxonomy = alchemyapi.taxonomy('text', @body)
+    response_entity = alchemyapi.entities('text', @body)
 
     if response_taxonomy['status'] == 'OK' && response_entity['status'] == 'OK'
       puts '## Response Object ##'
       puts JSON.pretty_generate(response_taxonomy)
 
-      puts ''
       puts '## Taxonomy ##'
       for taxonomy in response_taxonomy['taxonomy']
         puts 'label: ' + taxonomy['label']
         puts 'score: ' + taxonomy['score']
-        puts ''
         new_message.label = taxonomy['label']
         new_message.score = taxonomy['score']
       end
 
-      puts ''
       puts '## Entity ##'
       for entity in response_entity['entities']
         if entity['type'] == "City"
           puts 'text: ' + entity['text']
           puts 'type: ' + entity['type']
           puts 'relevance: ' + entity['relevance']
-          # puts ''
           # new_message.label = taxonomy['label']
           # new_message.score = taxonomy['score']
         end
       end
-      puts ''
       puts '## Price ##'
       price = text_message.scan(/\d/).join('')
       puts price
@@ -61,8 +56,29 @@ class IncomingController < ApplicationController
     else
       puts 'Error in concept tagging call: ' + response_taxonomy['statusInfo']
     end
-    redirect_to message_path
+    # redirect_to message_path
   end
+
+
+
+  ## checks if number is true ##
+  # def number_present?(number)
+  #   if User.find_by(number: number) then true
+  #   else "Sorry, you are not a registered user"
+  #   end
+  # end
+
+  def get_balance
+  end
+
+  def get_spent
+  end
+
+  def process_short_text
+  end
+
+
+
 
   def get_category(label)
     if label.start_with? "/art and entertainment/books and literature/",
