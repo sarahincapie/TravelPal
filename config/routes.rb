@@ -1,14 +1,17 @@
 Rails.application.routes.draw do
+
+  get "/pages/:page" => "pages#about"
   resources :friends
   root 'expenses#index'
   devise_for :users
+
 
   get 'messages/index'
   get 'messages/client'
   get '/incoming', to: 'incoming#send_message'
   get '/incoming/process' => 'incoming#process_text'
   # get 'incoming/send_message'
-  
+
 
   resources :messages
   resources :expenses

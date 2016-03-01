@@ -1,7 +1,7 @@
 class MessagesController < ApplicationController
   def index
     client
-    @client
+    # @client
   end
 
   private
