@@ -8,7 +8,7 @@ gem 'acts-as-taggable-on', '~> 3.5'
 gem 'twilio-ruby'
 gem 'aws-sdk', '< 2.0'
 gem 'paperclip'
-gem 'rails_12factor'
+gem 'rails_12factor', group: :production
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.1'

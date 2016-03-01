@@ -6,8 +6,9 @@ class IncomingController < ApplicationController
 
     puts 'Processing text: ' + body
 
-    response_taxonomy = alchemyapi.taxonomy('text', body)
-    response_entity = alchemyapi.entities('text', body)
+    response_taxonomy = alchemyapi.taxonomy('text', body, language: 'english')
+    response_entity = alchemyapi.entities('text', body, language: 'english')
+    p response_taxonomy, response_entity
 
     if response_taxonomy['status'] == 'OK' && response_entity['status'] == 'OK'
       puts '## Response Object ##'
@@ -15,7 +16,7 @@ class IncomingController < ApplicationController
 
       puts '## Taxonomy ##'
       ## SET CATEGORY LABEL ##
-      @label = get_category(response_taxonomy['taxonomy']['label'])
+      @label = get_category(response_taxonomy['taxonomy'].first['label'])
 
       ## IF ABOVE DOESN'T WORK ##
       # 1.times do response_taxonomy['taxonomy']
@@ -142,9 +143,9 @@ class IncomingController < ApplicationController
   end
 
   def send_message
-    @body = params[:body]
-    @number = params[:from]
-    @date_created = params[:date_created]
+    @body = params[:Body]
+    @number = params[:From]
+    # @date_created = params[:date_created]
 
     @twiml = Twilio::TwiML::Response.new do |r|
       if @body == "Hello I spent 20"
