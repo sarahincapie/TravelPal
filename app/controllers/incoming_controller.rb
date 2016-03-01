@@ -1,29 +1,13 @@
 class IncomingController < ApplicationController
-  def send_message
-    @body = params[:body]
-    @number = params[:from]
-    @date_created = params[:date_created]
-
-    @twiml = Twilio::TwiML::Response.new do |r|
-      if @body.present?
-          process_long_text(@body)
-          r.Message "Hi there! I'm your TravelPal. You're text is being processed."
-      else
-          r.Message "I'll get back to you on that."
-      end
-    end
-    # render 'send_message.xml.erb', :content_type => 'text/xml'
-    render xml: @twiml.text
-  end
 
   ## runs text message through Alchemy processing ##
   def process_long_text(body)
     alchemyapi = AlchemyAPI.new(ENV['AL_CLIENT_ID'])
 
-    puts 'Processing text: ' + @body
+    puts 'Processing text: ' + body
 
-    response_taxonomy = alchemyapi.taxonomy('text', @body)
-    response_entity = alchemyapi.entities('text', @body)
+    response_taxonomy = alchemyapi.taxonomy('text', body)
+    response_entity = alchemyapi.entities('text', body)
 
     if response_taxonomy['status'] == 'OK' && response_entity['status'] == 'OK'
       puts '## Response Object ##'
@@ -155,6 +139,23 @@ class IncomingController < ApplicationController
     else
       label = "Miscellaneous"
     end
+  end
+
+  def send_message
+    @body = params[:body]
+    @number = params[:from]
+    @date_created = params[:date_created]
+
+    @twiml = Twilio::TwiML::Response.new do |r|
+      if @body.is_a? String
+          process_long_text(@body)
+          r.Message "Hi there! I'm your TravelPal. You're text is being processed."
+      else
+          r.Message "I'll get back to you on that."
+      end
+    end
+    # render 'send_message.xml.erb', :content_type => 'text/xml'
+    render xml: @twiml.text
   end
 
 end
