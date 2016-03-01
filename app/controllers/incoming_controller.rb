@@ -142,7 +142,7 @@ class IncomingController < ApplicationController
   end
 
   def send_message
-    @body = params[:body]
+    @body = params[:Body]
     @number = params[:from]
     @date_created = params[:date_created]
 
