@@ -64,14 +64,14 @@ class IncomingController < ApplicationController
   end
 
   def get_category(label)
-    if label.start_with? "/art and entertainment/books and literature/", 
-                      "/art and entertainment/theatre/", 
+    if label.start_with? "/art and entertainment/books and literature/",
+                      "/art and entertainment/theatre/",
                       "/art and entertainment/music/",
                       "/art and entertainment/visual art and design/"
       label = "Culture"
 
     elsif label.start_with? "/art and entertainment/dance/",
-                         "/food and drink/beverages/alcoholic beverages/"                     
+                         "/food and drink/beverages/alcoholic beverages/"
       label = "Nightlife"
 
     elsif label.start_with? "/food and drink"
