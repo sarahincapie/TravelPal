@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   get "/pages/:page" => "pages#about"
   resources :friends
-  root 'pages#show'
+  root 'pages#about'
   devise_for :users
 
 
