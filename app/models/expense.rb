@@ -1,10 +1,10 @@
 class Expense < ActiveRecord::Base
 
   belongs_to :user
-  
+
   acts_as_taggable_on :tags
 
-  geocoded_by :full_street_address   # can also be an IP address
+  geocoded_by :address   # can also be an IP address
   after_validation :geocode          # auto-fetch coordinates
 
   enum option: [:Food, :Accommodation, :Transport, :EntertainmentandAttractions,:NatureandOutdoor,
