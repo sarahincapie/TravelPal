@@ -23,3 +23,20 @@
   height: 115vh;
 
 }
+
+#expenses_top_div {
+  background-color: white;
+}
+
+#graphics_top_div {
+  background-color: purple;
+  height: 100vh;
+  color: white;
+}
+
+#graphics_top_div > p {
+  color: white;
+  padding-left: 50vh;
+  padding-top: 50vh;
+  font-size: 30px;
+}
