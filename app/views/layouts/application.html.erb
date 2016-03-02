@@ -14,22 +14,41 @@
 </head>
 <body>
 
-<nav class="navbar navbar-dark bg-primary">
-  <ul>
-  <% if user_signed_in? %>
-    <span><%= gravatar_image_tag(current_user.email, :alt => 'Profile Image') %></span><
-    <%= link_to('Logout', destroy_user_session_path, :method => :delete)  %>
-    <% else %>
-    <li><%= link_to "Sign Up", new_user_registration_path %></li>
-    <li><%= link_to "Sign In", new_user_session_path %></li>
-    <% end %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
 
-  <ul>
+  <!-- Navigation -->
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">Travel Pal</a>
+          </div>
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-</nav>
+            <ul class="nav navbar-nav">
 
+              <% if user_signed_in? %>
+              <li><%= gravatar_image_tag(current_user.email, :alt => 'Profile Image') %></li>
+              <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
+              <% else %>
+              <li><%= link_to "Sign Up", new_user_registration_path %></li>
+              <li><%= link_to "Sign In", new_user_session_path %></li>
+              <% end %>
+                <p class="notice"><%= notice %></p>
+                <p class="alert"><%= alert %></p>
+
+              </ul>
+          </div>
+          <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container -->
+  </nav>
 
 
 <%= yield %>
