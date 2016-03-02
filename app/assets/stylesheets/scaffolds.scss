@@ -4,12 +4,22 @@
 }
 
 .business-header {
-  height: 400px;
-  width: 100vh;
-  /*#LOOK INTO VIEWPORT FOR LENGTH/HEIGHT*/
-  background-color: purple;
+  height: 100vh;
+  width: 100%;
+  /*background-color: beige; */
 }
 
 #jumbotron {
   background-color: purple;
+}
+
+#what_we_do_div {
+  /*background-color: green;*/
+  /*width: 100%;*/
+  /*height: 75vh;*/
+}
+
+#robot_options_div {
+  height: 115vh;
+
 }
