@@ -4,8 +4,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :trips
-  has_many :expenses
+  has_many :trips, dependent: :destroy
+  has_many :expenses, dependent: :destroy
+  has_many :friends, dependent: :destroy
 
   # use this method in a controller method to create a json hash. Use json hash to pass into view for jquery to build
   # the D3 graphs once its called on.
