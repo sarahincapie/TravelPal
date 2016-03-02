@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'hirb'
 gem 'geocoder'
 gem 'devise', '~> 3.5', '>= 3.5.6'
 gem 'gravatar-ultimate', '~> 2.0'
