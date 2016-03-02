@@ -17,7 +17,7 @@ class IncomingController < ApplicationController
       puts '## Taxonomy ##'
       ## SET CATEGORY LABEL ##
       @label = get_category(response_taxonomy['taxonomy'].first['label'])
-
+      p @label
       ## IF ABOVE DOESN'T WORK ##
       # 1.times do response_taxonomy['taxonomy']
       #   @label = taxonomy['label']
@@ -47,7 +47,7 @@ class IncomingController < ApplicationController
       @cost = @body.scan(/\d/).join('')
       puts @cost
 
-      @new_message = Expense.create(textmsg: @body, cost: @cost, date: @date_created, location: @location)
+      @new_message = Expense.create(textmsg: @body, cost: @cost, location: @location)
 
       ## ONCE USERS HAVE A PROFILE WITH PHONE NUMBER ##
       # @new_message = current_user.expenses.build(textmsg: @body, cost: @cost, date: @date_created, location: @location)
@@ -75,8 +75,6 @@ class IncomingController < ApplicationController
 
   def process_short_text(body)
   end
-
-
 
 
   def get_category(label)
@@ -148,7 +146,7 @@ class IncomingController < ApplicationController
     # @date_created = params[:date_created]
 
     @twiml = Twilio::TwiML::Response.new do |r|
-      if @body == "Hello I spent 20"
+      if @body != nil
           r.Message "Hi there! I'm your TravelPal. You're text is being processed."
           process_long_text(@body)
       else
