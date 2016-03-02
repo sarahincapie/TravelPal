@@ -4,7 +4,7 @@ class Expense < ActiveRecord::Base
 
   acts_as_taggable_on :tags
 
-  geocoded_by :city   # can also be an IP address
+  geocoded_by :location   # can also be an IP address
   after_validation :geocode          # auto-fetch coordinates
 
   enum option: [:Food, :Accommodation, :Transport, :EntertainmentandAttractions,:NatureandOutdoor,
