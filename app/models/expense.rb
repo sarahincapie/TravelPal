@@ -21,4 +21,6 @@ def get_expense_by_day
 	 	hash 
 	 end 
 
+	end 
+
 end
