@@ -1,5 +1,3 @@
-require 'date'
-
 class IncomingController < ApplicationController
 
   ## runs text message through Alchemy processing ##
@@ -70,11 +68,6 @@ class IncomingController < ApplicationController
   #   end
   # end
 
-  def get_balance
-  end
-
-  def get_spent
-  end
 
   def process_short_text(body)
   end
@@ -142,28 +135,6 @@ class IncomingController < ApplicationController
       label = "Miscellaneous"
     end
   end
-
-
-  # def day_spent
-  #   today = Date.today.to_s
-  #   total = "select date, sum(cost) from expenses where user_id=#{self.id} where date=#{today};"
-  #   Expense.connection.select_all total
-  # end
-
-  # def week_spent
-  #   today = Date.today.to_s
-  #   week_ago = (Date.today - 7).to_s
-  #   total = "select date, sum(cost) from expenses where user_id=#{self.id} where date between #{week_ago} and #{today};"
-  #   Expense.connection.select_all total
-  # end
-
-  # def month_spent
-  #   today = Date.today.to_s
-  #   month_ago = (Date.today - 30).to_s
-  #   total = "select date, sum(cost) from expenses where user_id=#{self.id} where date between #{month_ago} and #{today};"
-  #   Expense.connection.select_all total
-  # end
-
 
   def send_message
     @body = params[:Body]
