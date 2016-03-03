@@ -26,16 +26,6 @@
 </p>
 
 <p>
-  <strong>Latitude:</strong>
-  <%= @expense.latitude %>
-</p>
-
-<p>
-  <strong>Longitude:</strong>
-  <%= @expense.longitude %>
-</p>
-
-<p>
 <strong>Tags:</strong>
 <% @expense.tags.each do |tag| %>
   <%= link_to tag.name, tagged_url(:tag => tag.name) %>
