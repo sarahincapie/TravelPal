@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   root 'pages#about'
   devise_for :users
 
-  match 'tagged' => 'expenses#tagged', :as => 'tagged'
+  get 'tagged' => 'expenses#tagged', :as => 'tagged'
 
 
   get 'messages/index'
