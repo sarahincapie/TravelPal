@@ -14,12 +14,16 @@ end
   # GET /expenses
   # GET /expenses.json
   def index
-    @expenses = current_user.expenses.all
-      respond_with(@expenses) do |format|
-       json = {"expenses" => @expenses.to_json(:only => [:location, :cost])}
-                        #¨"locations" => 
-      format.json { render :json => json }
-      format.html 
+    if user_signed_in?
+      @expenses = current_user.expenses.all
+        respond_with(@expenses) do |format|
+         json = {"expenses" => @expenses.to_json(:only => [:location, :cost])}
+                          #¨"locations" => 
+        format.json { render :json => json }
+        format.html 
+      end
+    else
+      @expenses = Expense.all
     end 
   end
 
