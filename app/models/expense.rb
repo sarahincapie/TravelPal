@@ -49,4 +49,5 @@ class Expense < ActiveRecord::Base
   #       @daily_budget - spent("month")
   #     end
   #   end
+end
 
