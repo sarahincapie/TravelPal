@@ -5,12 +5,12 @@ Rails.application.routes.draw do
   root 'pages#about'
   devise_for :users
 
+  match 'tagged' => 'expenses#tagged', :as => 'tagged'
+
 
   get 'messages/index'
   get 'messages/client'
   get '/incoming', to: 'incoming#send_message'
-  # get '/incoming/process' => 'incoming#process_text'
-  # get 'incoming/send_message'
 
 
   resources :messages

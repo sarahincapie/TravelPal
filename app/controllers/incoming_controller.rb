@@ -7,11 +7,10 @@ class IncomingController < ApplicationController
     @cost = body_arr[0]
     if body_arr.length == 2
       @location = Expense.locations.last
-      @new_expense = Expense.create(textmsg: body, cost: @cost, location: @location, option: @label)
     else body_arr.length == 3
       @location = body_arr[2]
-      @new_expense = Expense.create(textmsg: body, cost: @cost, location: @location, option: @label)
     end
+    @new_expense = Expense.create(textmsg: body, cost: @cost, location: @location, option: @label)
   end
 
   ## runs long text message through Alchemy to create new expense ##
@@ -22,6 +21,7 @@ class IncomingController < ApplicationController
 
     response_taxonomy = alchemyapi.taxonomy('text', body, language: 'english')
     response_entity = alchemyapi.entities('text', body, language: 'english')
+    response_sentiment = alchemyapi.sentiment_targeted('text', body, language: 'english')
 
     # if BOTH taxonomy and entity present
     if response_taxonomy['status'] == 'OK' && response_entity['status'] == 'OK'
@@ -47,6 +47,12 @@ class IncomingController < ApplicationController
 
       ## ONCE USERS HAVE A PROFILE WITH PHONE NUMBER ##
       # @new_message = current_user.trips.expenses.build(textmsg: @body, cost: @cost, date: @date_created, location: @location)
+
+      ## Adds sentiment tags to new expense ##
+      for sentiment in response_sentiment['docSentiment']
+        new_sentiment = sentiment['type']
+        @new_expense.tag_list.add(new_sentiment)
+      end
     
     # if JUST taxonomy present, NO entity/city   
     elsif response_taxonomy['status'] == 'OK'
@@ -54,7 +60,13 @@ class IncomingController < ApplicationController
       @label = get_long_text_category(response_taxonomy['taxonomy'].first['label'])   
       @cost = @body.scan(/\d/).join('')
       @new_expense = Expense.create(textmsg: @body, cost: @cost, location: @location, option: @label)
-
+      
+      ## Adds sentiment tags to new expense ##
+      for sentiment in response_sentiment['docSentiment']
+        new_sentiment = sentiment['type']
+        @new_expense.tag_list.add(new_sentiment)
+      end
+      
     else
       puts 'Error in concept tagging call: ' + response_taxonomy['statusInfo']
     end

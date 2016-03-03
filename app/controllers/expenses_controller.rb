@@ -2,6 +2,14 @@ class ExpensesController < ApplicationController
   before_action :set_expense, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
 
+  def tagged
+  if params[:tag].present? 
+    @expenses = current_user.expenses.tagged_with(params[:tag])
+  else 
+    @expenses = current_user.expenses.all
+  end  
+end
+
   # GET /expenses
   # GET /expenses.json
   def index

@@ -38,7 +38,7 @@
 <p>
 <strong>Tags:</strong>
 <% @expense.tags.each do |tag| %>
-  <%= tag.name %>
+  <%= link_to tag.name, tagged_url(:tag => tag.name) %>
    <%end%>
 </p>
 
