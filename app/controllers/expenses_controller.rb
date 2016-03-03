@@ -92,6 +92,6 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def expense_params
-      params.require(:expense).permit(:textmsg, :cost, :date, :time, :location, :latitude, :longitude, :user_id, :tag_list, :option)
+      params.require(:expense).permit(:textmsg, :cost, :category, :date, :time, :location, :latitude, :longitude, :user_id, :tag_list)
     end
 end

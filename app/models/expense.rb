@@ -8,7 +8,7 @@ class Expense < ActiveRecord::Base
   geocoded_by :location   # can also be an IP address
   after_validation :geocode   # auto-fetch coordinates
 
-  enum option: [:Food, :Accommodation, :Transportation, :Entertainment_Attractions, :Nature_Environment,
+  enum category: [:Food, :Accommodation, :Transportation, :Entertainment_Attractions, :Nature_Environment,
    :Culture, :Nightlife, :Sports_Outdoor, :Shopping, :Business, :Health_Fitness, :Miscellaneous ]
 
 

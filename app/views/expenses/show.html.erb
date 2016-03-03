@@ -11,6 +11,11 @@
 </p>
 
 <p>
+  <strong>category:</strong>
+  <%= @expense.category%>
+</p>
+
+<p>
   <strong>Date:</strong>
   <%= @expense.date %>
 </p>
@@ -37,10 +42,6 @@
   <%= @expense.user %>
 </p>
 
-<p>
-  <strong>Option:</strong>
-  <%= @expense.option%>
-</p>
 
 <%= link_to 'Edit', edit_expense_path(@expense) %> |
 <%= link_to 'Back', expenses_path %>

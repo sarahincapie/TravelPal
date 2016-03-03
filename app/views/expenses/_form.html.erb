@@ -13,9 +13,9 @@
 
 
   <div class="field">
-    <%= f.label :option %><br>
+    <%= f.label :category %><br>
 
-    <%= f.select :option, options_for_select(Expense.options.collect { |s| [s[0].humanize, s[0]] }, selected: Expense.options[:corroborated])%>
+    <%= f.select :category, options_for_select(Expense.options.collect { |s| [s[0].humanize, s[0]] }, selected: Expense.options[:corroborated])%>
    <br>
 
   </div>
