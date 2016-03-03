@@ -3,6 +3,7 @@ class PagesController < ApplicationController
   end
 
   def about
+    render layout: "landingpage"
   end
 
 end

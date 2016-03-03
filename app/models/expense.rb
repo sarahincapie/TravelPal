@@ -11,6 +11,7 @@ class Expense < ActiveRecord::Base
   enum option: [:Food, :Accommodation, :Transport, :Entertainment_Attractions, :Nature_Environment,
    :Culture, :Nightlife, :Sports_Outdoor, :Shopping, :Business, :Health, :Miscellaneous ]
 
+
 # def get_expense_by_day
 
 # 	 array = %w(cost date)
@@ -23,4 +24,23 @@ class Expense < ActiveRecord::Base
 
 # 	end 
 
-end
+
+
+  class << self
+    def spent(type)
+      today = DateTime.now
+      if type == 'today'
+        self.select("created_at AS date, SUM(cost)").where("created_at BETWEEN ? AND ?", today.at_beginning_of_day, today.at_end_of_day)
+      elsif type == 'weekly'
+        self.select("created_at AS date, SUM(cost)").where("created_at BETWEEN ? AND ?", (today - 7).at_beginning_of_day, today.at_end_of_day)
+      else type == 'monthly'
+        self.select("created_at AS date, SUM(cost)").where("created_at BETWEEN ? AND ?", (today - 30).at_beginning_of_day, today.at_end_of_day)
+      end
+    end
+  end
+
+  # class << self
+  #   def balance(type)
+
+  #   end
+

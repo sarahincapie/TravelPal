@@ -1,0 +1,48 @@
+.show_body_class {
+  background-color: white;
+  /*padding-top: %;*/
+}
+
+#landing_page_jumbotron {
+  height: 100vh;
+  width: 100%;
+  /*background-color: beige;*/
+  padding-top: 40vh;
+  text-align: center;
+}
+
+#landing_page_jumbotron > p {
+  padding-left: 50px;
+}
+
+#landing_page_jumbotron > h1 {
+  padding-left: 50px;
+}
+
+#what_we_do_div {
+  /*background-color: green;*/
+  /*width: 100%;*/
+  /*height: 75vh;*/
+}
+
+#robot_options_div {
+
+
+}
+
+#expenses_top_div {
+  background-color: white;
+}
+
+#graphics_top_div {
+  background-color: purple;
+  height: 100vh;
+  color: white;
+}
+
+#graphics_top_div > p {
+  color: white;
+  padding-left: 50vh;
+  padding-top: 50vh;
+  font-size: 30px;
+}

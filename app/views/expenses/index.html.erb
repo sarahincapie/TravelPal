@@ -1,3 +1,4 @@
+<div id="expenses_top_div">
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Expenses</h1>
@@ -27,7 +28,7 @@
         <td><%= expense.location %></td>
         <td><%= expense.latitude %></td>
         <td><%= expense.longitude %></td>
-        <td><%= expense.user %></td>
+    
         <td><%= link_to 'Show', expense %></td>
         <td><%= link_to 'Edit', edit_expense_path(expense) %></td>
         <td><%= link_to 'Destroy', expense, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -39,4 +40,16 @@
 <%= link_to 'New Expense', new_expense_path %>
 
 
+
+
+
+</div>
+<div id="graphics_top_div">
+  
+
+
+
+
+
+</div>
 
