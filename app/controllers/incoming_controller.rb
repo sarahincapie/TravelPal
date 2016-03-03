@@ -66,7 +66,7 @@ class IncomingController < ApplicationController
         new_sentiment = sentiment['type']
         @new_expense.tag_list.add(new_sentiment)
       end
-      
+
     else
       puts 'Error in concept tagging call: ' + response_taxonomy['statusInfo']
     end
@@ -85,7 +85,7 @@ class IncomingController < ApplicationController
     when "S" then "Shopping"
     when "B" then "Business"
     when "H" then "Health_Fitness"
-    else "M" then "Miscellaneous"
+    when "M" then "Miscellaneous"
     end
   end
 
@@ -179,7 +179,8 @@ class IncomingController < ApplicationController
       # elsif @body = "db" then balance('today')
       # elsif @body = "wb" then balance('week')
       # elsif @body = "mb" then balance('month')
-      else "Sorry, that's not a valid option please try again."
+      else 
+        "Sorry, that's not a valid option please try again."
       end
     end
     # render 'send_message.xml.erb', :content_type => 'text/xml'
