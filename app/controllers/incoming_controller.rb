@@ -1,6 +1,20 @@
 class IncomingController < ApplicationController
 
-  ## runs text message through Alchemy processing ##
+  ## runs short text message to create new expense; format: "Price Category Location" (location optional)
+  def process_short_text(body)
+    body_arr = body.split
+    @label = get_short_text_category(body_arr[1])
+    @cost = body_arr[0]
+    if body_arr.length == 2
+      @location = Expense.locations.last
+      @new_expense = Expense.create(textmsg: body, cost: @cost, location: @location, option: @label)
+    else body_arr.length == 3
+      @location = body_arr[2]
+      @new_expense = Expense.create(textmsg: body, cost: @cost, location: @location, option: @label)
+    end
+  end
+
+  ## runs long text message through Alchemy to create new expense ##
   def process_long_text(body)
     alchemyapi = AlchemyAPI.new(ENV['AL_CLIENT_ID'])
 
@@ -15,40 +29,22 @@ class IncomingController < ApplicationController
       puts '## Response Object ##'
       puts JSON.pretty_generate(response_taxonomy)
 
-      puts '## Taxonomy ##'
-      ## SET CATEGORY LABEL ##
-      @label = get_category(response_taxonomy['taxonomy'].first['label'])
-      p @label
-      ## IF ABOVE DOESN'T WORK ##
-      # 1.times do response_taxonomy['taxonomy']
-      #   @label = taxonomy['label']
-      # end
+      ## SET CATEGORY/TAXONOMY LABEL ##
+      @label = get_long_text_category(response_taxonomy['taxonomy'].first['label'])
 
-      # for taxonomy in response_taxonomy['taxonomy']
-      #   puts 'label: ' + taxonomy['label']
-      #   puts 'score: ' + taxonomy['score']
-      #   new_message.label = taxonomy['label']
-      #   new_message.score = taxonomy['score']
-      # end
-
-      puts '## Entity ##'
-      ## SET LOCATION CITY ##
+      ## SET CITY/LOCATION ##
       for entity in response_entity['entities']
         if entity['type'] == "City"
           puts 'text: ' + entity['text']
           puts 'type: ' + entity['type']
           @location = entity['text']
-          # puts 'relevance: ' + entity['relevance']
-          # new_message.label = taxonomy['label']
-          # new_message.score = taxonomy['score']
         end
       end
-      puts '## Price ##'
+
       ## SET COST OF EXPENSE ##
       @cost = @body.scan(/\d/).join('')
-      puts @cost
 
-      @new_message = Expense.create(textmsg: @body, cost: @cost, location: @location, option: @label)
+      @new_expense = Expense.create(textmsg: @body, cost: @cost, location: @location, option: @label)
 
       ## ONCE USERS HAVE A PROFILE WITH PHONE NUMBER ##
       # @new_message = current_user.expenses.build(textmsg: @body, cost: @cost, date: @date_created, location: @location)
@@ -56,24 +52,28 @@ class IncomingController < ApplicationController
     else
       puts 'Error in concept tagging call: ' + response_taxonomy['statusInfo']
     end
-    # redirect_to message_path
+  end
+
+  def get_short_text_category(letter)
+    case letter
+    when "F" then "Food"
+    when "A" then "Accommodation"
+    when "T" then "Transportation"
+    when "E" then "Entertainment_Attractions"
+    when "NE" then "Nature_Environment"
+    when "C" then "Culture"
+    when "N" then "Nightlife"
+    when "SO" then "Sports_Outdoor"
+    when "S" then "Shopping"
+    when "B" then "Business"
+    when "HF" then "Health_Fitness"
+    else "M" then "Miscellaneous"
+    end
   end
 
 
-
-  ## checks if number is true ##
-  # def number_present?(number)
-  #   if User.find_by(number: number) then true
-  #   else "Sorry, you are not a registered user"
-  #   end
-  # end
-
-
-  def process_short_text(body)
-  end
-
-
-  def get_category(label)
+  # filters Alchemy taxonomy classifications into 1 of 12 TravelPal categories
+  def get_Long_text_category(label)
     if label.start_with? "/art and entertainment/books and literature/",
                       "/art and entertainment/theatre/",
                       "/art and entertainment/music/",
@@ -99,7 +99,7 @@ class IncomingController < ApplicationController
       label = "Entertainment/Attractions"
 
     elsif label.start_with? "/travel/tourist facilities/camping"
-      label = "Nature/Environment"
+      label = "Nature_Environment"
 
     elsif label.start_with? "/travel/hotels",
                          "/travel/tourist facilities/hotel",
@@ -126,27 +126,42 @@ class IncomingController < ApplicationController
 
     elsif label.start_with? "/health and fitness/",
                             "/science/"
-      label = "Health/Fitness"
+      label = "Health_Fitness"
 
     elsif label.start_with? "/sports/"
-      label = "Sports/Outdoors"
+      label = "Sports_Outdoor"
 
     else
       label = "Miscellaneous"
     end
   end
 
+  ## checks if number is true ##
+  # def number_present?(number)
+  #   if User.find_by(number: number) then true
+  #   else "Sorry, you are not a registered user"
+  #   end
+  # end  
+
+  ## Receives text message and checks the body for input or request ##
   def send_message
     @body = params[:Body]
     @number = params[:From]
-    # @date_created = params[:date_created]
 
     @twiml = Twilio::TwiML::Response.new do |r|
-      if @body != nil
-          r.Message "Hi there! I'm your TravelPal. You're text is being processed."
-          process_long_text(@body)
-      else
-          r.Message "I'll get back to you on that."
+      if @body.strip.split.length == 2 || @body.strip.split.length == 3
+        r.Message "Hi there! I'm your TravelPal. You're text is being processed."
+        process_short_text(@body)
+      elsif @body.split.length > 5
+        r.Message "Hi there! I'm your TravelPal. You're text is being processed."
+        process_long_text(@body)
+      # elsif @body = "ds" then spent('today')
+      # elsif @body = "ws" then spent('week')
+      # elsif @body = "ms" then spent('month')
+      # elsif @body = "db" then balance('today')
+      # elsif @body = "wb" then balance('week')
+      # elsif @body = "mb" then balance('month')
+      else "Sorry, that is not a valid option"
       end
     end
     # render 'send_message.xml.erb', :content_type => 'text/xml'
