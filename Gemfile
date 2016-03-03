@@ -35,6 +35,12 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'json'
 
+gem 'rabl'
+
+gem 'oj'
+
+gem 'd3_rails'
+
 # gem 'money-rails'
 
 # Use ActiveModel has_secure_password

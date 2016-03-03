@@ -1,6 +1,7 @@
 class ExpensesController < ApplicationController
   before_action :set_expense, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
+  respond_to :json
 
   def tagged
   if params[:tag].present? 
@@ -13,7 +14,13 @@ end
   # GET /expenses
   # GET /expenses.json
   def index
-    @expenses = Expense.all
+    @expenses = current_user.expenses.all
+      respond_with(@expenses) do |format|
+       json = {"expenses" => @expenses.to_json(:only => [:location, :cost])}
+                        #¨"locations" => 
+      format.json { render :json => json }
+      format.html 
+    end 
   end
 
   # GET /expenses/1

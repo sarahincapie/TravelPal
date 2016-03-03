@@ -12,6 +12,20 @@ class Expense < ActiveRecord::Base
    :Culture, :Nightlife, :Sports_Outdoor, :Shopping, :Business, :Health_Fitness, :Miscellaneous ]
 
 
+# def get_expense_by_day
+
+# 	 array = %w(cost date)
+# 	 as_json.inject({}) do | hash, key, value | 
+# 	 	if array.include? key 
+# 	 		hash[key] = value
+# 	 	end 
+# 	 	hash 
+# 	 end 
+
+# 	end 
+
+
+
   class << self
     def spent(type)
       today = DateTime.now
@@ -35,4 +49,4 @@ class Expense < ActiveRecord::Base
   #       @daily_budget - spent("month")
   #     end
   #   end
-end
+
