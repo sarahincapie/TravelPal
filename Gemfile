@@ -39,6 +39,8 @@ gem 'rabl'
 
 gem 'oj'
 
+gem 'd3_rails'
+
 # gem 'money-rails'
 
 # Use ActiveModel has_secure_password
