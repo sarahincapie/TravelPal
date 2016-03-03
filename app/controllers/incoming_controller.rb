@@ -22,12 +22,11 @@ class IncomingController < ApplicationController
 
     response_taxonomy = alchemyapi.taxonomy('text', body, language: 'english')
     response_entity = alchemyapi.entities('text', body, language: 'english')
-    p response_taxonomy, response_entity
 
-    # refactor these into two
+    # if BOTH taxonomy and entity present
     if response_taxonomy['status'] == 'OK' && response_entity['status'] == 'OK'
-      puts '## Response Object ##'
-      puts JSON.pretty_generate(response_taxonomy)
+      # puts '## Response Object ##'
+      # puts JSON.pretty_generate(response_taxonomy)
 
       ## SET CATEGORY/TAXONOMY LABEL ##
       @label = get_long_text_category(response_taxonomy['taxonomy'].first['label'])
@@ -47,7 +46,14 @@ class IncomingController < ApplicationController
       @new_expense = Expense.create(textmsg: @body, cost: @cost, location: @location, option: @label)
 
       ## ONCE USERS HAVE A PROFILE WITH PHONE NUMBER ##
-      # @new_message = current_user.expenses.build(textmsg: @body, cost: @cost, date: @date_created, location: @location)
+      # @new_message = current_user.trips.expenses.build(textmsg: @body, cost: @cost, date: @date_created, location: @location)
+    
+    # if JUST taxonomy present, NO entity/city   
+    elsif response_taxonomy['status'] == 'OK'
+      @location = Expense.locations.last
+      @label = get_long_text_category(response_taxonomy['taxonomy'].first['label'])   
+      @cost = @body.scan(/\d/).join('')
+      @new_expense = Expense.create(textmsg: @body, cost: @cost, location: @location, option: @label)
 
     else
       puts 'Error in concept tagging call: ' + response_taxonomy['statusInfo']
@@ -63,10 +69,10 @@ class IncomingController < ApplicationController
     when "NE" then "Nature_Environment"
     when "C" then "Culture"
     when "N" then "Nightlife"
-    when "SO" then "Sports_Outdoor"
+    when "O" then "Sports_Outdoor"
     when "S" then "Shopping"
     when "B" then "Business"
-    when "HF" then "Health_Fitness"
+    when "H" then "Health_Fitness"
     else "M" then "Miscellaneous"
     end
   end
@@ -149,7 +155,7 @@ class IncomingController < ApplicationController
     @number = params[:From]
 
     @twiml = Twilio::TwiML::Response.new do |r|
-      if @body.strip.split.length == 2 || @body.strip.split.length == 3
+      if @body.split.length == 2 || @body.strip.split.length == 3
         r.Message "Hi there! I'm your TravelPal. You're text is being processed."
         process_short_text(@body)
       elsif @body.split.length > 5
@@ -161,7 +167,7 @@ class IncomingController < ApplicationController
       # elsif @body = "db" then balance('today')
       # elsif @body = "wb" then balance('week')
       # elsif @body = "mb" then balance('month')
-      else "Sorry, that is not a valid option"
+      else "Sorry, that's not a valid option please try again."
       end
     end
     # render 'send_message.xml.erb', :content_type => 'text/xml'
