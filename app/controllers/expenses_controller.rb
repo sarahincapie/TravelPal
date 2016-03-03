@@ -44,8 +44,9 @@ class ExpensesController < ApplicationController
         format.html { render :new }
         format.json { render json: @expense.errors, status: :unprocessable_entity }
       end
-    end
+    end 
   end
+
 
   # PATCH/PUT /expenses/1
   # PATCH/PUT /expenses/1.json
@@ -82,4 +83,6 @@ class ExpensesController < ApplicationController
     def expense_params
       params.require(:expense).permit(:textmsg, :cost, :date, :time, :location, :latitude, :longitude, :user_id, :tag_list, :option)
     end
+
+
 end

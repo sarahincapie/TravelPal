@@ -39,6 +39,9 @@ class Expense < ActiveRecord::Base
     end
   end
 
+end 
+
+
   # class << self
   #   def balance(type)
 
