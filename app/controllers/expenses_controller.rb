@@ -4,11 +4,11 @@ class ExpensesController < ApplicationController
   respond_to :json
 
   def tagged
-  if params[:tag].present? 
+  if params[:tag].present?
     @expenses = current_user.expenses.tagged_with(params[:tag])
-  else 
+  else
     @expenses = current_user.expenses.all
-  end  
+  end
 end
 
   # GET /expenses
@@ -18,13 +18,14 @@ end
       @expenses = current_user.expenses.all
         respond_with(@expenses) do |format|
          json = {"expenses" => @expenses.to_json(:only => [:location, :cost])}
-                          #¨"locations" => 
+                          #¨"locations" =>
         format.json { render :json => json }
-        format.html 
+        format.html
       end
     else
       @expenses = Expense.all
-    end 
+    end
+    render layout: "landingpage"
   end
 
   # GET /expenses/1
