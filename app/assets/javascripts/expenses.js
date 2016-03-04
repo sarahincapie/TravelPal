@@ -1,12 +1,14 @@
 var chart = c3.generate({
     data: {
         columns: [
-            ['Lulu', 50],
-            ['Olaf', 50],
+            ['Nightlife', 20],
+            ['Accomodation', 20],
+            ['Food', 20],
+            ['Attraction', 40],
         ],
         type : 'donut'
     },
     donut: {
-        title: "Dogs love:",
+        title: "I'm spending my money on",
     }
 });
