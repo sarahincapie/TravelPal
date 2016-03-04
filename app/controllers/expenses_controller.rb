@@ -25,7 +25,7 @@ end
     else
       @expenses = Expense.all
     end
-    render layout: "landingpage"
+    render layout: "landingpage" #code added by Robert to force a particular view
   end
 
   # GET /expenses/1
