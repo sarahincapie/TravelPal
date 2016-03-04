@@ -49,10 +49,10 @@ class IncomingController < ApplicationController
       # @new_message = current_user.trips.expenses.build(textmsg: @body, cost: @cost, date: @date_created, location: @location)
 
       ## Adds sentiment tags to new expense ##
-      for sentiment in response_sentiment['docSentiment']
-        new_sentiment = sentiment['type']
-        @new_expense.tag_list.add(new_sentiment)
-      end
+      # for sentiment in response_sentiment['docSentiment']
+      #   new_sentiment = sentiment['type']
+      #   @new_expense.tag_list.add(new_sentiment)
+      # end
     
     # if JUST taxonomy present, NO entity/city   
     elsif response_taxonomy['status'] == 'OK'
@@ -62,10 +62,10 @@ class IncomingController < ApplicationController
       @new_expense = current_user.trips.last.expenses.build(textmsg: @body, cost: @cost, location: @location, category: @label)
       
       ## Adds sentiment tags to new expense ##
-      for sentiment in response_sentiment['docSentiment']
-        new_sentiment = sentiment['type']
-        @new_expense.tag_list.add(new_sentiment)
-      end
+      # for sentiment in response_sentiment['docSentiment']
+      #   new_sentiment = sentiment['type']
+      #   @new_expense.tag_list.add(new_sentiment)
+      # end
 
     else
       puts 'Error in concept tagging call: ' + response_taxonomy['statusInfo']
@@ -168,7 +168,7 @@ class IncomingController < ApplicationController
     @number = params[:From]
 
     @twiml = Twilio::TwiML::Response.new do |r|
-      if @body.split.length == 2 || @body.split.length == 3
+      if @body.split.length == 2 || @body_arr.split.length == 3
         r.Message "Hi there! I'm your TravelPal. You're text is being processed."
         process_short_text(@body)
       elsif @body.split.length > 5
