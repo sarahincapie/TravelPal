@@ -20,7 +20,7 @@ class IncomingController < ApplicationController
 
 
   ## filters Alchemy taxonomy classifications into 1 of 12 TravelPal categories ##
-  def get_Long_text_category(label)
+  def get_long_text_category(label)
     if label.start_with? "/art and entertainment/books and literature/",
                       "/art and entertainment/theatre/",
                       "/art and entertainment/music/",
@@ -82,7 +82,7 @@ class IncomingController < ApplicationController
       label = "Miscellaneous"
     end
   end
-  
+
   ## runs short text message to create new expense; format: "10 F Miami" => "Price Category Location" (location optional)
   def process_short_text(body)
     body_arr = body.split
