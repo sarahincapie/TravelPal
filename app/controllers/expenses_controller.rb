@@ -13,7 +13,7 @@ class ExpensesController < ApplicationController
       format.json { render :json => json }
       format.html
     end
-    render layout: "landingpage" #code added by Robert to force a particular view
+    # render layout: "landingpage" #code added by Robert to force a particular view
   end
 
   # GET /expenses/1
