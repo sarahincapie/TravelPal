@@ -40,7 +40,6 @@ class Expense < ActiveRecord::Base
   #   end
   # end
 
-
   # class << self
   #   def balance(type)
   #     if type == 'today'

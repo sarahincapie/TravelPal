@@ -3,27 +3,15 @@ class ExpensesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   respond_to :json
 
-  def tagged
-  if params[:tag].present? 
-    @expenses = current_user.expenses.tagged_with(params[:tag])
-  else 
-    @expenses = current_user.expenses.all
-  end  
-end
-
   # GET /expenses
   # GET /expenses.json
   def index
-    if user_signed_in?
-      @expenses = current_user.expenses.all
-        respond_with(@expenses) do |format|
-         json = {"expenses" => @expenses.to_json(:only => [:location, :cost])}
-                          #¨"locations" => 
-        format.json { render :json => json }
-        format.html 
-      end
-    else
-      @expenses = Expense.all
+    @expenses = current_user.expenses.all
+      respond_with(@expenses) do |format|
+       json = {"expenses" => @expenses.to_json(:only => [:location, :cost])}
+                        #¨"locations" => we need to figure out what we want!
+      format.json { render :json => json }
+      format.html 
     end 
   end
 
@@ -56,8 +44,9 @@ end
         format.html { render :new }
         format.json { render json: @expense.errors, status: :unprocessable_entity }
       end
-    end
+    end 
   end
+
 
   # PATCH/PUT /expenses/1
   # PATCH/PUT /expenses/1.json
@@ -92,6 +81,8 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def expense_params
-      params.require(:expense).permit(:textmsg, :cost, :category, :date, :time, :location, :latitude, :longitude, :user_id, :tag_list)
+      params.require(:expense).permit(:textmsg, :cost, :date, :time, :location, :latitude, :longitude, :user_id, :tag_list, :option)
     end
+
+
 end
