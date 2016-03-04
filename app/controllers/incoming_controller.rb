@@ -168,18 +168,18 @@ class IncomingController < ApplicationController
     @number = params[:From]
 
     @twiml = Twilio::TwiML::Response.new do |r|
-      if @body.split.length == 2 || @body.strip.split.length == 3
+      if @body.split.length == 2 || @body.split.length == 3
         r.Message "Hi there! I'm your TravelPal. You're text is being processed."
         process_short_text(@body)
       elsif @body.split.length > 5
         r.Message "Hi there! I'm your TravelPal. You're text is being processed."
         process_long_text(@body)
-      elsif @body = "ds" then current_user.spent('today')
-      elsif @body = "ws" then current_user.spent('week')
-      elsif @body = "ms" then current_user.spent('month')
-      elsif @body = "db" then current_user.balance('today')
-      elsif @body = "wb" then current_user.balance('week')
-      elsif @body = "mb" then current_user.balance('month')
+      elsif @body == "ds" then current_user.spent('today')
+      elsif @body == "ws" then current_user.spent('week')
+      elsif @body == "ms" then current_user.spent('month')
+      elsif @body == "db" then current_user.balance('today')
+      elsif @body == "wb" then current_user.balance('week')
+      elsif @body == "mb" then current_user.balance('month')
       else 
         "Sorry, that's not a valid option please try again."
       end
