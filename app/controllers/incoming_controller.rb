@@ -164,10 +164,10 @@ class IncomingController < ApplicationController
 
   ## Receives text message and checks the body for input or request ##
   def send_message
+    @twiml = Twilio::TwiML::Response.new do |r|
     @body = params[:Body]
     @number = params[:From]
-
-    @twiml = Twilio::TwiML::Response.new do |r|
+    
       if @body.split.length == 2 || @body_arr.split.length == 3
         r.Message "Hi there! I'm your TravelPal. You're text is being processed."
         process_short_text(@body)
