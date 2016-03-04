@@ -1,16 +1,16 @@
 class IncomingController < ApplicationController
 
-  ## runs short text message to create new expense; format: "Price Category Location" (location optional)
+  ## runs short text message to create new expense; format: "10 F Miami" => "Price Category Location" (location optional)
   def process_short_text(body)
     body_arr = body.split
+    @cost = body_arr[0].to_f
     @label = get_short_text_category(body_arr[1])
-    @cost = body_arr[0]
     if body_arr.length == 2
-      @location = Expense.locations.last
+      @location = current_user.last_location
     else body_arr.length == 3
       @location = body_arr[2]
     end
-    @new_expense = Expense.create(textmsg: body, cost: @cost, location: @location, category: @label)
+    @new_expense = current_user.trips.last.expenses.build(textmsg: body, cost: @cost, location: @location, category: @label)
   end
 
   ## runs long text message through Alchemy to create new expense ##
@@ -43,7 +43,7 @@ class IncomingController < ApplicationController
       ## SET COST OF EXPENSE ##
       @cost = @body.scan(/\d/).join('')
 
-      @new_expense = Expense.create(textmsg: @body, cost: @cost, location: @location, category: @label)
+      @new_expense = current_user.trips.last.expenses.build(textmsg: @body, cost: @cost, location: @location, category: @label)
 
       ## ONCE USERS HAVE A PROFILE WITH PHONE NUMBER ##
       # @new_message = current_user.trips.expenses.build(textmsg: @body, cost: @cost, date: @date_created, location: @location)
@@ -56,10 +56,10 @@ class IncomingController < ApplicationController
     
     # if JUST taxonomy present, NO entity/city   
     elsif response_taxonomy['status'] == 'OK'
-      @location = Expense.locations.last
+      @location = current_user.expenses.locations.last
       @label = get_long_text_category(response_taxonomy['taxonomy'].first['label'])   
       @cost = @body.scan(/\d/).join('')
-      @new_expense = Expense.create(textmsg: @body, cost: @cost, location: @location, category: @label)
+      @new_expense = current_user.trips.last.expenses.build(textmsg: @body, cost: @cost, location: @location, category: @label)
       
       ## Adds sentiment tags to new expense ##
       for sentiment in response_sentiment['docSentiment']
@@ -72,17 +72,18 @@ class IncomingController < ApplicationController
     end
   end
 
+  ## gets category for a short text. format: "10 F Miami" => "Price Category Location" (location optional) ##
   def get_short_text_category(letter)
     case letter
     when "F" then "Food"
     when "A" then "Accommodation"
     when "T" then "Transportation"
     when "E" then "Entertainment_Attractions"
-    when "NE" then "Nature_Environment"
     when "C" then "Culture"
     when "N" then "Nightlife"
-    when "O" then "Sports_Outdoor"
     when "S" then "Shopping"
+    when "O" then "Sports_Outdoor"
+    when "NE" then "Nature_Environment"
     when "B" then "Business"
     when "H" then "Health_Fitness"
     when "M" then "Miscellaneous"
@@ -90,7 +91,7 @@ class IncomingController < ApplicationController
   end
 
 
-  # filters Alchemy taxonomy classifications into 1 of 12 TravelPal categories
+  ## filters Alchemy taxonomy classifications into 1 of 12 TravelPal categories ##
   def get_Long_text_category(label)
     if label.start_with? "/art and entertainment/books and literature/",
                       "/art and entertainment/theatre/",
@@ -173,12 +174,12 @@ class IncomingController < ApplicationController
       elsif @body.split.length > 5
         r.Message "Hi there! I'm your TravelPal. You're text is being processed."
         process_long_text(@body)
-      # elsif @body = "ds" then spent('today')
-      # elsif @body = "ws" then spent('week')
-      # elsif @body = "ms" then spent('month')
-      # elsif @body = "db" then balance('today')
-      # elsif @body = "wb" then balance('week')
-      # elsif @body = "mb" then balance('month')
+      elsif @body = "ds" then current_user.spent('today')
+      elsif @body = "ws" then current_user.spent('week')
+      elsif @body = "ms" then current_user.spent('month')
+      elsif @body = "db" then current_user.balance('today')
+      elsif @body = "wb" then current_user.balance('week')
+      elsif @body = "mb" then current_user.balance('month')
       else 
         "Sorry, that's not a valid option please try again."
       end

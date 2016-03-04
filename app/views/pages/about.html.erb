@@ -4,12 +4,12 @@
 
     <!-- Image Background Page Header -->
     <!-- Note: The background image is set within the business-casual.css file. -->
-
+    
     <div class="jumbotron" id="landing_page_jumbotron">
 
             <h1>Jumbotron heading</h1>
             <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Small modal</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Sign up now</button>
 
             <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
               <div class="modal-dialog modal-sm">
@@ -20,9 +20,28 @@
                       <div id="legend">
                         <legend class="">Register</legend>
                       </div>
+
                       <div class="control-group">
                         <!-- Username -->
-                        <label class="control-label"  for="username">Username</label>
+                        <label class="control-label"  for="username">First Name</label>
+                        <div class="controls">
+                          <input type="text" id="username" name="username" placeholder="" class="input-xlarge">
+                          <!-- <p class="help-block">Username can contain any letters or numbers, without spaces</p> -->
+                        </div>
+                      </div>
+
+                      <div class="control-group">
+                        <!-- Username -->
+                        <label class="control-label"  for="username">Last Name</label>
+                        <div class="controls">
+                          <input type="text" id="username" name="username" placeholder="" class="input-xlarge">
+                          <!-- <p class="help-block">Username can contain any letters or numbers, without spaces</p> -->
+                        </div>
+                      </div>
+
+                      <div class="control-group">
+                        <!-- Username -->
+                        <label class="control-label"  for="username">E-mail</label>
                         <div class="controls">
                           <input type="text" id="username" name="username" placeholder="" class="input-xlarge">
                           <!-- <p class="help-block">Username can contain any letters or numbers, without spaces</p> -->
@@ -31,7 +50,7 @@
 
                       <div class="control-group">
                         <!-- E-mail -->
-                        <label class="control-label" for="email">E-mail</label>
+                        <label class="control-label" for="email">Mobile Number</label>
                         <div class="controls">
                           <input type="text" id="email" name="email" placeholder="" class="input-xlarge">
                           <!-- <p class="help-block">Please provide your E-mail</p> -->
@@ -64,15 +83,11 @@
                       </div>
                     </fieldset>
                   </form>
-
-
-
                 </div>
               </div>
             </div>
 
     <!-- Page Content -->
-
 
     <div class="container">
       <hr>
@@ -136,6 +151,8 @@
             </div>
             <!-- /.row -->
         </footer>
+
+
 
     </div>
     <!-- /.container -->

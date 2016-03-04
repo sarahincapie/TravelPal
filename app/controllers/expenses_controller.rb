@@ -1,6 +1,6 @@
 class ExpensesController < ApplicationController
   before_action :set_expense, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user! #, except: [:index, :show]
   respond_to :json
 
   # GET /expenses
@@ -11,8 +11,9 @@ class ExpensesController < ApplicationController
        json = {"expenses" => @expenses.to_json(:only => [:location, :cost])}
                         #¨"locations" => we need to figure out what we want!
       format.json { render :json => json }
-      format.html 
-    end 
+      format.html
+    end
+    # render layout: "landingpage" #code added by Robert to force a particular view
   end
 
   # GET /expenses/1
@@ -44,7 +45,7 @@ class ExpensesController < ApplicationController
         format.html { render :new }
         format.json { render json: @expense.errors, status: :unprocessable_entity }
       end
-    end 
+    end
   end
 
 
