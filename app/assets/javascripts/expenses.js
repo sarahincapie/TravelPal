@@ -17,4 +17,9 @@ $(function () {
 	      ]
 	    }
 	});
-});
+}); // this is the end of the first two charts 
+
+
+
+
+
