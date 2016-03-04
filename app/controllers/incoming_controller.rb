@@ -1,4 +1,6 @@
 class IncomingController < ApplicationController
+  prepend_before_filter :get_current_user, only: [:send_message]
+  before_action :get_current_user, only: [:process_long_text, :process_short_text]
 
   def get_current_user
     @current_user = User.find_by(number: params[:From])
@@ -97,7 +99,7 @@ class IncomingController < ApplicationController
     else body_arr.length == 3
       @location = body_arr[2]
     end
-    @new_expense = get_current_user.trips.last.expenses.build(textmsg: body, cost: @cost, location: @location, category: @label)
+    @new_expense = @current_user.trips.last.expenses.build(textmsg: body, cost: @cost, location: @location, category: @label)
   end
 
   ## runs long text message through Alchemy to create new expense ##
@@ -130,7 +132,7 @@ class IncomingController < ApplicationController
       ## SET COST OF EXPENSE ##
       @cost = @body.scan(/\d/).join('')
 
-      @new_expense = get_current_user.trips.last.expenses.build(textmsg: @body, cost: @cost, location: @location, category: @label)
+      @new_expense = @current_user.trips.last.expenses.build(textmsg: @body, cost: @cost, location: @location, category: @label)
 
       ## ONCE USERS HAVE A PROFILE WITH PHONE NUMBER ##
       # @new_message = current_user.trips.expenses.build(textmsg: @body, cost: @cost, date: @date_created, location: @location)
@@ -143,10 +145,10 @@ class IncomingController < ApplicationController
     
     # if JUST taxonomy present, NO entity/city   
     elsif response_taxonomy['status'] == 'OK'
-      @location = get_current_user.expenses.locations.last
+      @location = @current_user.expenses.locations.last
       @label = get_long_text_category(response_taxonomy['taxonomy'].first['label'])   
       @cost = @body.scan(/\d/).join('')
-      @new_expense = get_current_user.trips.last.expenses.build(textmsg: @body, cost: @cost, location: @location, category: @label)
+      @new_expense = @current_user.trips.last.expenses.build(textmsg: @body, cost: @cost, location: @location, category: @label)
       
       ## Adds sentiment tags to new expense ##
       # for sentiment in response_sentiment['docSentiment']
