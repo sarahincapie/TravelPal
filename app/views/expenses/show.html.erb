@@ -1,13 +1,18 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Textmsg:</strong>
+  <strong>Message:</strong>
   <%= @expense.textmsg %>
 </p>
 
 <p>
   <strong>Cost:</strong>
   <%= @expense.cost %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @expense.category%>
 </p>
 
 <p>
@@ -26,19 +31,9 @@
 </p>
 
 <p>
-  <strong>Latitude:</strong>
-  <%= @expense.latitude %>
-</p>
-
-<p>
-  <strong>Longitude:</strong>
-  <%= @expense.longitude %>
-</p>
-
-<p>
 <strong>Tags:</strong>
 <% @expense.tags.each do |tag| %>
-  <%= tag.name %>
+  <%= link_to tag.name, tagged_url(:tag => tag.name) %>
    <%end%>
 </p>
 
@@ -47,10 +42,6 @@
   <%= @expense.user %>
 </p>
 
-<p>
-  <strong>Option:</strong>
-  <%= @expense.option%>
-</p>
 
 <%= link_to 'Edit', edit_expense_path(@expense) %> |
 <%= link_to 'Back', expenses_path %>

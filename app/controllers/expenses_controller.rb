@@ -9,7 +9,7 @@ class ExpensesController < ApplicationController
     @expenses = current_user.expenses.all
       respond_with(@expenses) do |format|
        json = {"expenses" => @expenses.to_json(:only => [:location, :cost])}
-                        #¨"locations" => 
+                        #¨"locations" => we need to figure out what we want!
       format.json { render :json => json }
       format.html 
     end 
