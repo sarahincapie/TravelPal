@@ -1,7 +1,13 @@
 
 <body>
    <!-- Sidebar <iframe id="publishiframe" style="display:none;" src="chrome-extension://jgnbklefkgedfbpjebhjgibfnobjcbli/template/content-script.html"></iframe> -->
-=======
+<p id='nightlife' data-nightlife='<%= @donut_data[:nightlife]%>'></p>
+<p id='food' data-food='<%= @donut_data[:food]%>'></p>
+<p id='accommodation' data-accommodation='<%= @donut_data[:accommodation]%>'></p>
+<p id='attraction' data-attraction='<%= @donut_data[:attraction]%>'></p>
+
+
+
 <nav class="navbar navbar-full navbar-light bg-faded">
   <a class="navbar-brand" href="#">Full width</a>
 </nav>
@@ -94,26 +100,10 @@
 
         <div id="expense_chart"></div>
         <div id="week_chart"></div>
-
-
+        <div id="pink_chart"></div>
 
         </div> 
-
-                  <!--This is  the  chart from c3-->
-                    <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
-
-                    <link href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css" rel="stylesheet" type="text/css" />
-                   <div id="chart"></div>
-                  <div id="chart1"></div>
-
-
-                   <!--This is  the  chart from d3  responsive containers -->
-
-
-
-
-               
-
+        
                   <!--This is  the end of the responsive containers -->
 
 

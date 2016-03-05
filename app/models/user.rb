@@ -40,6 +40,32 @@ class User < ActiveRecord::Base
     end
   # end
 
+  def donut_data(expenses)
+    data = {
+      nightlife: 0, 
+      accommodation: 0,
+      food: 0,
+      attraction: 0
+    } 
+    expenses.each do |e|
+      case e.category
+        when 'Nightlife'
+          data[:nightlife]+= e.cost
+        when 'Accommodation'
+          p '*' * 1000
+          p e.cost
+          p '*' * 1000
+          data[:accommodation]+= e.cost
+        when 'Food'
+          data[:food]+= e.cost
+        when 'Entertainment_Attractions'
+          data[:attraction]+= e.cost
+      end
+    end
+    data 
+  end
+
+
 
   # use this method in a controller method to create a json hash. Use json hash to pass into view for jquery to build
   # the D3 graphs once its called on.
