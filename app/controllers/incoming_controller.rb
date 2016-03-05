@@ -1,6 +1,6 @@
 class IncomingController < ApplicationController
   prepend_before_filter :get_current_user, only: [:send_message]
-  before_action :get_current_user, only: [:process_long_text, :process_short_text]
+  around_action :get_current_user, only: [:process_long_text, :process_short_text]
 
   def get_current_user
     @current_user = User.find_by(number: params[:From])
@@ -23,7 +23,6 @@ class IncomingController < ApplicationController
     when "M" then "Miscellaneous"
     end
   end
-
 
   ## filters Alchemy taxonomy classifications into 1 of 12 TravelPal categories ##
   def get_long_text_category(label)
@@ -119,6 +118,7 @@ class IncomingController < ApplicationController
 
       ## SET CATEGORY/TAXONOMY LABEL ##
       @label = get_long_text_category(response_taxonomy['taxonomy'].first['label'])
+      p @label
 
       ## SET CITY/LOCATION ##
       for entity in response_entity['entities']
@@ -131,11 +131,9 @@ class IncomingController < ApplicationController
 
       ## SET COST OF EXPENSE ##
       @cost = @body.scan(/\d/).join('')
+      p @cost
 
       @new_expense = @current_user.trips.last.expenses.build(textmsg: @body, cost: @cost, location: @location, category: @label)
-
-      ## ONCE USERS HAVE A PROFILE WITH PHONE NUMBER ##
-      # @new_message = current_user.trips.expenses.build(textmsg: @body, cost: @cost, date: @date_created, location: @location)
 
       ## Adds sentiment tags to new expense ##
       # for sentiment in response_sentiment['docSentiment']
