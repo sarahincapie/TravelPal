@@ -1,5 +1,5 @@
 class IncomingController < ApplicationController
-  prepend_before_filter :get_current_user, only: [:send_message]
+  prepend_before_filter :get_current_user, only: [:number_present?, :send_message]
   around_action :get_current_user, only: [:process_long_text, :process_short_text]
 
   def get_current_user
@@ -47,7 +47,7 @@ class IncomingController < ApplicationController
                          "/travel/tourist destinations/",
                          "/travel/specialty travel/sightseeing tours",
                          "/travel/travel guides",
-                         "/art and entertainment/" ## if in A+E but not culture or nightlife
+                         "/art and entertainment" ## if in A+E but not culture or nightlife
       label = "Entertainment/Attractions"
 
     elsif label.start_with? "/travel/tourist facilities/camping"
@@ -129,9 +129,9 @@ class IncomingController < ApplicationController
       #     @location = entity['text']
       #   end
       # end
-      @location = response_entity['entities'].first['type']
+      @location = response_entity['entities'].first['text']
       p @location
-      
+
       ## SET COST OF EXPENSE ##
       @cost = @body.scan(/\d/).join('').to_f
       p @cost
@@ -165,11 +165,11 @@ class IncomingController < ApplicationController
   end
 
   ## checks if number is true ##
-  # def number_present?(number)
-  #   if User.find_by(number: number) then true
-  #   else "Sorry, you are not a registered user"
-  #   end
-  # end  
+  def number_present?(number)
+    if @current_user == true
+    else "Sorry, you are not a registered user"
+    end
+  end  
 
   ## Receives text message and checks the body for input or request ##
   def send_message
@@ -178,26 +178,25 @@ class IncomingController < ApplicationController
     @body = params[:Body]
     @number = params[:From]
 
-      # if number_present?(@number)
-
+      if number_present?(@number)
         if @body.split.length == 2 || @body.split.length == 3
           r.Message "Hi there! I'm your TravelPal. You're text is being processed."
           process_short_text(@body)
         elsif @body.split.length > 5
           r.Message "Hi there! I'm your TravelPal. You're text is being processed."
           process_long_text(@body)
-        # elsif @body == "ds" then current_user.spent('today')
-        # elsif @body == "ws" then current_user.spent('week')
-        # elsif @body == "ms" then current_user.spent('month')
-        # elsif @body == "db" then current_user.balance('today')
-        # elsif @body == "wb" then current_user.balance('week')
-        # elsif @body == "mb" then current_user.balance('month')
+        # elsif @body == "ds" then @current_user.spent('today')
+        # elsif @body == "ws" then @current_user.spent('week')
+        # elsif @body == "ms" then @current_user.spent('month')
+        # elsif @body == "db" then @current_user.balance('today')
+        # elsif @body == "wb" then @current_user.balance('week')
+        # elsif @body == "mb" then @current_user.balance('month')
         else 
           "Sorry, that's not a valid option please try again."
         end
-      # else 
-      #   "This is not a registered number, please sign up at www.travelpal.herokuapp.com!"
-      # end
+      else 
+        "This is not a registered number, please sign up at www.travelpal.herokuapp.com!"
+      end
     end
     # render 'send_message.xml.erb', :content_type => 'text/xml'
     render xml: @twiml.text
