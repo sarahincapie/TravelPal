@@ -133,6 +133,7 @@ class IncomingController < ApplicationController
       @cost = @body.scan(/\d/).join('').to_f
       p @cost
 
+      p @current_user
       @new_expense = @current_user.trips.last.expenses.create(textmsg: @body, cost: @cost, location: @location, category: @label)
 
       ## Adds sentiment tags to new expense ##
