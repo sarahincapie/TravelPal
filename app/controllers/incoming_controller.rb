@@ -164,9 +164,9 @@ class IncomingController < ApplicationController
     end
   end
 
-  def store_picture(pic)
+  def store_picture(pic_arr)
     @numMedia.times do |n|
-      @current_user.friends.create(avatar: pic[n-1])
+      @current_user.friends.create(avatar: pic_arr[n-1])
     end
   end
 
@@ -175,15 +175,14 @@ class IncomingController < ApplicationController
   def send_message
     @twiml = Twilio::TwiML::Response.new do |r|
 
-      @pic = [] # stores an array of picture URLs
-      @numMedia = params[:numMedia] # The number of media items associated with your message
-      @numMedia.times do |n|
-        media = "mediaUrl#{(n-1)}".to_sym
-        @pic << params[media] # if 1 or more MMS, :mediaUrl{N} is picture
-      end
-
       @body = params[:Body]
       @number = params[:From]
+      @numMedia = params[:numMedia] # The number of media items associated with your message
+      @pic_arr = [] # stores an array of picture URLs
+      @numMedia.times do |n|
+        media = "mediaUrl#{(n-1)}".to_sym
+        @pic_arr << params[media] # if 1 or more MMS, :mediaUrl{n-1} is picture
+      end
 
       @feedback_score = 0.0
       @count = 0
@@ -193,7 +192,7 @@ class IncomingController < ApplicationController
       ## checks if number is current userr ##
       if @current_user
         if @numMedia > 0
-          store_picture(@pic)
+          store_picture(@pic_arr)
         elsif @body.split.length == 2 || @body.split.length == 3
           r.Message "Hi there! I'm your TravelPal. You're text is being processed."
           process_short_text(@body)
