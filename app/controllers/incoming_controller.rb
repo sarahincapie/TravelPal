@@ -183,12 +183,12 @@ class IncomingController < ApplicationController
         elsif @body.split.length > 5
           r.Message "Hi there! I'm your TravelPal. You're text is being processed."
           process_long_text(@body)
-        # elsif @body == "ds" then @current_user.spent('today')
-        # elsif @body == "ws" then @current_user.spent('week')
-        # elsif @body == "ms" then @current_user.spent('month')
-        # elsif @body == "db" then @current_user.balance('today')
-        # elsif @body == "wb" then @current_user.balance('week')
-        # elsif @body == "mb" then @current_user.balance('month')
+        elsif @body == "ds" then @current_user.spent('today')
+        elsif @body == "ws" then @current_user.spent('week')
+        elsif @body == "ms" then @current_user.spent('month')
+        elsif @body == "db" then @current_user.balance('today')
+        elsif @body == "wb" then @current_user.balance('week')
+        elsif @body == "mb" then @current_user.balance('month')
         else 
           "Sorry, that's not a valid option please try again."
         end
@@ -196,29 +196,29 @@ class IncomingController < ApplicationController
         r.Message "Alright, thanks anyways! Feel free to register at www.travelpal.herokuapp.com!"
       elsif @body.downcase == "yes"
         r.Message "Woot! What would you rate our app on a scale of 1 to 10?"
-      elsif @body.to_i > 0 && @body.to_i < 3
+      elsif @body.to_f >= 0 && @body.to_f <= 3
         p "bad rating"
-        @feedback_score += @body.to_i
+        @feedback_score += @body.to_f
         @count += 1
         r.Message "Thanks for the feedback! Feel free to register at www.travelpal.herokuapp.com"
-      elsif @body.to_i > 3 && @body.to_i < 5
+      elsif @body.to_f > 3 && @body.to_f <= 5
         p "OK rating"
-        @feedback_score += @body.to_i
+        @feedback_score += @body.to_f
         @count += 1
         r.Message "Thanks for the feedback! Feel free to register at www.travelpal.herokuapp.com"
-      elsif @body.to_i > 5 && @body.to_i < 8
+      elsif @body.to_f > 5 && @body.to_f <= 8
         p "pretty good rating"
-        @feedback_score += @body.to_i
+        @feedback_score += @body.to_f
         @count += 1
         r.Message "Thanks for the feedback! Feel free to register at www.travelpal.herokuapp.com"
-      elsif @body.to_i > 8 && @body.to_i < 10
+      elsif @body.to_f > 8 && @body.to_f <= 10
         p "Awesome rating!"
-        @feedback_score += @body.to_i
+        @feedback_score += @body.to_f
         @count += 1
         r.Message "Thanks for the feedback! Feel free to register at www.travelpal.herokuapp.com"
-      elsif @body.to_i > 10
+      elsif @body.to_f > 10
         p "CRAZY RATING"
-        @feedback_score += @body.to_i
+        @feedback_score += @body.to_f
         @count += 1
         r.Message "Thanks for the feedback! Feel free to register at www.travelpal.herokuapp.com"
       elsif @all_nums.exclude? @number
@@ -228,7 +228,7 @@ class IncomingController < ApplicationController
       else
         r.Message "Sorry, that's not a valid option please try again."
       end
-    p @rating
+    p @rating.to_f
     end
     # render 'send_message.xml.erb', :content_type => 'text/xml'
     render xml: @twiml.text
