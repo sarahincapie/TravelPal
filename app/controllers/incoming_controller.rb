@@ -173,6 +173,7 @@ class IncomingController < ApplicationController
     feedback_score = 0.0
     count = 0
     rating = feedback_score/count
+    all_nums = []
 
       ## checks if number is current userr ##
       if @current_user
@@ -191,8 +192,9 @@ class IncomingController < ApplicationController
         else 
           "Sorry, that's not a valid option please try again."
         end
-      elsif
+      elsif all_nums.exclude? @number
         r.Message "Hey there! TravelPal at your service. Thanks for sitting through our pitch. Would you like to provide some feedback?"
+        all_nums << @number
       elsif @body == "no"
         r.Message "Alright, thanks anyways! Feel free to register at www.travelpal.herokuapp.com!"
       elsif @body == "yes"
@@ -223,7 +225,6 @@ class IncomingController < ApplicationController
         count += 1
         r.Message "Thanks for the feedback! Feel free to register at www.travelpal.herokuapp.com"
       end
-    RATING
     p rating
     end
     # render 'send_message.xml.erb', :content_type => 'text/xml'
