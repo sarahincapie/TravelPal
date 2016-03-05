@@ -13,11 +13,11 @@
 }
 
 #landing_page_jumbotron > p {
-  padding-left: 50px;
+  padding-left: 10px;
 }
 
 #landing_page_jumbotron > h1 {
-  padding-left: 50px;
+  padding-left: 10px;
 }
 
 h1 {
@@ -44,11 +44,18 @@ h1 {
   height: 60vh;
 }
 
-#test_nav {
-  background-color: green;
+#jumbotron_button {
+  background-color: transparent;
+  border-style: solid;
+  border-color: white;
+  border-width: 2px;
+
 }
 
-h1 {
-  font-family: 'Roboto Slab', serif;
+#jumbo_subheadline {
+  font-size: 2em;
+}
 
+#jumbotron_header {
+  /*font-size: 4em;*/
 }
