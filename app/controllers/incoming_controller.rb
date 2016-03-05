@@ -117,18 +117,21 @@ class IncomingController < ApplicationController
       # puts JSON.pretty_generate(response_taxonomy)
 
       ## SET CATEGORY/TAXONOMY LABEL ##
+      p response_taxonomy['taxonomy'].first['label']
       @label = get_long_text_category(response_taxonomy['taxonomy'].first['label'])
       p @label
 
       ## SET CITY/LOCATION ##
-      for entity in response_entity['entities']
-        if entity['type'] == "City"
-          puts 'text: ' + entity['text']
-          puts 'type: ' + entity['type']
-          @location = entity['text']
-        end
-      end
-
+      # for entity in response_entity['entities']
+      #   if entity['type'] == "City"
+      #     puts 'text: ' + entity['text']
+      #     puts 'type: ' + entity['type']
+      #     @location = entity['text']
+      #   end
+      # end
+      @location = response_entity['entities'].first['type']
+      p @location
+      
       ## SET COST OF EXPENSE ##
       @cost = @body.scan(/\d/).join('').to_f
       p @cost
@@ -136,6 +139,7 @@ class IncomingController < ApplicationController
       p @current_user
       @new_expense = @current_user.trips.last.expenses.create(textmsg: @body, cost: @cost, location: @location, category: @label)
 
+      # p JSON.pretty_generate(response_sentiment)
       ## Adds sentiment tags to new expense ##
       # for sentiment in response_sentiment['docSentiment']
       #   new_sentiment = sentiment['type']
@@ -174,21 +178,26 @@ class IncomingController < ApplicationController
     @body = params[:Body]
     @number = params[:From]
 
-      if @body.split.length == 2 || @body.split.length == 3
-        r.Message "Hi there! I'm your TravelPal. You're text is being processed."
-        process_short_text(@body)
-      elsif @body.split.length > 5
-        r.Message "Hi there! I'm your TravelPal. You're text is being processed."
-        process_long_text(@body)
-      # elsif @body == "ds" then current_user.spent('today')
-      # elsif @body == "ws" then current_user.spent('week')
-      # elsif @body == "ms" then current_user.spent('month')
-      # elsif @body == "db" then current_user.balance('today')
-      # elsif @body == "wb" then current_user.balance('week')
-      # elsif @body == "mb" then current_user.balance('month')
-      else 
-        "Sorry, that's not a valid option please try again."
-      end
+      # if number_present?(@number)
+
+        if @body.split.length == 2 || @body.split.length == 3
+          r.Message "Hi there! I'm your TravelPal. You're text is being processed."
+          process_short_text(@body)
+        elsif @body.split.length > 5
+          r.Message "Hi there! I'm your TravelPal. You're text is being processed."
+          process_long_text(@body)
+        # elsif @body == "ds" then current_user.spent('today')
+        # elsif @body == "ws" then current_user.spent('week')
+        # elsif @body == "ms" then current_user.spent('month')
+        # elsif @body == "db" then current_user.balance('today')
+        # elsif @body == "wb" then current_user.balance('week')
+        # elsif @body == "mb" then current_user.balance('month')
+        else 
+          "Sorry, that's not a valid option please try again."
+        end
+      # else 
+      #   "This is not a registered number, please sign up at www.travelpal.herokuapp.com!"
+      # end
     end
     # render 'send_message.xml.erb', :content_type => 'text/xml'
     render xml: @twiml.text
