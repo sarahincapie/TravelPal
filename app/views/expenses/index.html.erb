@@ -1,5 +1,13 @@
+
 <body>
    <!-- Sidebar <iframe id="publishiframe" style="display:none;" src="chrome-extension://jgnbklefkgedfbpjebhjgibfnobjcbli/template/content-script.html"></iframe> -->
+=======
+<nav class="navbar navbar-full navbar-light bg-faded">
+  <a class="navbar-brand" href="#">Full width</a>
+</nav>
+
+<div><iframe id="publishiframe" style="display:none;" src="chrome-extension://jgnbklefkgedfbpjebhjgibfnobjcbli/template/content-script.html"></iframe>
+
 
 
 
@@ -10,29 +18,22 @@
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
                     <a href="#">
-                        Start Bootstrap
                     </a>
-                </li>
-                <li>
-                    <a href="#">Dashboard</a>
-                </li>
-                <li>
-                    <a href="#">Shortcuts</a>
                 </li>
                 <li>
                     <a href="#">Overview</a>
                 </li>
                 <li>
-                    <a href="#">Events</a>
+                    <a href="#">Daily</a>
                 </li>
                 <li>
-                    <a href="#">About</a>
+                    <a href="#">Category</a>
                 </li>
                 <li>
-                    <a href="#">Services</a>
+                    <a href="#">Location Map</a>
                 </li>
                 <li>
-                    <a href="#">Contact</a>
+                    <a href="#">Go To Trip</a>
                 </li>
             </ul>
         </div>
@@ -81,13 +82,11 @@
                         </tbody>
                       </table>
                       <%= link_to 'New Expense', new_expense_path %>
-
                       </div>
-
-
                         <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
                     </div>
                   </div>
+
 
             <!--This is  the  chart from c3-->
 
@@ -100,11 +99,23 @@
 
         </div> 
 
-   <!--This is  the end of the responsive containers -->
+                  <!--This is  the  chart from c3-->
+                    <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+
+                    <link href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css" rel="stylesheet" type="text/css" />
+                   <div id="chart"></div>
+                  <div id="chart1"></div>
+
+
+                   <!--This is  the  chart from d3  responsive containers -->
+
 
 
 
                
+
+                  <!--This is  the end of the responsive containers -->
+
 
                   </div>
                 </div>
@@ -133,10 +144,10 @@
     <div class="notify__icon"></div>
     <div class="notify__body">
       <div class="notify__body__message">
-        <span class="js-notify-message"></span>
+        <span class="js-notify-message">There was an error loading this message</span>
         <span class="notify__body__actions js-notify-action">
           <a href="https://web.crowdfireapp.com/#/publish/timeline" target="_blank">
-
+            Go to Timeline
           </a>
         </span>
       </div>
@@ -144,6 +155,7 @@
     </div>
   </div><span id="publishImageBtn" style="display: none; position: absolute; z-index: 8675400; width: 100px; height: 25px; opacity: 0.9; cursor: pointer; border-radius: 4px; background-image: url(&quot;chrome-extension://jgnbklefkgedfbpjebhjgibfnobjcbli/images/publish-image.png&quot;); background-size: 100px 25px;"></span><span id="selectedIcon" style="display: none; position: absolute; z-index: 8675400; width: 40px; height: 40px; cursor: pointer; border-radius: 4px; background-image: url(&quot;chrome-extension://jgnbklefkgedfbpjebhjgibfnobjcbli/images/selected-icon.png&quot;); background-size: cover;"></span><script type="text/javascript">(function () {
         return window.SIG_EXT = {};
+
       })()</script></body></html>
 
 
@@ -151,4 +163,7 @@
 
 
 
+
+
+      })()</script></div>
 
