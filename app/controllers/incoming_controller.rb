@@ -177,7 +177,7 @@ class IncomingController < ApplicationController
 
       @body = params[:Body]
       @number = params[:From]
-      @numMedia = params[:numMedia].to_i # The number of media items associated with your message
+      @numMedia = params[:NumMedia].to_i # The number of media items associated with your message
       @pic_arr = [] # stores an array of picture URLs
       @numMedia.times do |n|
         media = "mediaUrl#{(n-1)}".to_sym
