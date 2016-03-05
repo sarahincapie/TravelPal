@@ -170,8 +170,11 @@ class IncomingController < ApplicationController
 
     @body = params[:Body]
     @number = params[:From]
+    feedback_score = 0.0
+    count = 0
+    rating = feedback_score/count
 
-      ## checks if number is true ##
+      ## checks if number is current userr ##
       if @current_user
         if @body.split.length == 2 || @body.split.length == 3
           r.Message "Hi there! I'm your TravelPal. You're text is being processed."
@@ -188,47 +191,40 @@ class IncomingController < ApplicationController
         else 
           "Sorry, that's not a valid option please try again."
         end
-      else
-        feedback_score = 0.0
-        count = 0
-        rating = feedback_score/count
+      elsif
         r.Message "Hey there! TravelPal at your service. Thanks for sitting through our pitch. Would you like to provide some feedback?"
-        @twiml = Twilio::TwiML::Response.new do |r|
-        @body2 = params[:Body].downcase
-          if @body2 == "no"
-            r.Message "Alright, thanks anyways! Feel free to register at www.travelpal.herokuapp.com!"
-          else @body2 == "yes"
-            r.Message "Woot! What would you rate our app on a scale of 1 to 10?"
-            @twiml = Twilio::TwiML::Response.new do |r|
-              @body3 = params[:Body].downcase
-              if @body3 > 0 && @body3 < 3
-                p "bad rating"
-                feedback_score += @body3
-                count += 1
-              elsif @body3 > 3 && @body3 < 5
-                p "OK rating"
-                feedback_score += @body3
-                count += 1
-              elsif @body3 > 5 && @body3 < 8
-                p "pretty good rating"
-                feedback_score += @body3
-                count += 1
-              elsif @body3 > 8 && @body3 < 10
-                p "Awesome rating!"
-                feedback_score += @body3
-                count += 1
-              else @body3 > 10
-                p "CRAZY RATING"
-                feedback_score += @body3
-                count += 1
-              end
-            r.Message "Thanks for the feedback! Feel free to register at www.travelpal.herokuapp.com"
-            end
-            rating
-            p rating
-          end
-        end 
+      elsif @body == "no"
+        r.Message "Alright, thanks anyways! Feel free to register at www.travelpal.herokuapp.com!"
+      elsif @body == "yes"
+        r.Message "Woot! What would you rate our app on a scale of 1 to 10?"
+      elsif @body.to_i > 0 && @body.to_i < 3
+        p "bad rating"
+        feedback_score += @body.to_i
+        count += 1
+        r.Message "Thanks for the feedback! Feel free to register at www.travelpal.herokuapp.com"
+      elsif @body.to_i > 3 && @body.to_i < 5
+        p "OK rating"
+        feedback_score += @body.to_i
+        count += 1
+        r.Message "Thanks for the feedback! Feel free to register at www.travelpal.herokuapp.com"
+      elsif @body.to_i > 5 && @body.to_i < 8
+        p "pretty good rating"
+        feedback_score += @body.to_i
+        count += 1
+        r.Message "Thanks for the feedback! Feel free to register at www.travelpal.herokuapp.com"
+      elsif @body.to_i > 8 && @body.to_i < 10
+        p "Awesome rating!"
+        feedback_score += @body.to_i
+        count += 1
+        r.Message "Thanks for the feedback! Feel free to register at www.travelpal.herokuapp.com"
+      else @body.to_i > 10
+        p "CRAZY RATING"
+        feedback_score += @body.to_i
+        count += 1
+        r.Message "Thanks for the feedback! Feel free to register at www.travelpal.herokuapp.com"
       end
+    RATING
+    p rating
     end
     # render 'send_message.xml.erb', :content_type => 'text/xml'
     render xml: @twiml.text
