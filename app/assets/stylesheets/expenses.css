@@ -39,7 +39,7 @@ html, body {
     height: 100%;
     margin-left: -250px;
     overflow-y: auto;
-    background: #000;
+    background: white;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -140,4 +140,8 @@ html, body {
 #expenses_nav_bar {
   background-color: black;
   height: 10vh;
+}
+
+.navbar_navbar_default_navbar_static_top {
+  background-color: green;
 }

@@ -82,15 +82,6 @@ ActiveRecord::Schema.define(version: 20160305013513) do
 
   add_index "trips", ["user_id"], name: "index_trips_on_user_id", using: :btree
 
-  create_table "types", force: :cascade do |t|
-    t.string   "category"
-    t.integer  "expense_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "types", ["expense_id"], name: "index_types_on_expense_id", using: :btree
-
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -114,5 +105,4 @@ ActiveRecord::Schema.define(version: 20160305013513) do
 
   add_foreign_key "expenses", "trips"
   add_foreign_key "trips", "users"
-  add_foreign_key "types", "expenses"
 end
