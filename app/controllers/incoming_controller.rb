@@ -189,12 +189,12 @@ class IncomingController < ApplicationController
           "Sorry, that's not a valid option please try again."
         end
       else
-        feedback_score = 0
+        feedback_score = 0.0
         count = 0
         rating = feedback_score/count
         r.Message "Hey there! TravelPal at your service. Thanks for sitting through our pitch. Would you like to provide some feedback?"
         @twiml = Twilio::TwiML::Response.new do |r|
-          @body2 = params[:Body].downcase
+        @body2 = params[:Body].downcase
           if @body2 == "no"
             r.Message "Alright, thanks anyways! Feel free to register at www.travelpal.herokuapp.com!"
           else @body2 == "yes"
@@ -224,6 +224,7 @@ class IncomingController < ApplicationController
               end
             r.Message "Thanks for the feedback! Feel free to register at www.travelpal.herokuapp.com"
             end
+            rating
             p rating
           end
         end 
