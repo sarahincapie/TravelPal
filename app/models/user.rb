@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :trips, dependent: :destroy
-  has_many :expenses, dependent: :destroy
+  has_many :expenses, :through => :trips
   has_many :friends, dependent: :destroy
 
   scope :last_location, -> { find(current_user.id).trips.last.expenses.last.locations }
