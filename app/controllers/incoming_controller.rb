@@ -170,10 +170,10 @@ class IncomingController < ApplicationController
 
     @body = params[:Body]
     @number = params[:From]
-    feedback_score = 0.0
-    count = 0
-    rating = feedback_score/count
-    all_nums = []
+    @feedback_score = 0.0
+    @count = 0
+    @rating = feedback_score/count
+    @all_nums = []
 
       ## checks if number is current userr ##
       if @current_user
@@ -192,40 +192,40 @@ class IncomingController < ApplicationController
         else 
           "Sorry, that's not a valid option please try again."
         end
-      elsif all_nums.exclude? @number
+      elsif @all_nums.exclude? @number
         r.Message "Hey there! TravelPal at your service. Thanks for sitting through our pitch. Would you like to provide some feedback?"
-        all_nums << @number
+        @all_nums << @number
       elsif @body == "no"
         r.Message "Alright, thanks anyways! Feel free to register at www.travelpal.herokuapp.com!"
       elsif @body == "yes"
         r.Message "Woot! What would you rate our app on a scale of 1 to 10?"
       elsif @body.to_i > 0 && @body.to_i < 3
         p "bad rating"
-        feedback_score += @body.to_i
-        count += 1
+        @feedback_score += @body.to_i
+        @count += 1
         r.Message "Thanks for the feedback! Feel free to register at www.travelpal.herokuapp.com"
       elsif @body.to_i > 3 && @body.to_i < 5
         p "OK rating"
-        feedback_score += @body.to_i
-        count += 1
+        @feedback_score += @body.to_i
+        @count += 1
         r.Message "Thanks for the feedback! Feel free to register at www.travelpal.herokuapp.com"
       elsif @body.to_i > 5 && @body.to_i < 8
         p "pretty good rating"
-        feedback_score += @body.to_i
-        count += 1
+        @feedback_score += @body.to_i
+        @count += 1
         r.Message "Thanks for the feedback! Feel free to register at www.travelpal.herokuapp.com"
       elsif @body.to_i > 8 && @body.to_i < 10
         p "Awesome rating!"
-        feedback_score += @body.to_i
-        count += 1
+        @feedback_score += @body.to_i
+        @count += 1
         r.Message "Thanks for the feedback! Feel free to register at www.travelpal.herokuapp.com"
       else @body.to_i > 10
         p "CRAZY RATING"
-        feedback_score += @body.to_i
-        count += 1
+        @feedback_score += @body.to_i
+        @count += 1
         r.Message "Thanks for the feedback! Feel free to register at www.travelpal.herokuapp.com"
       end
-    p rating
+    p @rating
     end
     # render 'send_message.xml.erb', :content_type => 'text/xml'
     render xml: @twiml.text
