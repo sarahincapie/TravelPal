@@ -94,7 +94,7 @@ class IncomingController < ApplicationController
     @cost = body_arr[0].to_f
     @label = get_short_text_category(body_arr[1])
     if body_arr.length == 2
-      @location = current_user.last_location
+      @location = @current_user.last_location
     else body_arr.length == 3
       @location = body_arr[2]
     end
@@ -143,7 +143,7 @@ class IncomingController < ApplicationController
     
     # if JUST taxonomy present, NO entity/city   
     elsif response_taxonomy['status'] == 'OK'
-      @location = @current_user.expenses.locations.last
+      @location = @current_user.last_location
       @label = get_long_text_category(response_taxonomy['taxonomy'].first['label'])   
       @cost = @body.scan(/\d/).join('')
       @new_expense = @current_user.trips.last.expenses.build(textmsg: @body, cost: @cost, location: @location, category: @label)
