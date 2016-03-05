@@ -195,7 +195,7 @@ class IncomingController < ApplicationController
           "Sorry, that's not a valid option please try again."
         end
       else 
-        "This is not a registered number, please sign up at www.travelpal.herokuapp.com!"
+        r.Message "This is not a registered number, please sign up at www.travelpal.herokuapp.com!"
       end
     end
     # render 'send_message.xml.erb', :content_type => 'text/xml'
