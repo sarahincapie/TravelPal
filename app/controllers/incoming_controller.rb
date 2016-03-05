@@ -130,7 +130,7 @@ class IncomingController < ApplicationController
       end
 
       ## SET COST OF EXPENSE ##
-      @cost = @body.scan(/\d/).join('')
+      @cost = @body.scan(/\d/).join('').to_f
       p @cost
 
       @new_expense = @current_user.trips.last.expenses.build(textmsg: @body, cost: @cost, location: @location, category: @label)
