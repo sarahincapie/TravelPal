@@ -6,9 +6,13 @@
 #landing_page_jumbotron {
   height: 100vh;
   width: 100%;
-  /*background-color: beige;*/
+  background-image: url(travelpalbanner.jpeg);
+  background-position: 0% 25%;
+ background-size: cover;
+ background-repeat: no-repeat;
   padding-top: 40vh;
   text-align: center;
+  /*color: white;*/
 }
 
 #landing_page_jumbotron > p {
@@ -17,6 +21,12 @@
 
 #landing_page_jumbotron > h1 {
   padding-left: 50px;
+}
+
+h1 {
+  font-size: 18px;
+  font-family: 'Roboto Slab', serif;
+
 }
 
 
@@ -39,4 +49,9 @@
 
 #test_nav {
   background-color: green;
+}
+
+h1 {
+  font-family: 'Roboto Slab', serif;
+
 }
