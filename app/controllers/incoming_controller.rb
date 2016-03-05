@@ -172,7 +172,7 @@ class IncomingController < ApplicationController
     @number = params[:From]
     @feedback_score = 0.0
     @count = 0
-    @rating = feedback_score/count
+    @rating = @feedback_score/@count
     @all_nums = []
 
       ## checks if number is current userr ##
