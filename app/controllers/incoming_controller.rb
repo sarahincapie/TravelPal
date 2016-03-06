@@ -12,18 +12,18 @@ class IncomingController < ApplicationController
     ## gets category for a short text. format: "10 F Miami" => "Price Category Location" (location optional) ##
   def get_short_text_category(letter)
     case letter
-    when "F" then "Food"
-    when "A" then "Accommodation"
-    when "T" then "Transportation"
-    when "E" then "Entertainment_Attractions"
-    when "C" then "Culture"
-    when "N" then "Nightlife"
-    when "S" then "Shopping"
-    when "O" then "Sports_Outdoor"
-    when "NE" then "Nature_Environment"
-    when "B" then "Business"
-    when "H" then "Health_Fitness"
-    when "M" then "Miscellaneous"
+    when "f" then "Food"
+    when "a" then "Accommodation"
+    when "t" then "Transportation"
+    when "e" then "EntertainmentAttractions"
+    when "c" then "Culture"
+    when "n" then "Nightlife"
+    when "s" then "Shopping"
+    when "o" then "SportsOutdoor"
+    when "ne" then "NatureEnvironment"
+    when "b" then "Business"
+    when "h" then "HealthFitness"
+    when "m" then "Miscellaneous"
     end
   end
 
@@ -51,10 +51,10 @@ class IncomingController < ApplicationController
                          "/travel/specialty travel/sightseeing tours",
                          "/travel/travel guides",
                          "/art and entertainment" ## if in A+E but not culture or nightlife
-      label = "Entertainment/Attractions"
+      label = "EntertainmentAttractions"
 
     elsif label.start_with? "/travel/tourist facilities/camping"
-      label = "Nature_Environment"
+      label = "NatureEnvironment"
 
     elsif label.start_with? "/travel/hotels",
                          "/travel/tourist facilities/hotel",
@@ -81,10 +81,10 @@ class IncomingController < ApplicationController
 
     elsif label.start_with? "/health and fitness/",
                             "/science/"
-      label = "Health_Fitness"
+      label = "HealthFitness"
 
     elsif label.start_with? "/sports/"
-      label = "Sports_Outdoor"
+      label = "SportsOutdoor"
 
     else
       label = "Miscellaneous"
@@ -94,10 +94,14 @@ class IncomingController < ApplicationController
   ## runs short text message to create new expense; format: "10 F Miami" => "Price Category Location" (location optional)
   def process_short_text(body)
     body_arr = body.split
-    @cost = body_arr[0].to_f
-    @label = get_short_text_category(body_arr[1])
+    @cost = '%.2f' % body_arr[0].to_f
+    p body_arr[1]
+    p body_arr[1].to_s
+    letter = body_arr[1].to_s.strip.downcase
+    p letter
+    @label = get_short_text_category(letter)
     if body_arr.length == 2
-      @location = @current_user.last_location
+      @location = @current_user..trips.last.expenses.last.locations
     else body_arr.length == 3
       @location = body_arr[2]
     end
@@ -107,8 +111,6 @@ class IncomingController < ApplicationController
   ## runs long text message through Alchemy to create new expense ##
   def process_long_text(body)
     alchemyapi = AlchemyAPI.new(ENV['AL_CLIENT_ID'])
-
-    puts 'Processing text: ' + body
 
     response_taxonomy = alchemyapi.taxonomy('text', body, language: 'english')
     response_entity = alchemyapi.entities('text', body, language: 'english')
@@ -136,7 +138,7 @@ class IncomingController < ApplicationController
       p @location
 
       ## SET COST OF EXPENSE ##
-      @cost = @body.scan(/\d/).join('').to_f
+      @cost = '%.2f' % @body.scan(/\d/).join('').to_f
       p @cost
 
       p @current_user
@@ -151,7 +153,7 @@ class IncomingController < ApplicationController
     
     # if JUST taxonomy present, NO entity/city   
     elsif response_taxonomy['status'] == 'OK'
-      @location = @current_user.last_location
+      @location = @current_user..trips.last.expenses.last.locations
       @label = get_long_text_category(response_taxonomy['taxonomy'].first['label'])   
       @cost = @body.scan(/\d/).join('')
       @new_expense = @current_user.trips.last.expenses.create(textmsg: @body, cost: @cost, location: @location, category: @label)
@@ -225,12 +227,18 @@ class IncomingController < ApplicationController
         elsif @body.split.length > 5
           r.Message "Hi there! I'm your TravelPal. You're text is being processed."
           process_long_text(@body)
-        elsif @body == "ds" then @current_user.spent('today')
-        elsif @body == "ws" then @current_user.spent('week')
-        elsif @body == "ms" then @current_user.spent('month')
-        elsif @body == "db" then @current_user.balance('today')
-        elsif @body == "wb" then @current_user.balance('week')
-        elsif @body == "mb" then @current_user.balance('month')
+        elsif @body.downcase == "ds"
+          r.Message "You've spent $#{@current_user.spent('today')} today."
+        elsif @body.downcase == "ws"
+          r.Message "You've spent $#{@current_user.spent('week')} this week."
+        elsif @body.downcase == "ms"
+          r.Message "You've spent $#{@current_user.spent('month')} this month."
+        elsif @body.downcase == "db"
+          r.Message "You have a balance of $#{@current_user.balance('today')} today."
+        elsif @body.downcase == "wb"
+          r.Message "You have a balance of $#{@current_user.balance('week')} this week."
+        elsif @body.downcase == "mb"
+          r.Message "You have a balance of $#{@current_user.balance('month')} this month."
         else 
           "Sorry, that's not a valid option please try again."
         end

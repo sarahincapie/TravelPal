@@ -115,8 +115,16 @@
           <%end %>
         </div>
 
-        <div id="pink_chart"></div>
-      </div>
+
+        <div id="pink_chart">
+        <% @pink_data.each do |data|  %>
+        <%= raw"<chart_data class='pink_chart_data' data-date='#{data[:date]}' data-cost='#{data[:cost]}'></chart_data>" %>
+        <%end %>
+        </div>
+        </div>
+
+                  <!--This is  the end of the responsive containers -->
+
     </div>
     <!--This is  the end of the responsive containers -->
 

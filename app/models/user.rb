@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_many :expenses, :through => :trips
   has_many :friends, dependent: :destroy
 
-  scope :last_location, -> { find(current_user.id).trips.last.expenses.last.locations }
+  # scope :last_location, -> { find(current_user.id).trips.last.expenses.last.locations }
  
   # class << self
     def spent(type)
@@ -102,6 +102,23 @@ def bar_data(expenses)
     data << {location: e.location, cost: e.cost} unless is_dup
   end
   data = data[0..6]
+end 
+
+
+
+def pink_data(expenses)
+   data = []
+    expenses.each do |e|
+    is_dup = false
+    data.each do |d| 
+      if d[:date] == e.date
+        is_dup = true 
+        d[:cost] += e.cost
+      end
+    end
+    data << { date: e.date, cost: e.cost} unless is_dup
+  end
+  data
 end 
 
   # use this method in a controller method to create a json hash. Use json hash to pass into view for jquery to build
