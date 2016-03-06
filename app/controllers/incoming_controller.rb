@@ -95,7 +95,7 @@ class IncomingController < ApplicationController
   def process_short_text(body)
     body_arr = body.split
     @cost = body_arr[0].to_f
-    @label = get_short_text_category(body_arr[1].split.upcase)
+    @label = get_short_text_category(body_arr[1].to_s.split.upcase)
     if body_arr.length == 2
       @location = @current_user..trips.last.expenses.last.locations
     else body_arr.length == 3
