@@ -3,7 +3,7 @@
     <!-- Image Background Page Header -->
     <!-- Note: The background image is set within the business-casual.css file. -->
 
-    <body id="">
+    <body id="landing_page_body">
     <div class="jumbotron" id="landing_page_jumbotron">
 
             <h1 id="jumbotron_header">TRAVELING ISN'T EASY</h1>
@@ -15,7 +15,7 @@
                 <div class="modal-content" id="jumbotron_dropdown">
 
                   <div id="travelpal_logo">
-                    Robert Tassy
+
 
                   </div>
                   <h2>Claim your TravelPal</h2>
@@ -34,12 +34,12 @@
 
                     <div class="field">
                       <%= f.label :email %><br />
-                      <%= f.email_field :email, autofocus: true %><br />
+                      <%= f.email_field :email, autofocus: true, placeholder: "email" %><br />
                     </div>
 
                     <div class="field">
                       <%= f.label :number %><br />
-                      <%= f.telephone_field :number %><br />
+                      <%= f.telephone_field :number, placeholder: "number" %><br />
                     </div>
 
                     <div class="field">
@@ -47,16 +47,16 @@
                       <% if @minimum_password_length %>
                       <em>(<%= @minimum_password_length %> characters minimum)</em>
                       <% end %><br />
-                      <%= f.password_field :password, autocomplete: "off" %><br />
+                      <%= f.password_field :password, autocomplete: "off", placeholder: "password" %><br />
                     </div>
 
                     <div class="field">
                       <%= f.label :password_confirmation %><br />
-                      <%= f.password_field :password_confirmation, autocomplete: "off" %><br />
+                      <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "re-type password" %><br />
                     </div>
 
                     <div class="actions"><br />
-                      <%= f.submit "Claim", :class => 'btn btn-primary btn-lg' %>
+                      <%= f.submit "Sign up", :class => 'btn btn-primary btn-lg' %> <br/> or log in
                     </div>
                   <% end %>
 
@@ -67,8 +67,8 @@
 
     <!-- Page Content -->
 
-
-    <div class="container">
+  <div id="landing_page_bottom">
+    <div class="container" id="container_div">
         <div class="row" id="robot_options_div">
             <div class="col-sm-4" id="robot_div">
 
@@ -245,6 +245,7 @@
             </div>
         </div>
 
+
         <!-- <section class="murderous-robot">
 
          <section class="buttons">
@@ -263,9 +264,7 @@
                 <h2>What We Do</h2>
                 <p>Introduce the visitor to the business using clear, informative text. Use well-targeted keywords within your sentences to make sure search engines can find the business.</p>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et molestiae similique eligendi reiciendis sunt distinctio odit? Quia, neque, ipsa, adipisci quisquam ullam deserunt accusantium illo iste exercitationem nemo voluptates asperiores.</p>
-                <p>
-                    <a class="btn btn-default btn-lg" href="#">Call to Action »</a>
-                </p>
+
             </div>
             <div class="col-sm-4">
                 <h2>Contact Us</h2>
@@ -287,7 +286,6 @@
         </div>
         <!-- /.row -->
 
-
         <hr>
 
         <!-- Footer -->
@@ -299,10 +297,8 @@
             </div>
             <!-- /.row -->
         </footer>
-
-
-
     </div>
+
     <!-- /.container -->
 
     <!-- jQuery -->

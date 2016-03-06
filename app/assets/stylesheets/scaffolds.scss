@@ -13,7 +13,7 @@
 
 #landing_page_jumbotron > p {
   padding-left: 10px;
-  color: white;
+  /*color: white;*/
 }
 
 #landing_page_jumbotron > h1 {
@@ -46,11 +46,13 @@ h1 {
   width: 100%;
   padding: 15px;
   background-color: rgba(48, 55, 78, 0.9);
-  color: white;
+  color: black;
 }
 
 #jumbotron_dropdown > h2 {
-  padding-top: 20%;
+  padding-top: 10%;
+  font-size: 2em;
+  color: white;
 }
 
 #jumbotron_button {
@@ -72,6 +74,7 @@ h1 {
 
 #jumbo_subheadline {
   font-size: 3em;
+  color: white;
 }
 
 body {
@@ -193,7 +196,7 @@ robot
   position: absolute;
   top: 0;
   left: 0;
-  background-color: #98423d;
+  background-color: #30384f;
   height: 250px;
   width: 250px;
   -webkit-border-radius: 250px;
@@ -255,7 +258,7 @@ Layer 0
   position: absolute;
   top: 24px;
   left: 85px;
-  border-bottom: 140px solid #98423d;
+  border-bottom: 140px solid #30384f;
   /*border-bottom: 140px solid red;*/
   border-right: 100px solid transparent;
 }
@@ -263,7 +266,7 @@ Layer 0
   position: absolute;
   top: 24px;
   left: 65px;
-  border-bottom: 140px solid #98423d;
+  border-bottom: 140px solid #30384f;
   /*border-bottom: 140px solid yellow;*/
   border-left: 100px solid transparent;
 }
@@ -317,7 +320,7 @@ Layer 2
   height: 8px;
   border-radius: 8px;
   background-color: transparent;
-  border: 3px solid #98423d;
+  border: 3px solid #30384f;
 }
 .left-eye{
   top: 73px;
@@ -372,20 +375,20 @@ Layer 2
    -webkit-border-radius: 14px;
    border-radius: 14px;
     border-top: 6px solid transparent;
-    border-right: 6px solid #98423d;
-    border-left: 6px solid #98423d;
-    border-bottom: 6px solid #98423d;
+    border-right: 6px solid #30384f;
+    border-left: 6px solid #30384f;
+    border-bottom: 6px solid #30384f;
 }
 .hand{
    position:absolute;
     top:0px;
     left:-11px;
     width: 15px;
-   height: 15px;
-   background: transparent;
+    height: 15px;
+    background: transparent;
    -moz-border-radius: 15px;
    -webkit-border-radius: 15px;
-   border-radius: 15px;
+    border-radius: 15px;
     border-top: 4px solid transparent;
     border-right: 4px solid white;
     border-left: 4px solid white;
@@ -399,8 +402,8 @@ Layer 2
   background-color: white;
   height: 37px;
   width: 17px;
-  border-left: 1px solid #98423d;
-  border-right: 1px solid #98423d;
+  border-left: 1px solid #30384f;
+  border-right: 1px solid #30384f;
 }
 .joint{
   position: absolute;
@@ -474,7 +477,7 @@ Layer 2
   left: -14px;
   height: 24px;
   width: 30px;
-  background: #98423d;
+  background: #30384f;
 }
 .foot-border{
   position: absolute;
@@ -482,7 +485,7 @@ Layer 2
   left: -17px;
   height: 8px;
   width: 36px;
-  background: #98423d;
+  background: #30384f;
 }
 .foot{
   position: absolute;
@@ -491,9 +494,9 @@ Layer 2
   height: 6px;
   width: 34px;
   background-color: white;
-  border-left: 1px solid #98423d;
-  border-bottom: 1px solid #98423d;
-  border-right: 1px solid #98423d;
+  border-left: 1px solid #30384f;
+  border-bottom: 1px solid #30384f;
+  border-right: 1px solid #30384f;
 }
 .foot:before{
   content: '';
@@ -501,7 +504,7 @@ Layer 2
   top: -3px;
   left: -1px;
   width: 30px;
-  border-bottom: 2px solid #98423d;
+  border-bottom: 2px solid #30384f;
   border-right: 3px solid transparent;
   border-left: 3px solid transparent;
 }
@@ -913,4 +916,16 @@ shake
 
 #test_div {
   background-color: blue;
+}
+
+#container_div {
+     width: 900px;
+}
+
+#landing_page_body {
+  background-color: #30384f;
+}
+
+#landing_page_bottom {
+  color: white;
 }
