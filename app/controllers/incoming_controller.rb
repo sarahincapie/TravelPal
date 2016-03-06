@@ -180,9 +180,15 @@ class IncomingController < ApplicationController
     #   end
     #   p create_pic
     # end
-    create_pic = @current_user.friends.create(avatar: pic_arr)
-    p create_pic
-
+    open_pic = open(pic_arr) do |f|
+      f.each_line { |line| p line }
+      base_pic = f.base_uri
+      content_type = f.content_type
+      p base_pic
+      p content_type
+      create_pic = @current_user.friends.create(avatar: base_pic)
+      p create_pic
+    end
   end
 
 
