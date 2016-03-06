@@ -101,7 +101,7 @@ class IncomingController < ApplicationController
     p letter
     @label = get_short_text_category(letter)
     if body_arr.length == 2
-      @location = @current_user..trips.last.expenses.last.locations
+      @location = @current_user.trips.last.expenses.last.locations
     else body_arr.length == 3
       @location = body_arr[2].to_s.strip.capitalize
     end
