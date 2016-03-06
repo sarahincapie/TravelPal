@@ -167,19 +167,22 @@ class IncomingController < ApplicationController
   end
 
   def store_picture(pic_arr)
-    p pic_arr
-    @numMedia.times do |n|
-      m = (n - 1)
-      new_pic = pic_arr[m]
-      p new_pic
-      open_pic = open(new_pic) do |f|
-        f.each_line { |line| p line }
-        base_pic = f.base_uri
-        p base_pic
-        create_pic = @current_user.friends.create(avatar: base_pic)
-      end
-      p create_pic
-    end
+    # p pic_arr
+    # @numMedia.times do |n|
+    #   m = (n - 1)
+    #   new_pic = pic_arr[m]
+    #   p new_pic
+    #   open_pic = open(new_pic) do |f|
+    #     f.each_line { |line| p line }
+    #     base_pic = f.base_uri
+    #     p base_pic
+    #     create_pic = @current_user.friends.create(avatar: base_pic)
+    #   end
+    #   p create_pic
+    # end
+    create_pic = @current_user.friends.create(avatar: pic_arr)
+    p create_pic
+
   end
 
 
@@ -190,12 +193,14 @@ class IncomingController < ApplicationController
       @body = params[:Body]
       @number = params[:From]
       @numMedia = params[:NumMedia].to_i # The number of media items associated with your message
-      @pic_arr = [] # stores an array of picture URLs
-      @numMedia.times do |n|
-        m = (n - 1)
-        media = "MediaUrl#{m}".to_sym
-        @pic_arr << params[media] # if 1 or more MMS, :mediaUrl{n-1} is picture
-      end
+      # @pic_arr = [] # stores an array of picture URLs
+      # @numMedia.times do |n|
+      #   m = (n - 1)
+      #   media = "MediaUrl#{m}".to_sym
+      #   @pic_arr << params[media] # if 1 or more MMS, :mediaUrl{n-1} is picture
+      # end
+
+      @pic_arr = params[:MediaUrl0]
 
       @feedback_score = 0.0
       @count = 0
