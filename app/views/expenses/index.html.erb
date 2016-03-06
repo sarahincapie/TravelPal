@@ -1,42 +1,14 @@
-<nav class="navbar navbar-default navbar-static-top" id="test_nav">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#"></a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <!-- <li class="active"><a href="#"></a></li> -->
-            <li><a href="#about">New Trip</a></li>
-            <li><a href="#contact">New Experience</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Select Trip <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
-            <li><a href="#contact">Edit Trip</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
 
 <body>
    <!-- Sidebar <iframe id="publishiframe" style="display:none;" src="chrome-extension://jgnbklefkgedfbpjebhjgibfnobjcbli/template/content-script.html"></iframe> -->
-<div><iframe id="publishiframe" style="display:none;" src="chrome-extension://jgnbklefkgedfbpjebhjgibfnobjcbli/template/content-script.html"></iframe>
+
+
+
+<nav class="navbar navbar-full navbar-light bg-faded">
+  <a class="navbar-brand" href="#">Full width</a>
+</nav>
+
+
 
     <div id="wrapper" class="">
 
@@ -119,28 +91,31 @@
 
           <div id="graphics_top_div">
 
-        <div id="expense_chart"></div>
-        <div id="week_chart"></div>
-
-
-
+        <div id="expense_chart">
+          <chart_data id='nightlife' data-nightlife='<%= @donut_data[:nightlife]%>'></chart_data>
+          <chart_data id='food' data-food='<%= @donut_data[:food]%>'></chart_data>
+          <chart_data id='accommodation' data-accommodation='<%= @donut_data[:accommodation]%>'></chart_data>
+          <chart_data id='transportation' data-transportation='<%= @donut_data[:transportation]%>'></chart_data>
+          <p id='entertainmentattractions' data-entertainmentattractions='<%= @donut_data[:entertainmentattractions]%>'></chart_data>
+          <chart_data id='culture' data-culture='<%= @donut_data[:culture]%>'></chart_data>
+          <chart_data id='shopping' data-shopping='<%= @donut_data[:shopping]%>'></p>
+          <chart_dataid='sportsoutdoor' data-sportsoutdoor_='<%= @donut_data[:sportsoutdoor]%>'></chart_data>
+          <chart_data id='natureenvironment' data-natureenvironment='<%= @donut_data[:natureenvironment]%>'></chart_data>
+          <chart_data id='business' data-business='<%= @donut_data[:business]%>'></chart_data>
+          <chart_data id='healthfitness' data-healthfitness='<%= @donut_data[:healthfitness]%>'></chart_data>
+          <chart_data id='miscellaneous' data-miscellaneous='<%= @donut_data[:miscellaneous]%>'></chart_data>
         </div>
 
-                  <!--This is  the  chart from c3-->
-                    <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
 
-                    <link href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css" rel="stylesheet" type="text/css" />
-                   <div id="chart"></div>
-                  <div id="chart1"></div>
-
-
-                   <!--This is  the  chart from d3  responsive containers -->
-
-
-
-
-
-
+        <div id="week_chart">
+        <% @bar_data.each do |data|  %>
+          <%= raw"<chart_data class='week_chart_data' data-location='#{data[:location]}' data-cost='#{data[:cost]}'></chart_data>" %>
+        <%end %>
+        </div>
+        
+        <div id="pink_chart"></div>
+        </div> 
+        
                   <!--This is  the end of the responsive containers -->
 
 
@@ -151,8 +126,8 @@
         <!-- /#page-content-wrapper -->
 
     </div>
-
-
+  
+  
 
     <!-- Menu Toggle Script -->
     <script>
@@ -193,3 +168,4 @@
 
 
       })()</script></div>
+
