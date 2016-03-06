@@ -1,4 +1,5 @@
 require 'open-uri'
+require 'open_uri_redirections'
 
 class IncomingController < ApplicationController
   prepend_before_filter :get_current_user, only: [:send_message]
@@ -180,7 +181,7 @@ class IncomingController < ApplicationController
     #   end
     #   p create_pic
     # end
-    open_pic = open(pic_arr) do |f|
+    open_pic = open(pic_arr, :allow_redirections => :all) do |f|
       f.each_line { |line| p line }
       base_pic = f.base_uri
       content_type = f.content_type
