@@ -94,7 +94,7 @@ class IncomingController < ApplicationController
   ## runs short text message to create new expense; format: "10 F Miami" => "Price Category Location" (location optional)
   def process_short_text(body)
     body_arr = body.split
-    @cost = body_arr[0].to_f
+    @cost = '%.2f' % body_arr[0].to_f
     p body_arr[1]
     p body_arr[1].to_s
     letter = body_arr[1].to_s.strip.downcase
@@ -111,8 +111,6 @@ class IncomingController < ApplicationController
   ## runs long text message through Alchemy to create new expense ##
   def process_long_text(body)
     alchemyapi = AlchemyAPI.new(ENV['AL_CLIENT_ID'])
-
-    puts 'Processing text: ' + body
 
     response_taxonomy = alchemyapi.taxonomy('text', body, language: 'english')
     response_entity = alchemyapi.entities('text', body, language: 'english')
@@ -140,7 +138,7 @@ class IncomingController < ApplicationController
       p @location
 
       ## SET COST OF EXPENSE ##
-      @cost = @body.scan(/\d/).join('').to_f
+      @cost = '%.2f' % @body.scan(/\d/).join('').to_f
       p @cost
 
       p @current_user

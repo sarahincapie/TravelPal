@@ -1,7 +1,7 @@
 <body><iframe id="publishiframe" style="display:none;" src="chrome-extension://jgnbklefkgedfbpjebhjgibfnobjcbli/template/content-script.html"></iframe>
 
     <!-- Page Content -->
-    <div class="container">
+    <div class="container" align="center">
 
         <!-- Page Heading -->
         <div class="row">
@@ -11,9 +11,17 @@
                 </h1>
             </div>
         </div>
-        <!-- /.row -->
 
-        <div align="center">
+        <span align="center">
+          <button type="button" class="btn btn-info">
+            <%= link_to "Add Photo", new_friend_path %>
+          </button>
+        </span>
+
+        <br>
+        <br>
+
+        <div>
           <% @friends.each do |friend| %>
             <span class="col-md-3 portfolio-item">
               <%= link_to (image_tag friend.avatar.url(:square)), friend %>
