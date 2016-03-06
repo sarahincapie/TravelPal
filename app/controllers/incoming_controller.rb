@@ -114,7 +114,7 @@ class IncomingController < ApplicationController
 
     response_taxonomy = alchemyapi.taxonomy('text', body, language: 'english')
     response_entity = alchemyapi.entities('text', body, language: 'english')
-    # response_sentiment = alchemyapi.sentiment_targeted('text', body, language: 'english')
+    response_sentiment = alchemyapi.sentiment_targeted('text', body, language: 'english')
 
     # if BOTH taxonomy and entity present
     if response_taxonomy['status'] == 'OK' && response_entity['status'] == 'OK'
