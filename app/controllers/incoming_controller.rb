@@ -114,7 +114,7 @@ class IncomingController < ApplicationController
 
     response_taxonomy = alchemyapi.taxonomy('text', body, language: 'english')
     response_entity = alchemyapi.entities('text', body, language: 'english')
-    response_sentiment = alchemyapi.sentiment_targeted('text', body, language: 'english')
+    response_keyword = alchemyapi.keywords('text', body, language: 'english')
 
     # if BOTH taxonomy and entity present
     if response_taxonomy['status'] == 'OK' && response_entity['status'] == 'OK'
@@ -138,19 +138,19 @@ class IncomingController < ApplicationController
       p @location
 
       ## SET COST OF EXPENSE ##
-      @cost = '%.2f' % @body.scan(/\d/).join('').to_f
+      @cost_scan = @body.scan(/\d/).join('').to_f
+      @cost = '%.2f' % @cost_scan
       p @cost
 
-      p @current_user
       @new_expense = @current_user.trips.last.expenses.create(textmsg: @body, cost: @cost, location: @location, category: @label)
 
-      puts JSON.pretty_generate(response_sentiment)
+      puts JSON.pretty_generate(response_keyword)
       # p JSON.pretty_generate(response_sentiment)
-      ## Adds sentiment tags to new expense ##
-      for sentiment in response_sentiment['sentiment_targeted']
-        new_sentiment = sentiment['text']
-        p new_sentiment
-        @new_expense.tag_list.add(new_sentiment)
+      ## Adds keyword tags to new expense ##
+      for keyword in response_keyword['keywords']
+        new_key = keyword['text']
+        p new_key
+        @new_expense.tag_list.add(new_key)
       end
     
     # if JUST taxonomy present, NO entity/city   
@@ -160,11 +160,11 @@ class IncomingController < ApplicationController
       @cost = @body.scan(/\d/).join('')
       @new_expense = @current_user.trips.last.expenses.create(textmsg: @body, cost: @cost, location: @location, category: @label)
       
-      ## Adds sentiment tags to new expense ##
-      for sentiment in response_sentiment['sentiment_targeted']
-        new_sentiment = sentiment['text']
-        p new_sentiment
-        @new_expense.tag_list.add(new_sentiment)
+      ## Adds keyword tags to new expense ##
+      for keyword in response_keyword['keywords']
+        new_key = keyword['text']
+        p new_key
+        @new_expense.tag_list.add(new_key)
       end
 
     else
