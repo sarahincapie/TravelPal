@@ -1,10 +1,12 @@
 class FriendsController < ApplicationController
   before_action :set_friend, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /friends
   # GET /friends.json
   def index
-    @friends = Friend.all
+    # @friends = Friend.all
+    @friends = current_user.friends.all
   end
 
   # GET /friends/1
@@ -14,7 +16,8 @@ class FriendsController < ApplicationController
 
   # GET /friends/new
   def new
-    @friend = Friend.new
+    # @friend = Friend.new
+    @friend = current_user.friends.build
   end
 
   # GET /friends/1/edit
@@ -24,7 +27,8 @@ class FriendsController < ApplicationController
   # POST /friends
   # POST /friends.json
  def create
-    @friend = Friend.new(friend_params)
+    # @friend = Friend.new(friend_params)
+    @friend = current_user.friends.build(friend_params)
 
     if @friend.save
       redirect_to @friend, notice: 'Friend was successfully created.'

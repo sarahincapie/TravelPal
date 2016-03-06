@@ -1,6 +1,9 @@
+require 'open-uri'
+require 'open_uri_redirections'
+
 class IncomingController < ApplicationController
   prepend_before_filter :get_current_user, only: [:send_message]
-  around_action :get_current_user, only: [:process_long_text, :process_short_text]
+  around_action :get_current_user, only: [:process_long_text, :process_short_text, :store_picture]
 
   def get_current_user
     @current_user = User.find_by(number: params[:From])
@@ -164,20 +167,59 @@ class IncomingController < ApplicationController
     end
   end
 
+  def store_picture(pic_arr)
+    # p pic_arr
+    # @numMedia.times do |n|
+    #   m = (n - 1)
+    #   new_pic = pic_arr[m]
+    #   p new_pic
+    #   open_pic = open(new_pic) do |f|
+    #     f.each_line { |line| p line }
+    #     base_pic = f.base_uri
+    #     p base_pic
+    #     create_pic = @current_user.friends.create(avatar: base_pic)
+    #   end
+    #   p create_pic
+    # end
+    open_pic = open(pic_arr, :allow_redirections => :all) do |f|
+      f.each_line { |line| p line }
+      base_pic = f.base_uri
+      content_type = f.content_type
+      p base_pic
+      p content_type
+      create_pic = @current_user.friends.create(avatar: base_pic)
+      p create_pic
+    end
+  end
+
+
   ## Receives text message and checks the body for input or request ##
   def send_message
     @twiml = Twilio::TwiML::Response.new do |r|
 
-    @body = params[:Body]
-    @number = params[:From]
-    @feedback_score = 0.0
-    @count = 0
-    @rating = @feedback_score/@count
-    @all_nums = []
+      @body = params[:Body]
+      @number = params[:From]
+      @numMedia = params[:NumMedia].to_i # The number of media items associated with your message
+      # @pic_arr = [] # stores an array of picture URLs
+      # @numMedia.times do |n|
+      #   m = (n - 1)
+      #   media = "MediaUrl#{m}".to_sym
+      #   @pic_arr << params[media] # if 1 or more MMS, :mediaUrl{n-1} is picture
+      # end
+
+      @pic_arr = params[:MediaUrl0]
+
+      @feedback_score = 0.0
+      @count = 0
+      @rating = @feedback_score/@count
+      @all_nums = []
 
       ## checks if number is current userr ##
       if @current_user
-        if @body.split.length == 2 || @body.split.length == 3
+        if @numMedia > 0
+          p @pic_arr
+          store_picture(@pic_arr)
+        elsif @body.split.length == 2 || @body.split.length == 3
           r.Message "Hi there! I'm your TravelPal. You're text is being processed."
           process_short_text(@body)
         elsif @body.split.length > 5
