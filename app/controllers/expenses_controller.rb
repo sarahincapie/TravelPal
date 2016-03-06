@@ -9,13 +9,14 @@ class ExpensesController < ApplicationController
     @expenses = current_user.expenses.all
     @donut_data = current_user.donut_data(current_user.expenses.all)
     @bar_data = current_user.bar_data(current_user.expenses.all)
+    @pink_data = current_user.pink_data(current_user.expenses.all)
 
-      respond_with(@expenses) do |format|
-       @json = {"expenses" => @expenses.to_json(:only => [:location, :cost])},
-                        {"locations" => @expenses.to_json(:only => [:latitude, :longitude])}
-      format.json { render :json => @json }
-      format.html
-    end
+      # respond_with(@expenses) do |format|
+      #  @json = {"expenses" => @expenses.to_json(:only => [:location, :cost])},
+      #                   {"locations" => @expenses.to_json(:only => [:latitude, :longitude]
+      # # format.json { render :json => @json }
+      # format.html
+ 
     # render layout: "landingpage" #code added by Robert to force a particular view
   end
 
