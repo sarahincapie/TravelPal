@@ -168,8 +168,8 @@ class IncomingController < ApplicationController
 
   def store_picture(pic_arr)
     p pic_arr
-    @numMedia.times do |n|
-      new_pic = pic_arr[n-1]
+    @numMedia.times do |n-1|
+      new_pic = pic_arr[n]
       p new_pic
       open_pic = open(new_pic) do |f|
         f.each_line { |line| p line }
@@ -190,8 +190,8 @@ class IncomingController < ApplicationController
       @number = params[:From]
       @numMedia = params[:NumMedia].to_i # The number of media items associated with your message
       @pic_arr = [] # stores an array of picture URLs
-      @numMedia.times do |n|
-        media = "MediaUrl#{(n-1)}".to_sym
+      @numMedia.times do |n-1|
+        media = "MediaUrl#{(n)}".to_sym
         @pic_arr << params[media] # if 1 or more MMS, :mediaUrl{n-1} is picture
       end
 
