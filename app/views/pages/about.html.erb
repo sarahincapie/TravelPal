@@ -3,30 +3,43 @@
     <!-- Image Background Page Header -->
     <!-- Note: The background image is set within the business-casual.css file. -->
 
+    <body id="">
     <div class="jumbotron" id="landing_page_jumbotron">
 
-            <h1 id="jumbotron_header">TRAVELING AIN'T EASY</h1>
+            <h1 id="jumbotron_header">TRAVELING ISN'T EASY</h1>
             <p class="lead" id="jumbo_subheadline">Don't do it alone.</p>
             <button id="jumbotron_button" type="button" class="btn btn-secondary btn-lg" data-toggle="modal" data-target=".bs-example-modal-sm">Learn more</button>
 
             <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
               <div class="modal-dialog modal-sm">
-                <div class="modal-content" id="test_div">
+                <div class="modal-content" id="jumbotron_dropdown">
 
-                  <h2>Sign up</h2>
+                  <div id="travelpal_logo">
+                    Robert Tassy
+
+                  </div>
+                  <h2>Claim your TravelPal</h2>
 
                   <%= form_for(User.new, url: user_registration_path) do |f| %>
                     <%# devise_error_messages! %>
 
+                    <!-- <form class="form-horizontal">
+                      <div class="form-group form-group-lg">
+                        <label class="col-sm-2 control-label" for="formGroupInputLarge"></label>
+                        <div class="col-sm-10">
+                          <input class="form-control" type="text" id="formGroupInputLarge" placeholder="email">
+                        </div>
+                      </div> -->
+
+
                     <div class="field">
                       <%= f.label :email %><br />
-                      <%= f.email_field :email, autofocus: true %>
+                      <%= f.email_field :email, autofocus: true %><br />
                     </div>
-
 
                     <div class="field">
                       <%= f.label :number %><br />
-                      <%= f.telephone_field :number %>
+                      <%= f.telephone_field :number %><br />
                     </div>
 
                     <div class="field">
@@ -34,19 +47,18 @@
                       <% if @minimum_password_length %>
                       <em>(<%= @minimum_password_length %> characters minimum)</em>
                       <% end %><br />
-                      <%= f.password_field :password, autocomplete: "off" %>
+                      <%= f.password_field :password, autocomplete: "off" %><br />
                     </div>
 
                     <div class="field">
                       <%= f.label :password_confirmation %><br />
-                      <%= f.password_field :password_confirmation, autocomplete: "off" %>
+                      <%= f.password_field :password_confirmation, autocomplete: "off" %><br />
                     </div>
 
-                    <div class="actions">
-                      <%= f.submit "Sign up" %>
+                    <div class="actions"><br />
+                      <%= f.submit "Claim", :class => 'btn btn-primary btn-lg' %>
                     </div>
                   <% end %>
-
 
                 </div>
               </div>
@@ -58,26 +70,195 @@
 
     <div class="container">
         <div class="row" id="robot_options_div">
-            <div class="col-sm-4">
-                <img class="img-circle img-responsive img-center" src="http://placehold.it/300x300" alt="">
+            <div class="col-sm-4" id="robot_div">
+
+              <div class="robot">
+                <div class="background-circle"></div>
+              <!-- layer 0 has the thought waves coming from the head -->
+                <section class="layer waves">
+                  <div class="little radio-wave"></div>
+                  <div class="medium radio-wave"></div>
+                  <div class="big radio-wave"></div>
+                  <div class="left-triangle"></div>
+                  <div class="right-triangle"></div>
+                </section>
+
+                <!-- layer 1 should have the head, shoulders, and torso -->
+                <section class="layer body">
+                  <div class="head"></div>
+                  <div class="shoulders"></div>
+                  <div class="torso"></div>
+                </section>
+
+                <!-- layer 2 should have all the moving parts: eyes, legs, arms -->
+                <section class="layer">
+                  <div class="eyes">
+                    <div class="eye left-eye"></div>
+                    <div class="eye right-eye"></div>
+                  </div>
+                  <div class="right-leg leg-bone rotate-right">
+                    <div class="foot-border"></div>
+                    <div class="foot"></div>
+                    <div class="leg-border"></div>
+                    <div class="leg"></div>
+                    <div class="hip-joint"></div>
+                  </div>
+                  <div class="left-leg leg-bone rotate-left">
+                    <div class="foot-border"></div>
+                    <div class="foot"></div>
+                    <div class="leg-border"></div>
+                    <div class="leg"></div>
+                    <div class="hip-joint"></div>
+                  </div>
+                  <div class="left-arm arm">
+                      <div class="hand-border"></div>
+                      <div class="hand"></div>
+                      <div class="forearm"></div>
+                      <div class="joint"></div>
+                  </div>
+                  <div class="right-arm arm">
+                      <div class="hand-border"></div>
+                      <div class="hand"></div>
+                      <div class="forearm"></div>
+                      <div class="joint"></div>
+                  </div>
+
+                </section>
+              </div>
+
                 <h2>Robot #1</h2>
                 <p>These marketing boxes are a great place to put some information. These can contain summaries of what the company does, promotional information, or anything else that is relevant to the company. These will usually be below-the-fold.</p>
             </div>
             <div class="col-sm-4">
-                <img class="img-circle img-responsive img-center" src="http://placehold.it/300x300" alt="">
+              <div class="robot">
+                <div class="background-circle"></div>
+              <!-- layer 0 has the thought waves coming from the head -->
+                <section class="layer waves">
+                  <div class="little radio-wave"></div>
+                  <div class="medium radio-wave"></div>
+                  <div class="big radio-wave"></div>
+                  <div class="left-triangle"></div>
+                  <div class="right-triangle"></div>
+                </section>
+
+                <!-- layer 1 should have the head, shoulders, and torso -->
+                <section class="layer body">
+                  <div class="head"></div>
+                  <div class="shoulders"></div>
+                  <div class="torso"></div>
+                </section>
+
+                <!-- layer 2 should have all the moving parts: eyes, legs, arms -->
+                <section class="layer">
+                  <div class="eyes">
+                    <div class="eye left-eye"></div>
+                    <div class="eye right-eye"></div>
+                  </div>
+                  <div class="right-leg leg-bone rotate-right">
+                    <div class="foot-border"></div>
+                    <div class="foot"></div>
+                    <div class="leg-border"></div>
+                    <div class="leg"></div>
+                    <div class="hip-joint"></div>
+                  </div>
+                  <div class="left-leg leg-bone rotate-left">
+                    <div class="foot-border"></div>
+                    <div class="foot"></div>
+                    <div class="leg-border"></div>
+                    <div class="leg"></div>
+                    <div class="hip-joint"></div>
+                  </div>
+                  <div class="left-arm arm">
+                      <div class="hand-border"></div>
+                      <div class="hand"></div>
+                      <div class="forearm"></div>
+                      <div class="joint"></div>
+                  </div>
+                  <div class="right-arm arm">
+                      <div class="hand-border"></div>
+                      <div class="hand"></div>
+                      <div class="forearm"></div>
+                      <div class="joint"></div>
+                  </div>
+
+                </section>
+              </div>
                 <h2>Robot #2</h2>
                 <p>The images are set to be circular and responsive. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
             </div>
             <div class="col-sm-4">
-                <img class="img-circle img-responsive img-center" src="http://placehold.it/300x300" alt="">
+              <div class="robot">
+                <div class="background-circle"></div>
+              <!-- layer 0 has the thought waves coming from the head -->
+                <section class="layer waves">
+                  <div class="little radio-wave"></div>
+                  <div class="medium radio-wave"></div>
+                  <div class="big radio-wave"></div>
+                  <div class="left-triangle"></div>
+                  <div class="right-triangle"></div>
+                </section>
+
+                <!-- layer 1 should have the head, shoulders, and torso -->
+                <section class="layer body">
+                  <div class="head"></div>
+                  <div class="shoulders"></div>
+                  <div class="torso"></div>
+                </section>
+
+                <!-- layer 2 should have all the moving parts: eyes, legs, arms -->
+                <section class="layer">
+                  <div class="eyes">
+                    <div class="eye left-eye"></div>
+                    <div class="eye right-eye"></div>
+                  </div>
+                  <div class="right-leg leg-bone rotate-right">
+                    <div class="foot-border"></div>
+                    <div class="foot"></div>
+                    <div class="leg-border"></div>
+                    <div class="leg"></div>
+                    <div class="hip-joint"></div>
+                  </div>
+                  <div class="left-leg leg-bone rotate-left">
+                    <div class="foot-border"></div>
+                    <div class="foot"></div>
+                    <div class="leg-border"></div>
+                    <div class="leg"></div>
+                    <div class="hip-joint"></div>
+                  </div>
+                  <div class="left-arm arm">
+                      <div class="hand-border"></div>
+                      <div class="hand"></div>
+                      <div class="forearm"></div>
+                      <div class="joint"></div>
+                  </div>
+                  <div class="right-arm arm">
+                      <div class="hand-border"></div>
+                      <div class="hand"></div>
+                      <div class="forearm"></div>
+                      <div class="joint"></div>
+                  </div>
+
+                </section>
+              </div>
                 <h2>Robot #3</h2>
                 <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
             </div>
         </div>
 
-        <!-- <hr> -->
+        <!-- <section class="murderous-robot">
 
-        <!-- <div class="row"  id="what_we_do_div">
+         <section class="buttons">
+           <div class="btn btn-broadcast"><p>broadcast</p></div>
+           <div class="btn btn-wave"><p>wave</p></div>
+           <div class="btn btn-chase"><p>dance</p></div>
+
+         </section>
+         <div class="robot-message hide">01101101 01110101 01110011 01110100 00100000 01101011 01101001 01101100 01101100 00100000 01101000 01110101 01101101 01100001 01101110 01110011</div>
+       </section> -->
+
+        <hr>
+
+        <div class="row"  id="what_we_do_div">
             <div class="col-sm-8">
                 <h2>What We Do</h2>
                 <p>Introduce the visitor to the business using clear, informative text. Use well-targeted keywords within your sentences to make sure search engines can find the business.</p>
@@ -100,16 +281,18 @@
                     <abbr title="Email">E:</abbr> <a href="mailto:#">name@example.com</a>
                 </address>
             </div>
-        </div> -->
+
+            <%= link_to "Sign in!", user_session %>
+            <%= link_to "Sign out!", destroy_user_session_path %>
+        </div>
         <!-- /.row -->
 
-        <!-- /.row -->
 
         <hr>
 
         <!-- Footer -->
         <footer>
-            <div class="row">
+            <div class="row" id="landing_footer">
                 <div class="col-lg-12">
                     <p>Created by: <a href="https://twitter.com/mattdanking" target="_blank">@mattdanking</a>, <a href="https://twitter.com/saralhincapie" target="_blank">@saralhincapie</a>, <a href="https://twitter.com/robbytassy" >@robbytassy</a></p>
                 </div>
