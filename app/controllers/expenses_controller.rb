@@ -3,13 +3,14 @@ class ExpensesController < ApplicationController
   before_action :authenticate_user! #, except: [:index, :show]
   respond_to :json
 
+
   # GET /expenses
   # GET /expenses.json
   def index
     @expenses = current_user.expenses.all
     @donut_data = current_user.donut_data(current_user.expenses.all)
     @bar_data = current_user.bar_data(current_user.expenses.all)
-    p'.' * 1000 
+    p'.' * 1000
     p @bar_data
     p'.' * 1000
 

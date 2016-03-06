@@ -1,12 +1,11 @@
 
-<body>
-   <!-- Sidebar <iframe id="publishiframe" style="display:none;" src="chrome-extension://jgnbklefkgedfbpjebhjgibfnobjcbli/template/content-script.html"></iframe> -->
+<body><iframe id="publishiframe" style="display:none;" src="chrome-extension://jgnbklefkgedfbpjebhjgibfnobjcbli/template/content-script.html"></iframe>
 
 
-
+<!--
 <nav class="navbar navbar-full navbar-light bg-faded">
   <a class="navbar-brand" href="#">Full width</a>
-</nav>
+</nav> -->
 
 
 
@@ -43,13 +42,13 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                      <div id="sidebar"></div>
-                      <div>
+                      <!-- <div id="sidebar"></div>
+                      <div> -->
                       <p id="notice"><%= notice %></p>
 
                       <h1>Listing Expenses</h1>
 
-                      <table>
+                      <table id='#test_div'>
                         <thead>
                           <tr>
                             <th>Message</th>
@@ -62,13 +61,15 @@
                             <th colspan="3"></th>
                           </tr>
                         </thead >
-
-                        <tbody>
+                          <tbody>
                           <% @expenses.each do |expense| %>
                             <tr>
                               <td><%= expense.textmsg %></td>
+                              <p>Robert</p>
                               <td><%= expense.cost %></td>
+                              <p>Robert</p>
                               <td><%= expense.category %></td>
+                              <p>Robert</p>
                               <td><%= expense.date %></td>
                               <td><%= expense.time %></td>
                               <td><%= expense.location %></td>
@@ -80,6 +81,7 @@
                           <% end %>
                         </tbody>
                       </table>
+
                       <%= link_to 'New Expense', new_expense_path %>
                       </div>
                         <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
@@ -89,8 +91,8 @@
 
             <!--This is  the  chart from c3-->
 
-          <div id="graphics_top_div">
 
+      <div>
         <div id="expense_chart">
           <chart_data id='nightlife' data-nightlife='<%= @donut_data[:nightlife]%>'></chart_data>
           <chart_data id='food' data-food='<%= @donut_data[:food]%>'></chart_data>
@@ -108,26 +110,22 @@
 
 
         <div id="week_chart">
-        <% @bar_data.each do |data|  %>
-          <%= raw"<chart_data class='week_chart_data' data-location='#{data[:location]}' data-cost='#{data[:cost]}'></chart_data>" %>
-        <%end %>
+          <% @bar_data.each do |data|  %>
+            <%= raw"<chart_data class='week_chart_data' data-location='#{data[:location]}' data-cost='#{data[:cost]}'></chart_data>" %>
+          <%end %>
         </div>
-        
+
         <div id="pink_chart"></div>
-        </div> 
-        
+      </div>
+
+
                   <!--This is  the end of the responsive containers -->
 
 
-                  </div>
                 </div>
-            </div>
-        </div>
-        <!-- /#page-content-wrapper -->
 
-    </div>
-  
-  
+
+
 
     <!-- Menu Toggle Script -->
     <script>
@@ -155,17 +153,8 @@
       </div>
       <span class="arrow arrow--small">⤴</span>
     </div>
-  </div><span id="publishImageBtn" style="display: none; position: absolute; z-index: 8675400; width: 100px; height: 25px; opacity: 0.9; cursor: pointer; border-radius: 4px; background-image: url(&quot;chrome-extension://jgnbklefkgedfbpjebhjgibfnobjcbli/images/publish-image.png&quot;); background-size: 100px 25px;"></span><span id="selectedIcon" style="display: none; position: absolute; z-index: 8675400; width: 40px; height: 40px; cursor: pointer; border-radius: 4px; background-image: url(&quot;chrome-extension://jgnbklefkgedfbpjebhjgibfnobjcbli/images/selected-icon.png&quot;); background-size: cover;"></span><script type="text/javascript">(function () {
+  </div>
+  <span id="publishImageBtn" style="display: none; position: absolute; z-index: 8675400; width: 100px; height: 25px; opacity: 0.9; cursor: pointer; border-radius: 4px; background-image: url(&quot;chrome-extension://jgnbklefkgedfbpjebhjgibfnobjcbli/images/publish-image.png&quot;); background-size: 100px 25px;"></span><span id="selectedIcon" style="display: none; position: absolute; z-index: 8675400; width: 40px; height: 40px; cursor: pointer; border-radius: 4px; background-image: url(&quot;chrome-extension://jgnbklefkgedfbpjebhjgibfnobjcbli/images/selected-icon.png&quot;); background-size: cover;"></span><script type="text/javascript">(function () {
         return window.SIG_EXT = {};
 
-      })()</script></body></html>
-
-
-</div>
-
-
-
-
-
-      })()</script></div>
-
+      })()</script></body>

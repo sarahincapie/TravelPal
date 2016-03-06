@@ -64,7 +64,7 @@ h1 {
 }
 
 #travelpal_logo {
-  background-color: white;
+  /*background-color: white;*/
   height: 10%;
   width: 10%;
   text-align: center;
@@ -909,4 +909,8 @@ shake
 #robot_div {
   /*background-color: black;*/
   margin: 0 auto;
+}
+
+#test_div {
+  background-color: blue;
 }
