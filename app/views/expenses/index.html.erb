@@ -39,6 +39,7 @@
         <!-- /#sidebar-wrapper -->
 
         <!-- Page Content -->
+ <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
                 <div class="row">
@@ -87,6 +88,8 @@
                   </div>
 
 
+
+
             <!--This is  the  chart from c3-->
 
           <div id="graphics_top_div">
@@ -113,7 +116,11 @@
         <%end %>
         </div>
         
-        <div id="pink_chart"></div>
+        <div id="pink_chart">
+        <% @pink_data.each do |data|  %>
+        <%= raw"<chart_data class='pink_chart_data' data-date='#{data[:date]}' data-cost='#{data[:cost]}'></chart_data>" %>
+        <%end %>
+        </div>
         </div> 
         
                   <!--This is  the end of the responsive containers -->
@@ -125,8 +132,10 @@
         </div>
         <!-- /#page-content-wrapper -->
 
+
+
     </div>
-  
+
   
 
     <!-- Menu Toggle Script -->
@@ -136,7 +145,6 @@
         $("#wrapper").toggleClass("toggled");
     });
     </script>
-
 
 
 
