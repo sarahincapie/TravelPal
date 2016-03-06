@@ -117,8 +117,23 @@ $("#pink_chart").append(chart3.element);
 
 // end of third chart
 
+//MAP START 
+
 var mymap = L.map('mapid').setView([51.505, -0.09], 13);
 
+L.tileLayer('https://api.tiles.mapbox.com/v4/saral85.pbc8hh2h/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic2FyYWw4NSIsImEiOiJjaWxoMW52ZDcyY2F5dm5tYzZwYjFyd2E2In0.VK4Xxad4P0p1Uv4h19eV3g', {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    maxZoom: 18,
+    id: 'saral85.pbc8hh2h',
+    accessToken: 'pk.eyJ1Ijoic2FyYWw4NSIsImEiOiJjaWxoMW52ZDcyY2F5dm5tYzZwYjFyd2E2In0.VK4Xxad4P0p1Uv4h19eV3g'
+}).addTo(mymap);
+
+
+var polygon = L.polygon([
+    [51.509, -0.08],
+    [51.503, -0.06],
+    [51.51, -0.047]
+]).addTo(mymap);
 // var chart3 = c3.generate({
 //     data: {
 //         columns: bar_arr,

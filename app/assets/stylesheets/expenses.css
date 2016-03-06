@@ -18,8 +18,12 @@ html, body {
 
 
 
+#mapid { 
 
-}
+    height: 200px;
+
+
+ }
 
 #wrapper {
     padding-left: 0;
