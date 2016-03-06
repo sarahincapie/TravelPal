@@ -1,32 +1,28 @@
-.show_body_class {
-  background-color: white;
-  /*padding-top: %;*/
-}
-
 #landing_page_jumbotron {
   height: 100vh;
   width: 100%;
-  /*background-color: beige;*/
+  background: url(image_path('travelpalbanner.jpeg'));
+  background-position: 0% 25%;
+  background-size: cover;
+  background-repeat: no-repeat;
   padding-top: 40vh;
   text-align: center;
+  color: white;
+  font-family: 'Roboto Slab', serif;
+
 }
 
 #landing_page_jumbotron > p {
-  padding-left: 50px;
+  padding-left: 10px;
 }
 
 #landing_page_jumbotron > h1 {
-  padding-left: 50px;
+  padding-left: 10px;
 }
 
-#what_we_do_div {
-  /*background-color: green;*/
-  /*width: 100%;*/
-  /*height: 75vh;*/
-}
-
-#robot_options_div {
-
+h1 {
+  font-size: 18px;
+  font-family: 'Roboto Slab', serif;
 
 }
 
@@ -41,4 +37,25 @@
 #landing_page_registration_form {
   background-color: blue;
 
+}
+
+#test_div {
+  border-radius: 25px;
+  height: 60vh;
+}
+
+#jumbotron_button {
+  background-color: transparent;
+  border-style: solid;
+  border-color: white;
+  border-width: 2px;
+
+}
+
+#jumbo_subheadline {
+  font-size: 2em;
+}
+
+#jumbotron_header {
+  /*font-size: 4em;*/
 }

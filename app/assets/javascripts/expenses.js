@@ -21,6 +21,7 @@ var chart = c3.generate({
         title: "I'm spending my money on",
     }
 });
+
 var bar_arr = []; 
 $(".week_chart_data").each(function (index, value) {
     var arr = [$(value).data('location'),$(value).data('cost')];
