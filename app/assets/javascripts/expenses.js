@@ -5,7 +5,15 @@ var chart = c3.generate({
             ['Nightlife', $('#nightlife').data('nightlife')],
             ['Accommodation', $('#accommodation').data('accommodation')],
             ['Food', $('#food').data('food')],
-            ['Attraction', $('#attraction').data('attraction')],
+            ['Transportation', $('#transportation').data('transportation')],
+            ['EntertainmentAttractions', $('#entertainmentattractions').data('entertainmentattractions')],
+            ['Culture', $('#culture').data('culture')],
+            ['Shopping', $('#shopping').data('shopping')],
+            // ['SportsOutdoor', $('#sportsoutdoor').data('sportsoutdoor')],
+            // ['NatureEnvironment', $('#natureenvironment').data('natureenvironment')],
+            // ['Business', $('#business').data('business')],
+            // ['HealthFitness', $('#healthfitness').data('healthfitness')],
+            // ['Miscellaneous', $('#miscellaneous').data('miscellaneous')],
         ],
         type : 'donut'
     },
@@ -13,29 +21,22 @@ var chart = c3.generate({
         title: "I'm spending my money on",
     }
 });
-
+var bar_arr = []; 
+$(".week_chart_data").each(function (index, value) {
+    var arr = [$(value).data('location'),$(value).data('cost')];
+    bar_arr.push(arr);
+});
 $("#expense_chart").append(chart.element);
 
 var chart2 = c3.generate({
     data: {
-        columns: [
-            ['monday', 200],
-            ['tuesday', 50],
-            ['wednesday', 60],
-            ['thursday', 80],
-            ['friday', 70],
-            ['Saturday', 80],
-            ['Sunday', 140],
-        ],
+        columns: bar_arr,
         type : 'bar'
     },
     bar: {
         title: "My weekly expenses",
     }
 });
-
-
-
 
 $("#week_chart").append(chart2.element);
 

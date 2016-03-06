@@ -1,10 +1,9 @@
 
 <body>
    <!-- Sidebar <iframe id="publishiframe" style="display:none;" src="chrome-extension://jgnbklefkgedfbpjebhjgibfnobjcbli/template/content-script.html"></iframe> -->
-<p id='nightlife' data-nightlife='<%= @donut_data[:nightlife]%>'></p>
-<p id='food' data-food='<%= @donut_data[:food]%>'></p>
-<p id='accommodation' data-accommodation='<%= @donut_data[:accommodation]%>'></p>
-<p id='attraction' data-attraction='<%= @donut_data[:attraction]%>'></p>
+
+
+
 
 
 
@@ -98,10 +97,29 @@
 
           <div id="graphics_top_div">
 
-        <div id="expense_chart"></div>
-        <div id="week_chart"></div>
-        <div id="pink_chart"></div>
+        <div id="expense_chart">
+          <chart_data id='nightlife' data-nightlife='<%= @donut_data[:nightlife]%>'></chart_data>
+          <chart_data id='food' data-food='<%= @donut_data[:food]%>'></chart_data>
+          <chart_data id='accommodation' data-accommodation='<%= @donut_data[:accommodation]%>'></chart_data>
+          <chart_data id='transportation' data-transportation='<%= @donut_data[:transportation]%>'></chart_data>
+          <chart_data id='entertainmentattractions' data-entertainmentattractions='<%= @donut_data[:entertainmentattractions]%>'></chart_data>
+          <chart_data id='culture' data-culture='<%= @donut_data[:culture]%>'></chart_data>
+          <chart_data id='shopping' data-shopping='<%= @donut_data[:shopping]%>'></chart_data>
+          <chart_dataid='sportsoutdoor' data-sportsoutdoor_='<%= @donut_data[:sportsoutdoor]%>'></chart_data>
+          <chart_data id='natureenvironment' data-natureenvironment='<%= @donut_data[:natureenvironment]%>'></chart_data>
+          <chart_data id='business' data-business='<%= @donut_data[:business]%>'></chart_data>
+          <chart_data id='healthfitness' data-healthfitness='<%= @donut_data[:healthfitness]%>'></chart_data>
+          <chart_data id='miscellaneous' data-miscellaneous='<%= @donut_data[:miscellaneous]%>'></chart_data>
+        </div>
 
+
+        <div id="week_chart">
+        <% @bar_data.each do |data|  %>
+          <%= raw"<chart_data class='week_chart_data' data-location='#{data[:location]}' data-cost='#{data[:cost]}'></chart_data>" %>
+        <%end %>
+        </div>
+        
+        <div id="pink_chart"></div>
         </div> 
         
                   <!--This is  the end of the responsive containers -->

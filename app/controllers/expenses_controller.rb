@@ -8,6 +8,12 @@ class ExpensesController < ApplicationController
   def index
     @expenses = current_user.expenses.all
     @donut_data = current_user.donut_data(current_user.expenses.all)
+    @bar_data = current_user.bar_data(current_user.expenses.all)
+    p'.' * 1000 
+    p @bar_data
+    p'.' * 1000
+
+
       respond_with(@expenses) do |format|
        @json = {"expenses" => @expenses.to_json(:only => [:location, :cost])},
                         {"locations" => @expenses.to_json(:only => [:latitude, :longitude])}
