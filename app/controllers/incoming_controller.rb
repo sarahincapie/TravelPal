@@ -166,7 +166,8 @@ class IncomingController < ApplicationController
 
   def store_picture(pic_arr)
     @numMedia.times do |n|
-      @current_user.friends.create(avatar: pic_arr[n-1])
+      new_pic = @current_user.friends.create(avatar: pic_arr[n-1])
+      p new_pic
     end
   end
 
@@ -192,6 +193,7 @@ class IncomingController < ApplicationController
       ## checks if number is current userr ##
       if @current_user
         if @numMedia > 0
+          p @pic_arr
           store_picture(@pic_arr)
         elsif @body.split.length == 2 || @body.split.length == 3
           r.Message "Hi there! I'm your TravelPal. You're text is being processed."
