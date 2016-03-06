@@ -1,5 +1,3 @@
-require "open-uri"
-
 class IncomingController < ApplicationController
   prepend_before_filter :get_current_user, only: [:send_message]
   around_action :get_current_user, only: [:process_long_text, :process_short_text, :store_picture]
@@ -171,9 +169,7 @@ class IncomingController < ApplicationController
     @numMedia.times do |n|
       new_pic = pic_arr[n-1]
       p new_pic
-      open_pic = open(new_pic)
-      p open_pic
-      create_pic = @current_user.friends.create(avatar: open_pic)
+      create_pic = @current_user.friends.create(avatar: new_pic)
       p create_pic
     end
   end
@@ -188,7 +184,7 @@ class IncomingController < ApplicationController
       @numMedia = params[:NumMedia].to_i # The number of media items associated with your message
       @pic_arr = [] # stores an array of picture URLs
       @numMedia.times do |n|
-        media = "mediaUrl#{(n-1)}".to_sym
+        media = "MediaUrl#{(n-1)}".to_sym
         @pic_arr << params[media] # if 1 or more MMS, :mediaUrl{n-1} is picture
       end
 
