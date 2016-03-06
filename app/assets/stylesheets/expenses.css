@@ -19,6 +19,8 @@ html, body {
 
 
 
+}
+
 #wrapper {
     padding-left: 0;
     -webkit-transition: all 0.5s ease;
@@ -145,3 +147,4 @@ html, body {
 .navbar_navbar_default_navbar_static_top {
   background-color: green;
 }
+
