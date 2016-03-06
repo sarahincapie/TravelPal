@@ -103,7 +103,7 @@ class IncomingController < ApplicationController
     if body_arr.length == 2
       @location = @current_user..trips.last.expenses.last.locations
     else body_arr.length == 3
-      @location = body_arr[2]
+      @location = body_arr[2].to_s.strip.capitalize
     end
     @new_expense = @current_user.trips.last.expenses.create(textmsg: body, cost: @cost, location: @location, category: @label)
   end
@@ -134,7 +134,7 @@ class IncomingController < ApplicationController
       #     @location = entity['text']
       #   end
       # end
-      @location = response_entity['entities'].first['text']
+      @location = response_entity['entities'].first['text'].to_s.strip.capitalize
       p @location
 
       ## SET COST OF EXPENSE ##
@@ -144,25 +144,28 @@ class IncomingController < ApplicationController
       p @current_user
       @new_expense = @current_user.trips.last.expenses.create(textmsg: @body, cost: @cost, location: @location, category: @label)
 
+      puts JSON.pretty_generate(response_sentiment)
       # p JSON.pretty_generate(response_sentiment)
       ## Adds sentiment tags to new expense ##
-      # for sentiment in response_sentiment['docSentiment']
-      #   new_sentiment = sentiment['type']
-      #   @new_expense.tag_list.add(new_sentiment)
-      # end
+      for sentiment in response_sentiment['sentiment_targeted']
+        new_sentiment = sentiment['text']
+        p new_sentiment
+        @new_expense.tag_list.add(new_sentiment)
+      end
     
     # if JUST taxonomy present, NO entity/city   
     elsif response_taxonomy['status'] == 'OK'
-      @location = @current_user..trips.last.expenses.last.locations
+      @location = @current_user.trips.last.expenses.last.locations
       @label = get_long_text_category(response_taxonomy['taxonomy'].first['label'])   
       @cost = @body.scan(/\d/).join('')
       @new_expense = @current_user.trips.last.expenses.create(textmsg: @body, cost: @cost, location: @location, category: @label)
       
       ## Adds sentiment tags to new expense ##
-      # for sentiment in response_sentiment['docSentiment']
-      #   new_sentiment = sentiment['type']
-      #   @new_expense.tag_list.add(new_sentiment)
-      # end
+      for sentiment in response_sentiment['sentiment_targeted']
+        new_sentiment = sentiment['text']
+        p new_sentiment
+        @new_expense.tag_list.add(new_sentiment)
+      end
 
     else
       puts 'Error in concept tagging call: ' + response_taxonomy['statusInfo']
