@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'open_uri_redirections', '~> 0.2.1'
 gem 'hirb'
 gem 'geocoder'
 gem 'devise', '~> 3.5', '>= 3.5.6'

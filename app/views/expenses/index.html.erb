@@ -62,24 +62,24 @@
                           </tr>
                         </thead >
                           <tbody>
-                          <% @expenses.each do |expense| %>
-                            <tr>
-                              <td><%= expense.textmsg %></td>
-                              <p>Robert</p>
-                              <td><%= expense.cost %></td>
-                              <p>Robert</p>
-                              <td><%= expense.category %></td>
-                              <p>Robert</p>
-                              <td><%= expense.date %></td>
-                              <td><%= expense.time %></td>
-                              <td><%= expense.location %></td>
+                            <% @expenses.each do |expense| %>
+                              <tr>
+                                <td><%= expense.textmsg %></td>
+                                <p>Robert</p>
+                                <td><%= expense.cost %></td>
+                                <p>Robert</p>
+                                <td><%= expense.category %></td>
+                                <p>Robert</p>
+                                <td><%= expense.date %></td>
+                                <td><%= expense.time %></td>
+                                <td><%= expense.location %></td>
 
-                              <td><%= link_to 'Show', expense %></td>
-                              <td><%= link_to 'Edit', edit_expense_path(expense) %></td>
-                              <td><%= link_to 'Destroy', expense, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-                            </tr>
-                          <% end %>
-                        </tbody>
+                                <td><%= link_to 'Show', expense %></td>
+                                <td><%= link_to 'Edit', edit_expense_path(expense) %></td>
+                                <td><%= link_to 'Destroy', expense, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                              </tr>
+                            <% end %>
+                          </tbody>
                       </table>
 
                       <%= link_to 'New Expense', new_expense_path %>
@@ -91,7 +91,7 @@
 
             <!--This is  the  chart from c3-->
 
-
+<div id="graphics_top_div">
       <div>
         <div id="expense_chart">
           <chart_data id='nightlife' data-nightlife='<%= @donut_data[:nightlife]%>'></chart_data>
@@ -117,10 +117,8 @@
 
         <div id="pink_chart"></div>
       </div>
-
-
-                  <!--This is  the end of the responsive containers -->
-
+    </div>
+    <!--This is  the end of the responsive containers -->
 
                 </div>
 
