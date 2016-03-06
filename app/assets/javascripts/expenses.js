@@ -19,8 +19,22 @@ var chart = c3.generate({
     },
     donut: {
         title: "I'm spending my money on",
-    }
+    },
+      color: {
+        pattern: ['#1f77b4', '#8EBAA8', '#B9CDCA', '#F2DCCB', '#FDAC8A', '#98df8a', '#E38251']
+    },
+     transition: { 
+          duration: 4000 
+        } 
+
 });
+
+setTimeout(function() { 
+        chart.load({ 
+
+        });
+
+    }, 500); 
 
 $("#expense_chart").append(chart.element);
 
@@ -39,8 +53,27 @@ var chart2 = c3.generate({
     },
     bar: {
         title: "My weekly expenses",
-    }
+     },
+
+    color: {
+        pattern: ['#1f77b4', '#8EBAA8', '#B9CDCA', '#F2DCCB', '#FDAC8A', '#98df8a', '#E38251']
+    },
+      transition: { 
+          duration: 4000 
+        } 
+
 });
+
+setTimeout(function() { 
+        chart2.load({ 
+            data: {
+        columns: bar_arr 
+    }
+
+        });
+
+    }, 500); 
+
 
 $("#week_chart").append(chart2.element);
 
@@ -60,12 +93,23 @@ var chart3 = c3.generate({
      zoom: {
         enabled: true
     },
-    
-    colors: {
-           columns: 'hotpink'
-         }
+    color: {
+        pattern: ['#1f77b4', '#8EBAA8', '#B9CDCA', '#F2DCCB', '#FDAC8A', '#98df8a', '#E38251']
+    },
+        transition: { 
+          duration: 4000 
+        } 
 });
 
+setTimeout(function() { 
+        chart3.load({ 
+            data: {
+        columns: bar_array 
+    }
+
+        });
+
+    }, 500); 
 
 
 $("#pink_chart").append(chart3.element);
