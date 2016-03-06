@@ -138,8 +138,7 @@ class IncomingController < ApplicationController
       p @location
 
       ## SET COST OF EXPENSE ##
-      @cost_scan = @body.scan(/\d/).join('').to_f
-      @cost = '%.2f' % @cost_scan
+      @cost = '%.2f' % @body.scan(/\d/).join('').to_f
       p @cost
 
       @new_expense = @current_user.trips.last.expenses.create(textmsg: @body, cost: @cost, location: @location, category: @label)
@@ -151,6 +150,7 @@ class IncomingController < ApplicationController
         new_key = keyword['text']
         p new_key
         @new_expense.tag_list.add(new_key)
+        @new_expense.save
       end
     
     # if JUST taxonomy present, NO entity/city   
@@ -165,6 +165,7 @@ class IncomingController < ApplicationController
         new_key = keyword['text']
         p new_key
         @new_expense.tag_list.add(new_key)
+        @new_expense.save
       end
 
     else
