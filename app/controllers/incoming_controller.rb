@@ -12,18 +12,18 @@ class IncomingController < ApplicationController
     ## gets category for a short text. format: "10 F Miami" => "Price Category Location" (location optional) ##
   def get_short_text_category(letter)
     case letter
-    when "F" then "Food"
-    when "A" then "Accommodation"
-    when "T" then "Transportation"
-    when "E" then "EntertainmentAttractions"
-    when "C" then "Culture"
-    when "N" then "Nightlife"
-    when "S" then "Shopping"
-    when "O" then "SportsOutdoor"
-    when "NE" then "NatureEnvironment"
-    when "B" then "Business"
-    when "H" then "HealthFitness"
-    when "M" then "Miscellaneous"
+    when "F" || "f" then "Food"
+    when "A" || "a" then "Accommodation"
+    when "T" || "t" then "Transportation"
+    when "E" || "e" then "EntertainmentAttractions"
+    when "C" || "c" then "Culture"
+    when "N" || "n" then "Nightlife"
+    when "S" || "s" then "Shopping"
+    when "O" || "o" then "SportsOutdoor"
+    when "NE" || "ne" || "Ne" then "NatureEnvironment"
+    when "B" || "b" then "Business"
+    when "H" || "h" then "HealthFitness"
+    when "M" || "m" then "Miscellaneous"
     end
   end
 
@@ -95,7 +95,7 @@ class IncomingController < ApplicationController
   def process_short_text(body)
     body_arr = body.split
     @cost = body_arr[0].to_f
-    @label = get_short_text_category(body_arr[1].to_s.split.upcase)
+    @label = get_short_text_category(body_arr[1])
     if body_arr.length == 2
       @location = @current_user..trips.last.expenses.last.locations
     else body_arr.length == 3
