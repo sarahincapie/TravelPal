@@ -1,3 +1,5 @@
+require "open-uri"
+
 class IncomingController < ApplicationController
   prepend_before_filter :get_current_user, only: [:send_message]
   around_action :get_current_user, only: [:process_long_text, :process_short_text, :store_picture]
@@ -165,9 +167,14 @@ class IncomingController < ApplicationController
   end
 
   def store_picture(pic_arr)
+    p pic_arr
     @numMedia.times do |n|
-      new_pic = @current_user.friends.create(avatar: pic_arr[n-1])
+      new_pic = pic_arr[n-1]
       p new_pic
+      open_pic = open(new_pic)
+      p open_pic
+      create_pic = @current_user.friends.create(avatar: open_pic)
+      p create_pic
     end
   end
 

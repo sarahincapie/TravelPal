@@ -1,3 +1,5 @@
+require "open-uri"
+
 class Friend < ActiveRecord::Base
 	  has_attached_file :avatar, styles: {
     thumb: '100x100>',
@@ -9,4 +11,8 @@ class Friend < ActiveRecord::Base
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
   belongs_to :user
+
+  def picture_from_url(url)
+    self.avatar = open(url)
+  end
 end
