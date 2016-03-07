@@ -93,7 +93,6 @@ class IncomingController < ApplicationController
 
   ## runs short text message to create new expense; format: "10 F Miami" => "Price Category Location" (location optional)
   def process_short_text(body)
-    @date = DateTime.now
     body_arr = body.split
     @cost = '%.2f' % body_arr[0].to_f
     p body_arr[1]
@@ -106,12 +105,11 @@ class IncomingController < ApplicationController
     else body_arr.length == 3
       @location = body_arr[2].to_s.strip.capitalize
     end
-    @new_expense = @current_user.trips.last.expenses.create(textmsg: body, cost: @cost, location: @location, category: @label, date: @date.to_datetime)
+    @new_expense = @current_user.trips.last.expenses.create(textmsg: body, cost: @cost, location: @location, category: @label, date: DateTime.now)
   end
 
   ## runs long text message through Alchemy to create new expense ##
   def process_long_text(body)
-    @date = DateTime.now
     alchemyapi = AlchemyAPI.new(ENV['AL_CLIENT_ID'])
 
     response_taxonomy = alchemyapi.taxonomy('text', body, language: 'english')
@@ -143,7 +141,7 @@ class IncomingController < ApplicationController
       @cost = '%.2f' % @body.scan(/\d/).join('').to_f
       p @cost
 
-      @new_expense = @current_user.trips.last.expenses.create(textmsg: @body, cost: @cost, location: @location, category: @label, date: @date.to_datetime)
+      @new_expense = @current_user.trips.last.expenses.create(textmsg: @body, cost: @cost, location: @location, category: @label, date: DateTime.now)
 
       puts JSON.pretty_generate(response_keyword)
       # p JSON.pretty_generate(response_sentiment)
@@ -160,7 +158,7 @@ class IncomingController < ApplicationController
       @location = @current_user.trips.last.expenses.last.location
       @label = get_long_text_category(response_taxonomy['taxonomy'].first['label'])   
       @cost = '%.2f' % @body.scan(/\d/).join('')
-      @new_expense = @current_user.trips.last.expenses.create(textmsg: @body, cost: @cost, location: @location, category: @label, date: @date.to_datetime)
+      @new_expense = @current_user.trips.last.expenses.create(textmsg: @body, cost: @cost, location: @location, category: @label, date: DateTime.now)
       
       ## Adds keyword tags to new expense ##
       # for keyword in response_keyword['keywords']
