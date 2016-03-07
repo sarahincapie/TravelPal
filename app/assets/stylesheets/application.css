@@ -16,6 +16,9 @@
  *= require leaflet
  */
 
+body {
+  background-color: #fcfcfc;
+}
 
 .navbar-navbar-dark-bg-primary, li {
   list-style-type: none;

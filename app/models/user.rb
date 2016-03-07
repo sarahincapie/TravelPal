@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_many :expenses, :through => :trips
   has_many :friends, dependent: :destroy
 
-  scope :last_location, -> { find(current_user.id).trips.last.expenses.last.locations }
+  # scope :last_location, -> { find(current_user.id).trips.last.expenses.last.locations }
  
   # class << self
     def spent(type)
@@ -16,12 +16,12 @@ class User < ActiveRecord::Base
       total = 0
       if type == 'today'
         # self.select("created_at AS date, SUM(cost)").where("created_at BETWEEN ? AND ?", today.at_beginning_of_day, today.at_end_of_day)
-        Expense.select(:created_at, :cost).where(trip_id: self.trips.last.id, created_at: (today).at_beginning_of_day..today.at_end_of_day).each { |e| total += e.cost}        
+        Expense.select(:date, :cost).where(trip_id: self.trips.last.id, date: (today).at_beginning_of_day..today.at_end_of_day).each { |e| total += e.cost}        
       elsif type == 'week'
-        Expense.select(:created_at, :cost).where(trip_id: self.trips.last.id, created_at: (today - 7).at_beginning_of_day..today.at_end_of_day).each { |e| total += e.cost}
+        Expense.select(:date, :cost).where(trip_id: self.trips.last.id, date: (today - 7).at_beginning_of_day..today.at_end_of_day).each { |e| total += e.cost}
         #self.select("created_at AS date, SUM(cost)").where("created_at BETWEEN ? AND ?", (today - 7).at_beginning_of_day, today.at_end_of_day)
       else type == 'month'
-        Expense.select(:created_at, :cost).where(trip_id: self.trips.last.id, created_at: (today - 30).at_beginning_of_day..today.at_end_of_day).each { |e| total += e.cost}
+        Expense.select(:date, :cost).where(trip_id: self.trips.last.id, date: (today - 30).at_beginning_of_day..today.at_end_of_day).each { |e| total += e.cost}
         # self.select("created_at AS date, SUM(cost)").where("created_at BETWEEN ? AND ?", (today - 30).at_beginning_of_day, today.at_end_of_day)
       end
       total

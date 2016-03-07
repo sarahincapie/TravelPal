@@ -3,6 +3,7 @@ class ExpensesController < ApplicationController
   before_action :authenticate_user! #, except: [:index, :show]
   respond_to :json
 
+
   # GET /expenses
   # GET /expenses.json
   def index
@@ -44,11 +45,38 @@ class ExpensesController < ApplicationController
       format.html
     end 
  
+
+
+
+      # respond_with(@expenses) do |format|
+      #  @json = {"expenses" => @expenses.to_json(:only => [:location, :cost])},
+      #                   {"locations" => @expenses.to_json(:only => [:latitude, :longitude]
+      # # format.json { render :json => @json }
+      # format.html
+
+
+
     # render layout: "landingpage" #code added by Robert to force a particular view
   end
 #NEW METHOD
 
 
+
+  def tagged
+    @tag = params[:tag]
+    if params[:tag].present? 
+      @expenses = current_user.expenses.tagged_with(params[:tag])
+    else 
+      @expenses = current_user.expenses.all
+    end  
+  end
+
+  def details
+    @expenses = current_user.expenses.all
+  end
+
+  # GET /expenses/1
+  # GET /expenses/1.json
 
   def show
   end

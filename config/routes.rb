@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
 
   get "/pages/:page" => "pages#about"
-  resources :friends
+  resources :friends, path: :gallery 
   root 'pages#about'
   devise_for :users
 
   get 'tagged' => 'expenses#tagged', :as => 'tagged'
-
+  get 'expenses/details' => 'expenses#details'
 
   get 'messages/index'
   get 'messages/client'

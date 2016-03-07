@@ -3,17 +3,64 @@
     <!-- Page Content -->
     <div class="container">
 
+      <div id="wrapper">
+        <!-- Sidebar -->
+  <div id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+          <li class="sidebar-brand">
+              <a href="#">What would you like see?</a>
+          </li>
+          <li>
+              <a class="glyphicon glyphicon-paperclip" aria-hidden="true" href="#"> Overview</a>
+          </li>
+
+          <li>
+              <a class="glyphicon glyphicon-phone" aria-hidden="true" href="#"> Daily</a>
+          </li>
+          <li>
+              <a class="glyphicon glyphicon-tasks" aria-hidden="true" href="#"> Category</a>
+          </li>
+          <li>
+              <a class="glyphicon glyphicon-globe" aria-hidden="true" href="#"> Location</a>
+          </li>
+          <li>
+              <a class="glyphicon glyphicon-picture" aria-hidden="true" href="#"> Trip</a>
+          </li>
+      </ul>
+  </div>
+  <!-- /#sidebar-wrapper -->
+
+    <div id="page-content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+              <!-- <div id="sidebar"></div>
+              <div> -->
+              <p id="notice"><%= notice %></p>
+
+                </div>
+                  <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                </div>
+
         <!-- Page Heading -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">// Photo Collection //
+                <h1 class="page-header">// Photo Gallery //
                     <small>all your memories in one place.</small>
                 </h1>
             </div>
         </div>
-        <!-- /.row -->
 
-        <div align="center">
+        <span align="center">
+          <button type="button" class="btn btn-info">
+            <%= link_to "Add Photo", new_friend_path %>
+          </button>
+        </span>
+
+        <br>
+        <br>
+
+        <div>
           <% @friends.each do |friend| %>
             <span class="col-md-3 portfolio-item">
               <%= link_to (image_tag friend.avatar.url(:square)), friend %>
@@ -165,3 +212,11 @@
   </div><span id="publishImageBtn" style="display: none; position: absolute; z-index: 8675400; width: 100px; height: 25px; opacity: 0.9; cursor: pointer; border-radius: 4px; background-image: url(&quot;chrome-extension://jgnbklefkgedfbpjebhjgibfnobjcbli/images/publish-image.png&quot;); background-size: 100px 25px;"></span><span id="selectedIcon" style="display: none; position: absolute; z-index: 8675400; width: 40px; height: 40px; cursor: pointer; border-radius: 4px; background-image: url(&quot;chrome-extension://jgnbklefkgedfbpjebhjgibfnobjcbli/images/selected-icon.png&quot;); background-size: cover;"></span><script type="text/javascript">(function () {
         return window.SIG_EXT = {};
       })()</script></body>
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>

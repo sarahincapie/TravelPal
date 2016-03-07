@@ -5,6 +5,8 @@ class IncomingController < ApplicationController
   prepend_before_filter :get_current_user, only: [:send_message]
   around_action :get_current_user, only: [:process_long_text, :process_short_text, :store_picture]
 
+  @date = DateTime.now
+
   def get_current_user
     @current_user = User.find_by(number: params[:From])
   end
@@ -12,18 +14,18 @@ class IncomingController < ApplicationController
     ## gets category for a short text. format: "10 F Miami" => "Price Category Location" (location optional) ##
   def get_short_text_category(letter)
     case letter
-    when "F" then "Food"
-    when "A" then "Accommodation"
-    when "T" then "Transportation"
-    when "E" then "Entertainment_Attractions"
-    when "C" then "Culture"
-    when "N" then "Nightlife"
-    when "S" then "Shopping"
-    when "O" then "Sports_Outdoor"
-    when "NE" then "Nature_Environment"
-    when "B" then "Business"
-    when "H" then "Health_Fitness"
-    when "M" then "Miscellaneous"
+    when "f" then "Food"
+    when "a" then "Accommodation"
+    when "t" then "Transportation"
+    when "e" then "EntertainmentAttractions"
+    when "c" then "Culture"
+    when "n" then "Nightlife"
+    when "s" then "Shopping"
+    when "o" then "SportsOutdoor"
+    when "ne" then "NatureEnvironment"
+    when "b" then "Business"
+    when "h" then "HealthFitness"
+    when "m" then "Miscellaneous"
     end
   end
 
@@ -51,10 +53,10 @@ class IncomingController < ApplicationController
                          "/travel/specialty travel/sightseeing tours",
                          "/travel/travel guides",
                          "/art and entertainment" ## if in A+E but not culture or nightlife
-      label = "Entertainment/Attractions"
+      label = "EntertainmentAttractions"
 
     elsif label.start_with? "/travel/tourist facilities/camping"
-      label = "Nature_Environment"
+      label = "NatureEnvironment"
 
     elsif label.start_with? "/travel/hotels",
                          "/travel/tourist facilities/hotel",
@@ -81,10 +83,10 @@ class IncomingController < ApplicationController
 
     elsif label.start_with? "/health and fitness/",
                             "/science/"
-      label = "Health_Fitness"
+      label = "HealthFitness"
 
     elsif label.start_with? "/sports/"
-      label = "Sports_Outdoor"
+      label = "SportsOutdoor"
 
     else
       label = "Miscellaneous"
@@ -94,25 +96,27 @@ class IncomingController < ApplicationController
   ## runs short text message to create new expense; format: "10 F Miami" => "Price Category Location" (location optional)
   def process_short_text(body)
     body_arr = body.split
-    @cost = body_arr[0].to_f
-    @label = get_short_text_category(body_arr[1])
+    @cost = '%.2f' % body_arr[0].to_f
+    p body_arr[1]
+    p body_arr[1].to_s
+    letter = body_arr[1].to_s.strip.downcase
+    p letter
+    @label = get_short_text_category(letter)
     if body_arr.length == 2
-      @location = @current_user.last_location
+      @location = @current_user.trips.last.expenses.last.locations
     else body_arr.length == 3
-      @location = body_arr[2]
+      @location = body_arr[2].to_s.strip.capitalize
     end
-    @new_expense = @current_user.trips.last.expenses.create(textmsg: body, cost: @cost, location: @location, category: @label)
+    @new_expense = @current_user.trips.last.expenses.create(textmsg: body, cost: @cost, location: @location, category: @label, date: @date)
   end
 
   ## runs long text message through Alchemy to create new expense ##
   def process_long_text(body)
     alchemyapi = AlchemyAPI.new(ENV['AL_CLIENT_ID'])
 
-    puts 'Processing text: ' + body
-
     response_taxonomy = alchemyapi.taxonomy('text', body, language: 'english')
     response_entity = alchemyapi.entities('text', body, language: 'english')
-    # response_sentiment = alchemyapi.sentiment_targeted('text', body, language: 'english')
+    response_keyword = alchemyapi.keywords('text', body, language: 'english')
 
     # if BOTH taxonomy and entity present
     if response_taxonomy['status'] == 'OK' && response_entity['status'] == 'OK'
@@ -132,34 +136,45 @@ class IncomingController < ApplicationController
       #     @location = entity['text']
       #   end
       # end
-      @location = response_entity['entities'].first['text']
+      @location = response_entity['entities'].first['text'].to_s.strip.capitalize
       p @location
 
       ## SET COST OF EXPENSE ##
-      @cost = @body.scan(/\d/).join('').to_f
+      @cost = '%.2f' % @body.scan(/\d/).join('').to_f
       p @cost
 
-      p @current_user
-      @new_expense = @current_user.trips.last.expenses.create(textmsg: @body, cost: @cost, location: @location, category: @label)
+      @new_expense = @current_user.trips.last.expenses.create(textmsg: @body, cost: @cost, location: @location, category: @label, date: @date)
 
+      puts JSON.pretty_generate(response_keyword)
       # p JSON.pretty_generate(response_sentiment)
-      ## Adds sentiment tags to new expense ##
-      # for sentiment in response_sentiment['docSentiment']
-      #   new_sentiment = sentiment['type']
-      #   @new_expense.tag_list.add(new_sentiment)
-      # end
+      ## Adds keyword tags to new expense ##
+      for keyword in response_keyword['keywords']
+        new_key = keyword['text']
+        p new_key
+        @new_expense.tag_list.add(new_key)
+        @new_expense.save
+      end
     
     # if JUST taxonomy present, NO entity/city   
     elsif response_taxonomy['status'] == 'OK'
-      @location = @current_user.last_location
+      @location = @current_user.trips.last.expenses.last.locations
       @label = get_long_text_category(response_taxonomy['taxonomy'].first['label'])   
-      @cost = @body.scan(/\d/).join('')
-      @new_expense = @current_user.trips.last.expenses.create(textmsg: @body, cost: @cost, location: @location, category: @label)
+      @cost = '%.2f' % @body.scan(/\d/).join('')
+      @new_expense = @current_user.trips.last.expenses.create(textmsg: @body, cost: @cost, location: @location, category: @label, date: @date)
       
-      ## Adds sentiment tags to new expense ##
-      # for sentiment in response_sentiment['docSentiment']
-      #   new_sentiment = sentiment['type']
-      #   @new_expense.tag_list.add(new_sentiment)
+      ## Adds keyword tags to new expense ##
+      # for keyword in response_keyword['keywords']
+      #   new_key = keyword['text']
+      #   p new_key
+      #   @new_expense.tag_list.add(new_key)
+      #   @new_expense.save
+      # end
+
+      # to account for geocoding limit??
+      # 5.times do
+      #   new_key = response_keyword['keywords']['text']
+      #   @new_expense.tag_list.add(new_key)
+      #   @new_expense.save
       # end
 
     else
@@ -208,32 +223,55 @@ class IncomingController < ApplicationController
       # end
 
       @pic_arr = params[:MediaUrl0]
-
+      bot_response = ["Hi there! I'm your TravelPal. You're text is being processed.", "TravelPal at your service! Processing your text now.", "Thanks for the text. I get lonely sometimes.", "Got it! Processing your text now.", "Ooh that sounds fun! I'll go ahead and submit this expense."]
+      feedback_response = "Thanks for the feedback! Feel free to register at www.travelpal.herokuapp.com"
+      bot_pictures = ["What a shot! I'll add this to your gallery.", "TravelPal at your service! Photo has been added.", "B-E-A-UTIFUL", "TravelPal likey, keeping this one my private folder. ;)", "This has to be your best picture yet! Submitting photo to gallery."]
       @feedback_score = 0.0
-      @count = 0
-      @rating = @feedback_score/@count
+      @count = 0.0
       @all_nums = []
 
       ## checks if number is current userr ##
       if @current_user
         if @numMedia > 0
-          p @pic_arr
+          r.Message bot_pictures.sample
           store_picture(@pic_arr)
         elsif @body.split.length == 2 || @body.split.length == 3
-          r.Message "Hi there! I'm your TravelPal. You're text is being processed."
+          r.Message bot_response.sample
           process_short_text(@body)
         elsif @body.split.length > 5
-          r.Message "Hi there! I'm your TravelPal. You're text is being processed."
+          r.Message bot_response.sample
           process_long_text(@body)
-        elsif @body == "ds" then @current_user.spent('today')
-        elsif @body == "ws" then @current_user.spent('week')
-        elsif @body == "ms" then @current_user.spent('month')
-        elsif @body == "db" then @current_user.balance('today')
-        elsif @body == "wb" then @current_user.balance('week')
-        elsif @body == "mb" then @current_user.balance('month')
+        elsif @body.downcase == "ds"
+          r.Message "You have spent $#{ '%.2f' % @current_user.spent('today')} today."
+        elsif @body.downcase == "ws"
+          r.Message "You have spent $#{ '%.2f' % @current_user.spent('week')} this week."
+        elsif @body.downcase == "ms"
+          r.Message "You have spent $#{ '%.2f' % @current_user.spent('month')} this month."
+        elsif @body.downcase == "db"
+          if @current_user.balance('today') > 0
+            r.Message "You have $#{ '%.2f' % @current_user.balance('today')} remaining in your daily budget."
+          else @current_user.balance('today') < 0
+            r.Message "You are $#{ '%.2f' % @current_user.balance('today').abs} over your daily budget, consider spending less if you can."
+          end
+        elsif @body.downcase == "wb"
+          if @current_user.balance('week') > 0
+            r.Message "You have $#{ '%.2f' % @current_user.balance('week')} remaining in your weekly budget."
+          else @current_user.balance('week') < 0
+            r.Message "You are $#{ '%.2f' % @current_user.balance('week').abs} over your weekly budget, consider spending less if you can."
+          end
+        elsif @body.downcase == "mb"
+          if @current_user.balance('month') > 0
+            r.Message "You have $#{ '%.2f' % @current_user.balance('month')} remaining in your monthly budget."
+          else @current_user.balance('month') < 0
+            r.Message "You are $#{ '%.2f' % @current_user.balance('month').abs} over your monthly budget, consider spending less if you can."
+          end
         else 
           "Sorry, that's not a valid option please try again."
         end
+      elsif @all_nums.exclude? @number
+        r.Message "Hey there! Thanks for listening to our pitch on TravelPal. Would you like to provide some feedback? [Yes/No]"
+        @all_nums << @number
+        p @all_nums
       elsif @body.downcase == "no"
         r.Message "Alright, thanks anyways! Feel free to register at www.travelpal.herokuapp.com!"
       elsif @body.downcase == "yes"
@@ -242,35 +280,33 @@ class IncomingController < ApplicationController
         p "bad rating"
         @feedback_score += @body.to_f
         @count += 1
-        r.Message "Thanks for the feedback! Feel free to register at www.travelpal.herokuapp.com"
+        r.Message feedback_response
       elsif @body.to_f > 3 && @body.to_f <= 5
         p "OK rating"
         @feedback_score += @body.to_f
         @count += 1
-        r.Message "Thanks for the feedback! Feel free to register at www.travelpal.herokuapp.com"
+        r.Message feedback_response
       elsif @body.to_f > 5 && @body.to_f <= 8
         p "pretty good rating"
         @feedback_score += @body.to_f
         @count += 1
-        r.Message "Thanks for the feedback! Feel free to register at www.travelpal.herokuapp.com"
+        r.Message feedback_response
       elsif @body.to_f > 8 && @body.to_f <= 10
         p "Awesome rating!"
         @feedback_score += @body.to_f
         @count += 1
-        r.Message "Thanks for the feedback! Feel free to register at www.travelpal.herokuapp.com"
+        r.Message feedback_response
       elsif @body.to_f > 10
         p "CRAZY RATING"
         @feedback_score += @body.to_f
         @count += 1
-        r.Message "Thanks for the feedback! Feel free to register at www.travelpal.herokuapp.com"
-      elsif @all_nums.exclude? @number
-        r.Message "Hey there! TravelPal at your service. Thanks for listening to our pitch. Would you like to provide some feedback? [Yes/No]"
-        @all_nums << @number
-        p @all_nums
+        r.Message feedback_response
       else
         r.Message "Sorry, that's not a valid option please try again."
       end
-    p @rating.to_f
+    p @feedback_score
+    p @count
+    p @feedback_score/@count
     end
     # render 'send_message.xml.erb', :content_type => 'text/xml'
     render xml: @twiml.text
