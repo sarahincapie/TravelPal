@@ -5,8 +5,6 @@ class IncomingController < ApplicationController
   prepend_before_filter :get_current_user, only: [:send_message]
   around_action :get_current_user, only: [:process_long_text, :process_short_text, :store_picture]
 
-  @date = DateTime.now
-
   def get_current_user
     @current_user = User.find_by(number: params[:From])
   end
@@ -95,6 +93,7 @@ class IncomingController < ApplicationController
 
   ## runs short text message to create new expense; format: "10 F Miami" => "Price Category Location" (location optional)
   def process_short_text(body)
+    @date = DateTime.now
     body_arr = body.split
     @cost = '%.2f' % body_arr[0].to_f
     p body_arr[1]
@@ -112,6 +111,7 @@ class IncomingController < ApplicationController
 
   ## runs long text message through Alchemy to create new expense ##
   def process_long_text(body)
+    @date = DateTime.now
     alchemyapi = AlchemyAPI.new(ENV['AL_CLIENT_ID'])
 
     response_taxonomy = alchemyapi.taxonomy('text', body, language: 'english')
