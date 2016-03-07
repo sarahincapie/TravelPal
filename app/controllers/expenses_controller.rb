@@ -10,18 +10,46 @@ class ExpensesController < ApplicationController
     @donut_data = current_user.donut_data(current_user.expenses.all)
     @bar_data = current_user.bar_data(current_user.expenses.all)
     @pink_data = current_user.pink_data(current_user.expenses.all)
+    @spent = current_user.spent(current_user.expenses.all)
 
-      # respond_with(@expenses) do |format|
-      #  @json = {"expenses" => @expenses.to_json(:only => [:location, :cost])},
+     @geojson = []
+    
+    @expenses.each do |m|
+      if m.latitude 
+        @geojson << {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [m.longitude, m.latitude]
+          },
+          properties: {
+            id: m.id,
+            :'marker-color' => '#00607d',
+            :'marker-symbol' => 'circle',
+            :'marker-size' => 'medium'
+          }
+        }
+
+      end 
+    end 
+
+
+ # @expenses = Expense.by_recency
+ #    @geojson = Expense.geojson
+
+      respond_with(@expenses) do |format|
+       @json = {"expenses" => @expenses.to_json(:only => [:latitude, :longitude])},
       #                   {"locations" => @expenses.to_json(:only => [:latitude, :longitude]
-      # # format.json { render :json => @json }
-      # format.html
+      format.json { render :json => @geojson } #NEW GEOJSON
+      format.html
+    end 
  
     # render layout: "landingpage" #code added by Robert to force a particular view
   end
+#NEW METHOD
 
-  # GET /expenses/1
-  # GET /expenses/1.json
+
+
   def show
   end
 

@@ -18,7 +18,7 @@ var chart = c3.generate({
         type : 'donut'
     },
     donut: {
-        title: "I'm spending my money on",
+        
     },
       color: {
         pattern: ['#1f77b4', '#8EBAA8', '#B9CDCA', '#F2DCCB', '#FDAC8A', '#98df8a', '#E38251']
@@ -119,7 +119,10 @@ $("#pink_chart").append(chart3.element);
 
 //MAP START 
 
-var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+var mymap = L.map('mapid').setView([25.5, -80.5], 13);
+
+
+$(document).ready(function() { // THIS GETS THE DOCUMENT READY 
 
 L.tileLayer('https://api.tiles.mapbox.com/v4/saral85.pbc8hh2h/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic2FyYWw4NSIsImEiOiJjaWxoMW52ZDcyY2F5dm5tYzZwYjFyd2E2In0.VK4Xxad4P0p1Uv4h19eV3g', {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
@@ -129,24 +132,78 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/saral85.pbc8hh2h/{z}/{x}/{y}.png?ac
 }).addTo(mymap);
 
 
-var polygon = L.polygon([
-    [51.509, -0.08],
-    [51.503, -0.06],
-    [51.51, -0.047]
-]).addTo(mymap);
-// var chart3 = c3.generate({
-//     data: {
-//         columns: bar_arr,
-           
-//         types: {
-//             data1: 'area',
-//             data2: 'area-spline'
-//         },
-//          colors: {
-//            data1: 'hotpink',
-//            data2: 'pink'
-//          }
-//     }
-// });
+
+// THIS IS ADDED FOR GEO JSON
+
+mymap.on('mapid', function(e) {
+    var marker, popupContent, properties;
+    marker = e.layer;
+    properties = marker.feature.properties;
+    return marker.bindPopup(popupContent, {
+      closeButton: false,
+      minWidth: 300
+    });
+  });
+
+
+// THIS IS END FOR ADDED FOT GEO JSON 
+
+// AJAX
+
+  $.ajax({
+    dataType: 'text',
+    url: '/expenses.json',
+    success: function(data) {
+      var geojson;
+      geojson = $.parseJSON(data);
+      return mymap.setGeoJSON(geojson);
+    }
+  });
+});
+
+// AJAX END 
+
+
+
+//var marker = L.marker([25.5, -80.5]).addTo(mymap);
+
+
+// MAP END 
+
+
+
+
+// progress start 
+
+
+var circle = new ProgressBar.Circle('.progressbar', {
+    color: '#B9CDCA',
+    trailColor: "#1f77b4",
+    textColor: '#1f77b4',
+    strokeWidth: 5,
+    trailWidth: 3,
+    width: '50%',
+    duration: 6500,
+    text: {
+        value: "$"
+
+    },
+    step: function(state, bar) {
+        bar.setText((bar.value() * 100).toFixed(0));
+    }
+});
+
+circle.animate(1, function() {
+    circle.animate(0.56);
+})
+
+
+// progress end 
+
+
+//GEOJSON
+
+
+// GEOJSON END 
 
 
