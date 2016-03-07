@@ -50,8 +50,15 @@
 
             <!--This is  the  chart from c3-->
 
-<div id="graphics_top_div">
-      <div>
+
+
+          <div id="graphics_top_div">
+<h1> Daily expenses </h1>
+ <div class="progressbar"></div>
+
+<h1> Expenses by category </h1>
+
+
         <div id="expense_chart">
           <chart_data id='nightlife' data-nightlife='<%= @donut_data[:nightlife]%>'></chart_data>
           <chart_data id='food' data-food='<%= @donut_data[:food]%>'></chart_data>
@@ -66,7 +73,7 @@
           <chart_data id='healthfitness' data-healthfitness='<%= @donut_data[:healthfitness]%>'></chart_data>
           <chart_data id='miscellaneous' data-miscellaneous='<%= @donut_data[:miscellaneous]%>'></chart_data>
         </div>
-
+<h1> Expenses by Location </h1>
 
         <div id="week_chart">
           <% @bar_data.each do |data|  %>
@@ -74,13 +81,43 @@
           <%end %>
         </div>
 
+<h1> Expenses by date </h1>
+        
+
+
 
         <div id="pink_chart">
         <% @pink_data.each do |data|  %>
         <%= raw"<chart_data class='pink_chart_data' data-date='#{data[:date]}' data-cost='#{data[:cost]}'></chart_data>" %>
         <%end %>
         </div>
+
+        
+
+  <!--This is  the  MAP from D3-->
+<h1> Places I have been to  </h1>
+ <div id="mapid">
+
+ </div>
+
+
+     
+     </div>    
+
+<!--This is  the end of the responsive containers -->
+
+
+                  </div>
+                </div>
+            </div>
         </div>
+
+
+        <!-- /#page-content-wrapper -->
+
+
+<!--         </div>
+ -->
 
                   <!--This is  the end of the responsive containers -->
 

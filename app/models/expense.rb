@@ -12,6 +12,30 @@ class Expense < ActiveRecord::Base
     :Nightlife, :Shopping, :SportsOutdoor, :NatureEnvironment, :Business, :HealthFitness, :Miscellaneous ]
 
 
+def self.to_json
+    @expenses = Expense.all
+    @geojson = []
+    
+    @expenses.each do |m|
+      @geojson << {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [m.latitude, m.longitude]
+        },
+        properties: {
+          id: m.id,
+          name: m.title,
+          number: m.number,
+          description: m.description,
+          :'marker-color' => '#00607d',
+          :'marker-symbol' => 'circle',
+          :'marker-size' => 'medium'
+        }
+      }
+    end
+  end
+
 # def get_expense_by_day
 # 	 array = %w(cost date)
 # 	 as_json.inject({}) do | hash, key, value | 
@@ -21,6 +45,7 @@ class Expense < ActiveRecord::Base
 # 	 	hash 
 # 	 end 
 # 	end 
+
 
   # class << self
   #   def spent(type)

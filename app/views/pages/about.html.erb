@@ -4,6 +4,45 @@
     <!-- Note: The background image is set within the business-casual.css file. -->
 
     <body id="landing_page_body">
+
+          <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container">
+                  <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                      <span class="sr-only">Toggle navigation</span>
+                      <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"></a>
+                  </div>
+                  <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav pull-right">
+                      <li class="active"><a href="#">Add Trip</a></li>
+                      <li><a href="#contact">Add Expense</a></li>
+                      <li><a href="#contact">Trip Details</a></li>
+                      <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Select Trip <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                              <li><a href="#">Action</a></li>
+                              <li><a href="#">Another action</a></li>
+                              <li><a href="#">Something else here</a></li>
+                              <li role="separator" class="divider"></li>
+                              <li class="dropdown-header">Nav header</li>
+                              <li><a href="#">Separated link</a></li>
+                              <li><a href="#">One more separated link</a></li>
+                            </ul>
+                      </li>
+                      <% if user_signed_in? %>
+                      <li><%= gravatar_image_tag(current_user.email, :alt => 'Profile Image', :class => 'image_size') %></li>
+                      <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
+                      <% else %>
+                      <li><%= link_to "Sign Up", new_user_registration_path %></li>
+                      <li><%= link_to "Sign In", new_user_session_path %></li>
+                      <% end %>
+                    </ul>
+              </nav>
+
     <div class="jumbotron" id="landing_page_jumbotron">
 
             <h1 id="jumbotron_header">TRAVELING ISN'T EASY</h1>
@@ -126,7 +165,7 @@
                 </section>
               </div>
 
-                <h2>Robot #1</h2>
+                <h2>SMS Text Bot</h2>
                 <p>These marketing boxes are a great place to put some information. These can contain summaries of what the company does, promotional information, or anything else that is relevant to the company. These will usually be below-the-fold.</p>
             </div>
             <div class="col-sm-4">
@@ -183,7 +222,7 @@
 
                 </section>
               </div>
-                <h2>Robot #2</h2>
+                <h2>Dashboard Analysis</h2>
                 <p>The images are set to be circular and responsive. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
             </div>
             <div class="col-sm-4">
@@ -240,7 +279,7 @@
 
                 </section>
               </div>
-                <h2>Robot #3</h2>
+                <h2>Photo Blog Journey</h2>
                 <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
             </div>
         </div>
