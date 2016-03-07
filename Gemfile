@@ -44,6 +44,8 @@ gem 'd3_rails'
 
 gem 'c3-rails'
 
+gem 'leaflet-rails'
+
 
 # gem 'money-rails'
 

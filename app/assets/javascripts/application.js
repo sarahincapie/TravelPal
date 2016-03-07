@@ -2,6 +2,8 @@
 //= require d3
 //= require c3
 //= require jquery_ujs
+//= require leaflet
+//= require progressbar
 //= require_tree .
 
 function Broadcaster(){
@@ -98,3 +100,5 @@ $(function(){
   });
   $('.btn-chase').click(function(){startChasing();});
 });
+
+

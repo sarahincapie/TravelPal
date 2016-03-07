@@ -121,6 +121,40 @@ def pink_data(expenses)
   data
 end 
 
+
+
+
+  # def self.geojson
+  #   geojson = Hash.new
+  #   features = []
+  #   geojson[:type] = "FeatureCollection"
+  #   geojson[:features] = features
+  #   by_recency.each do |expense|
+  #     features << {
+  #       type: "Feature",
+  #       geometry: {
+  #         type: "Point",
+  #         coordinates: [expense.longitude, expense.latitude]
+  #       },
+  #       properties: {
+  #         category: expense.category.name,
+  #         url: "/expenses/#{expense.id}",
+  #         photo: expense.photo.url,
+  #         updated_at: expense.display_date,
+  #         id: "expense-#{expense.id}",
+  #         icon: {
+  #           html: expense.category.icon,
+  #           iconSize: [50, 50],
+  #           iconAnchor: [25, 25],
+  #           popupAnchor: [0, -25],
+  #           className: "#{expense.marker_color} map-icon"
+  #         }
+  #       }
+  #     }
+  #   end
+  #   geojson
+  # end
+
   # use this method in a controller method to create a json hash. Use json hash to pass into view for jquery to build
   # the D3 graphs once its called on.
 

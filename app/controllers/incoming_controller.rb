@@ -223,38 +223,55 @@ class IncomingController < ApplicationController
       # end
 
       @pic_arr = params[:MediaUrl0]
-
+      bot_response = ["Hi there! I'm your TravelPal. You're text is being processed.", "TravelPal at your service! Processing your text now.", "Thanks for the text. I get lonely sometimes.", "Got it! Processing your text now.", "Ooh that sounds fun! I'll go ahead and submit this expense."]
+      feedback_response = "Thanks for the feedback! Feel free to register at www.travelpal.herokuapp.com"
+      bot_pictures = ["What a shot! I'll add this to your gallery.", "TravelPal at your service! Photo has been added.", "B-E-A-UTIFUL", "TravelPal likey, keeping this one my private folder. ;)", "This has to be your best picture yet! Submitting photo to gallery."]
       @feedback_score = 0.0
-      @count = 0
-      @rating = @feedback_score/@count
+      @count = 0.0
       @all_nums = []
 
       ## checks if number is current userr ##
       if @current_user
         if @numMedia > 0
-          p @pic_arr
+          r.Message bot_pictures.sample
           store_picture(@pic_arr)
         elsif @body.split.length == 2 || @body.split.length == 3
-          r.Message "Hi there! I'm your TravelPal. You're text is being processed."
+          r.Message bot_response.sample
           process_short_text(@body)
         elsif @body.split.length > 5
-          r.Message "Hi there! I'm your TravelPal. You're text is being processed."
+          r.Message bot_response.sample
           process_long_text(@body)
         elsif @body.downcase == "ds"
-          r.Message "You've spent $#{@current_user.spent('today')} today."
+          r.Message "You have spent $#{ '%.2f' % @current_user.spent('today')} today."
         elsif @body.downcase == "ws"
-          r.Message "You've spent $#{@current_user.spent('week')} this week."
+          r.Message "You have spent $#{ '%.2f' % @current_user.spent('week')} this week."
         elsif @body.downcase == "ms"
-          r.Message "You've spent $#{@current_user.spent('month')} this month."
+          r.Message "You have spent $#{ '%.2f' % @current_user.spent('month')} this month."
         elsif @body.downcase == "db"
-          r.Message "You have a balance of $#{@current_user.balance('today')} today."
+          if @current_user.balance('today') > 0
+            r.Message "You have $#{ '%.2f' % @current_user.balance('today')} remaining in your daily budget."
+          else @current_user.balance('today') < 0
+            r.Message "You are $#{ '%.2f' % @current_user.balance('today').abs} over your daily budget, consider spending less if you can."
+          end
         elsif @body.downcase == "wb"
-          r.Message "You have a balance of $#{@current_user.balance('week')} this week."
+          if @current_user.balance('week') > 0
+            r.Message "You have $#{ '%.2f' % @current_user.balance('week')} remaining in your weekly budget."
+          else @current_user.balance('week') < 0
+            r.Message "You are $#{ '%.2f' % @current_user.balance('week').abs} over your weekly budget, consider spending less if you can."
+          end
         elsif @body.downcase == "mb"
-          r.Message "You have a balance of $#{@current_user.balance('month')} this month."
+          if @current_user.balance('month') > 0
+            r.Message "You have $#{ '%.2f' % @current_user.balance('month')} remaining in your monthly budget."
+          else @current_user.balance('month') < 0
+            r.Message "You are $#{ '%.2f' % @current_user.balance('month').abs} over your monthly budget, consider spending less if you can."
+          end
         else 
           "Sorry, that's not a valid option please try again."
         end
+      elsif @all_nums.exclude? @number
+        r.Message "Hey there! Thanks for listening to our pitch on TravelPal. Would you like to provide some feedback? [Yes/No]"
+        @all_nums << @number
+        p @all_nums
       elsif @body.downcase == "no"
         r.Message "Alright, thanks anyways! Feel free to register at www.travelpal.herokuapp.com!"
       elsif @body.downcase == "yes"
@@ -263,35 +280,33 @@ class IncomingController < ApplicationController
         p "bad rating"
         @feedback_score += @body.to_f
         @count += 1
-        r.Message "Thanks for the feedback! Feel free to register at www.travelpal.herokuapp.com"
+        r.Message feedback_response
       elsif @body.to_f > 3 && @body.to_f <= 5
         p "OK rating"
         @feedback_score += @body.to_f
         @count += 1
-        r.Message "Thanks for the feedback! Feel free to register at www.travelpal.herokuapp.com"
+        r.Message feedback_response
       elsif @body.to_f > 5 && @body.to_f <= 8
         p "pretty good rating"
         @feedback_score += @body.to_f
         @count += 1
-        r.Message "Thanks for the feedback! Feel free to register at www.travelpal.herokuapp.com"
+        r.Message feedback_response
       elsif @body.to_f > 8 && @body.to_f <= 10
         p "Awesome rating!"
         @feedback_score += @body.to_f
         @count += 1
-        r.Message "Thanks for the feedback! Feel free to register at www.travelpal.herokuapp.com"
+        r.Message feedback_response
       elsif @body.to_f > 10
         p "CRAZY RATING"
         @feedback_score += @body.to_f
         @count += 1
-        r.Message "Thanks for the feedback! Feel free to register at www.travelpal.herokuapp.com"
-      elsif @all_nums.exclude? @number
-        r.Message "Hey there! TravelPal at your service. Thanks for listening to our pitch. Would you like to provide some feedback? [Yes/No]"
-        @all_nums << @number
-        p @all_nums
+        r.Message feedback_response
       else
         r.Message "Sorry, that's not a valid option please try again."
       end
-    p @rating.to_f
+    p @feedback_score
+    p @count
+    p @feedback_score/@count
     end
     # render 'send_message.xml.erb', :content_type => 'text/xml'
     render xml: @twiml.text
