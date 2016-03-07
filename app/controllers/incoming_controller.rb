@@ -105,7 +105,7 @@ class IncomingController < ApplicationController
     else body_arr.length == 3
       @location = body_arr[2].to_s.strip.capitalize
     end
-    @new_expense = @current_user.trips.last.expenses.create(textmsg: body, cost: @cost, location: @location, category: @label, date: DateTime.now)
+    @new_expense = @current_user.trips.last.expenses.create(textmsg: body, cost: @cost, location: @location, category: @label, date: DateTime.now.utc)
   end
 
   ## runs long text message through Alchemy to create new expense ##
@@ -141,7 +141,7 @@ class IncomingController < ApplicationController
       @cost = '%.2f' % @body.scan(/\d/).join('').to_f
       p @cost
 
-      @new_expense = @current_user.trips.last.expenses.create(textmsg: @body, cost: @cost, location: @location, category: @label, date: DateTime.now)
+      @new_expense = @current_user.trips.last.expenses.create(textmsg: @body, cost: @cost, location: @location, category: @label, date: DateTime.now.utc)
 
       puts JSON.pretty_generate(response_keyword)
       # p JSON.pretty_generate(response_sentiment)
@@ -158,7 +158,7 @@ class IncomingController < ApplicationController
       @location = @current_user.trips.last.expenses.last.location
       @label = get_long_text_category(response_taxonomy['taxonomy'].first['label'])   
       @cost = '%.2f' % @body.scan(/\d/).join('')
-      @new_expense = @current_user.trips.last.expenses.create(textmsg: @body, cost: @cost, location: @location, category: @label, date: DateTime.now)
+      @new_expense = @current_user.trips.last.expenses.create(textmsg: @body, cost: @cost, location: @location, category: @label, date: DateTime.now.utc)
       
       ## Adds keyword tags to new expense ##
       # for keyword in response_keyword['keywords']
@@ -239,25 +239,25 @@ class IncomingController < ApplicationController
         elsif @body.split.length > 5
           r.Message bot_response.sample
           process_long_text(@body)
-        elsif @body.downcase == "ds"
+        elsif @body.strip.downcase == "ds"
           r.Message "You have spent $#{ '%.2f' % @current_user.spent('today')} today."
-        elsif @body.downcase == "ws"
+        elsif @body.strip.downcase == "ws"
           r.Message "You have spent $#{ '%.2f' % @current_user.spent('week')} this week."
-        elsif @body.downcase == "ms"
+        elsif @body.strip.downcase == "ms"
           r.Message "You have spent $#{ '%.2f' % @current_user.spent('month')} this month."
-        elsif @body.downcase == "db"
+        elsif @body.strip.downcase == "db"
           if @current_user.balance('today') > 0
             r.Message "You have $#{ '%.2f' % @current_user.balance('today')} remaining in your daily budget."
           else @current_user.balance('today') < 0
             r.Message "You are $#{ '%.2f' % @current_user.balance('today').abs} over your daily budget, consider spending less if you can."
           end
-        elsif @body.downcase == "wb"
+        elsif @body.strip.downcase == "wb"
           if @current_user.balance('week') > 0
             r.Message "You have $#{ '%.2f' % @current_user.balance('week')} remaining in your weekly budget."
           else @current_user.balance('week') < 0
             r.Message "You are $#{ '%.2f' % @current_user.balance('week').abs} over your weekly budget, consider spending less if you can."
           end
-        elsif @body.downcase == "mb"
+        elsif @body.strip.downcase == "mb"
           if @current_user.balance('month') > 0
             r.Message "You have $#{ '%.2f' % @current_user.balance('month')} remaining in your monthly budget."
           else @current_user.balance('month') < 0
@@ -270,9 +270,9 @@ class IncomingController < ApplicationController
         r.Message "Hey there! Thanks for listening to our pitch on TravelPal. Would you like to provide some feedback? [Yes/No]"
         @all_nums << @number
         p @all_nums
-      elsif @body.downcase == "no"
+      elsif @body.strip.downcase == "no"
         r.Message "Alright, thanks anyways! Feel free to register at www.travelpal.herokuapp.com!"
-      elsif @body.downcase == "yes"
+      elsif @body.strip.downcase == "yes"
         r.Message "Woot! What would you rate our app on a scale of 1 to 10?"
       elsif @body.to_f >= 0 && @body.to_f <= 3
         p "bad rating"
