@@ -1,6 +1,4 @@
 
-<body><iframe id="publishiframe" style="display:none;" src="chrome-extension://jgnbklefkgedfbpjebhjgibfnobjcbli/template/content-script.html"></iframe>
-
 
 <!--
 <nav class="navbar navbar-full navbar-light bg-faded">
@@ -8,30 +6,28 @@
 </nav> -->
 
 
-
-    <div id="wrapper" class="">
-
+    <div id="wrapper">
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                    <a href="#">
-                    </a>
+                    <a href="#">What would you like see?</a>
                 </li>
                 <li>
-                    <a href="#">Overview</a>
+                    <a class="glyphicon glyphicon-paperclip" aria-hidden="true" href="#"> Overview</a>
+                </li>
+
+                <li>
+                    <a class="glyphicon glyphicon-phone" aria-hidden="true" href="#"> Daily</a>
                 </li>
                 <li>
-                    <a href="#">Daily</a>
+                    <a class="glyphicon glyphicon-tasks" aria-hidden="true" href="#"> Category</a>
                 </li>
                 <li>
-                    <a href="#">Category</a>
+                    <a class="glyphicon glyphicon-globe" aria-hidden="true" href="#"> Location</a>
                 </li>
                 <li>
-                    <a href="#">Location Map</a>
-                </li>
-                <li>
-                    <a href="#">Go To Trip</a>
+                    <a class="glyphicon glyphicon-picture" aria-hidden="true" href="#"> Trip</a>
                 </li>
             </ul>
         </div>
@@ -45,6 +41,10 @@
                       <!-- <div id="sidebar"></div>
                       <div> -->
                       <p id="notice"><%= notice %></p>
+
+                        </div>
+                          <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                        </div>
 
                       <h1>Listing Expenses</h1>
 
@@ -65,11 +65,8 @@
                             <% @expenses.each do |expense| %>
                               <tr>
                                 <td><%= expense.textmsg %></td>
-                                <p>Robert</p>
                                 <td><%= expense.cost %></td>
-                                <p>Robert</p>
                                 <td><%= expense.category %></td>
-                                <p>Robert</p>
                                 <td><%= expense.date %></td>
                                 <td><%= expense.time %></td>
                                 <td><%= expense.location %></td>
@@ -83,9 +80,7 @@
                       </table>
 
                       <%= link_to 'New Expense', new_expense_path %>
-                      </div>
-                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
-                    </div>
+
                   </div>
 
 
@@ -163,4 +158,4 @@
   <span id="publishImageBtn" style="display: none; position: absolute; z-index: 8675400; width: 100px; height: 25px; opacity: 0.9; cursor: pointer; border-radius: 4px; background-image: url(&quot;chrome-extension://jgnbklefkgedfbpjebhjgibfnobjcbli/images/publish-image.png&quot;); background-size: 100px 25px;"></span><span id="selectedIcon" style="display: none; position: absolute; z-index: 8675400; width: 40px; height: 40px; cursor: pointer; border-radius: 4px; background-image: url(&quot;chrome-extension://jgnbklefkgedfbpjebhjgibfnobjcbli/images/selected-icon.png&quot;); background-size: cover;"></span><script type="text/javascript">(function () {
         return window.SIG_EXT = {};
 
-      })()</script></body>
+      })()</script>

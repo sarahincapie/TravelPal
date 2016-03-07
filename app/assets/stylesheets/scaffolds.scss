@@ -1,3 +1,7 @@
+.circular {
+  border-radius: 50px;
+}
+
 #landing_page_jumbotron {
   height: 100vh;
   width: 100%;
@@ -80,11 +84,12 @@ h1 {
 body {
   margin: 0;
   padding: 0;
-  background-color: #f8f9fb;
 }
+
 a {
   text-decoration: none;
 }
+
 .links{
   position: relative;
   width: 100px;
@@ -928,4 +933,10 @@ shake
 
 #landing_page_bottom {
   color: white;
+}
+
+.image_size {
+  border-radius: 50%;
+  max-height: 60px;
+  width: auto;
 }
