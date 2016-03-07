@@ -55,28 +55,26 @@
                             <th>Cost</th>
                             <th>Category</th>
                             <th>Date</th>
-                            <th>Time</th>
                             <th>Location</th>
                             <th>User</th>
                             <th colspan="3"></th>
                           </tr>
                         </thead >
-                          <tbody>
-                            <% @expenses.each do |expense| %>
-                              <tr>
-                                <td><%= expense.textmsg %></td>
-                                <td><%= expense.cost %></td>
-                                <td><%= expense.category %></td>
-                                <td><%= expense.date %></td>
-                                <td><%= expense.time %></td>
-                                <td><%= expense.location %></td>
+                        <tbody>
+                          <% @expenses.each do |expense| %>
+                            <tr>
+                              <td><%= expense.textmsg %></td>
+                              <td><%= expense.cost %></td>
+                              <td><%= expense.category %></td>
+                              <td><%= expense.date %></td>
+                              <td><%= expense.location %></td>
 
-                                <td><%= link_to 'Show', expense %></td>
-                                <td><%= link_to 'Edit', edit_expense_path(expense) %></td>
-                                <td><%= link_to 'Destroy', expense, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-                              </tr>
-                            <% end %>
-                          </tbody>
+                              <td><%= link_to 'Show', expense %></td>
+                              <td><%= link_to 'Edit', edit_expense_path(expense) %></td>
+                              <td><%= link_to 'Destroy', expense, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                            </tr>
+                          <% end %>
+                        </tbody>
                       </table>
 
                       <%= link_to 'New Expense', new_expense_path %>

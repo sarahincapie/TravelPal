@@ -5,6 +5,8 @@ class IncomingController < ApplicationController
   prepend_before_filter :get_current_user, only: [:send_message]
   around_action :get_current_user, only: [:process_long_text, :process_short_text, :store_picture]
 
+  @date = DateTime.now
+
   def get_current_user
     @current_user = User.find_by(number: params[:From])
   end
@@ -101,11 +103,11 @@ class IncomingController < ApplicationController
     p letter
     @label = get_short_text_category(letter)
     if body_arr.length == 2
-      @location = @current_user..trips.last.expenses.last.locations
+      @location = @current_user.trips.last.expenses.last.locations
     else body_arr.length == 3
-      @location = body_arr[2]
+      @location = body_arr[2].to_s.strip.capitalize
     end
-    @new_expense = @current_user.trips.last.expenses.create(textmsg: body, cost: @cost, location: @location, category: @label)
+    @new_expense = @current_user.trips.last.expenses.create(textmsg: body, cost: @cost, location: @location, category: @label, date: @date)
   end
 
   ## runs long text message through Alchemy to create new expense ##
@@ -114,7 +116,7 @@ class IncomingController < ApplicationController
 
     response_taxonomy = alchemyapi.taxonomy('text', body, language: 'english')
     response_entity = alchemyapi.entities('text', body, language: 'english')
-    # response_sentiment = alchemyapi.sentiment_targeted('text', body, language: 'english')
+    response_keyword = alchemyapi.keywords('text', body, language: 'english')
 
     # if BOTH taxonomy and entity present
     if response_taxonomy['status'] == 'OK' && response_entity['status'] == 'OK'
@@ -134,34 +136,45 @@ class IncomingController < ApplicationController
       #     @location = entity['text']
       #   end
       # end
-      @location = response_entity['entities'].first['text']
+      @location = response_entity['entities'].first['text'].to_s.strip.capitalize
       p @location
 
       ## SET COST OF EXPENSE ##
       @cost = '%.2f' % @body.scan(/\d/).join('').to_f
       p @cost
 
-      p @current_user
-      @new_expense = @current_user.trips.last.expenses.create(textmsg: @body, cost: @cost, location: @location, category: @label)
+      @new_expense = @current_user.trips.last.expenses.create(textmsg: @body, cost: @cost, location: @location, category: @label, date: @date)
 
+      puts JSON.pretty_generate(response_keyword)
       # p JSON.pretty_generate(response_sentiment)
-      ## Adds sentiment tags to new expense ##
-      # for sentiment in response_sentiment['docSentiment']
-      #   new_sentiment = sentiment['type']
-      #   @new_expense.tag_list.add(new_sentiment)
-      # end
+      ## Adds keyword tags to new expense ##
+      for keyword in response_keyword['keywords']
+        new_key = keyword['text']
+        p new_key
+        @new_expense.tag_list.add(new_key)
+        @new_expense.save
+      end
     
     # if JUST taxonomy present, NO entity/city   
     elsif response_taxonomy['status'] == 'OK'
-      @location = @current_user..trips.last.expenses.last.locations
+      @location = @current_user.trips.last.expenses.last.locations
       @label = get_long_text_category(response_taxonomy['taxonomy'].first['label'])   
-      @cost = @body.scan(/\d/).join('')
-      @new_expense = @current_user.trips.last.expenses.create(textmsg: @body, cost: @cost, location: @location, category: @label)
+      @cost = '%.2f' % @body.scan(/\d/).join('')
+      @new_expense = @current_user.trips.last.expenses.create(textmsg: @body, cost: @cost, location: @location, category: @label, date: @date)
       
-      ## Adds sentiment tags to new expense ##
-      # for sentiment in response_sentiment['docSentiment']
-      #   new_sentiment = sentiment['type']
-      #   @new_expense.tag_list.add(new_sentiment)
+      ## Adds keyword tags to new expense ##
+      # for keyword in response_keyword['keywords']
+      #   new_key = keyword['text']
+      #   p new_key
+      #   @new_expense.tag_list.add(new_key)
+      #   @new_expense.save
+      # end
+
+      # to account for geocoding limit??
+      # 5.times do
+      #   new_key = response_keyword['keywords']['text']
+      #   @new_expense.tag_list.add(new_key)
+      #   @new_expense.save
       # end
 
     else

@@ -30,6 +30,15 @@ class ExpensesController < ApplicationController
     # render layout: "landingpage" #code added by Robert to force a particular view
   end
 
+  def tagged
+    @tag = params[:tag]
+    if params[:tag].present? 
+      @expenses = current_user.expenses.tagged_with(params[:tag])
+    else 
+      @expenses = current_user.expenses.all
+    end  
+  end
+
   # GET /expenses/1
   # GET /expenses/1.json
   def show
