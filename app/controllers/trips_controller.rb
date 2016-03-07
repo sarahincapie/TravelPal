@@ -11,6 +11,11 @@ class TripsController < ApplicationController
   # GET /trips/1
   # GET /trips/1.json
   def show
+    @expenses = current_user.expenses.current_trip_expenses(params[:id])
+    @donut_data = current_user.donut_data(current_user.expenses.current_trip_expenses(params[:id]))
+    @bar_data = current_user.bar_data(current_user.expenses.current_trip_expenses(params[:id]))
+    @pink_data = current_user.pink_data(current_user.expenses.current_trip_expenses(params[:id]))
+    @spent = current_user.spent(current_user.expenses.current_trip_expenses(params[:id]))
   end
 
   # GET /trips/new
