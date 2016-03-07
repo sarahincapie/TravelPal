@@ -105,7 +105,7 @@ class IncomingController < ApplicationController
     else body_arr.length == 3
       @location = body_arr[2].to_s.strip.capitalize
     end
-    @new_expense = @current_user.trips.last.expenses.create(textmsg: body, cost: @cost, location: @location, category: @label, date: DateTime.now.utc)
+    @new_expense = @current_user.trips.last.expenses.create(textmsg: body, cost: @cost, location: @location, category: @label, date: Time.now.utc)
   end
 
   ## runs long text message through Alchemy to create new expense ##
@@ -141,7 +141,7 @@ class IncomingController < ApplicationController
       @cost = '%.2f' % @body.scan(/\d/).join('').to_f
       p @cost
 
-      @new_expense = @current_user.trips.last.expenses.create(textmsg: @body, cost: @cost, location: @location, category: @label, date: DateTime.now.utc)
+      @new_expense = @current_user.trips.last.expenses.create(textmsg: @body, cost: @cost, location: @location, category: @label, date: Time.now.utc)
 
       puts JSON.pretty_generate(response_keyword)
       # p JSON.pretty_generate(response_sentiment)
@@ -158,7 +158,7 @@ class IncomingController < ApplicationController
       @location = @current_user.trips.last.expenses.last.location
       @label = get_long_text_category(response_taxonomy['taxonomy'].first['label'])   
       @cost = '%.2f' % @body.scan(/\d/).join('')
-      @new_expense = @current_user.trips.last.expenses.create(textmsg: @body, cost: @cost, location: @location, category: @label, date: DateTime.now.utc)
+      @new_expense = @current_user.trips.last.expenses.create(textmsg: @body, cost: @cost, location: @location, category: @label, date: Time.now.utc)
       
       ## Adds keyword tags to new expense ##
       # for keyword in response_keyword['keywords']
