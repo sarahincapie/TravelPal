@@ -157,16 +157,23 @@ class IncomingController < ApplicationController
     elsif response_taxonomy['status'] == 'OK'
       @location = @current_user.trips.last.expenses.last.locations
       @label = get_long_text_category(response_taxonomy['taxonomy'].first['label'])   
-      @cost = @body.scan(/\d/).join('')
+      @cost = '%.2f' % @body.scan(/\d/).join('')
       @new_expense = @current_user.trips.last.expenses.create(textmsg: @body, cost: @cost, location: @location, category: @label)
       
       ## Adds keyword tags to new expense ##
-      for keyword in response_keyword['keywords']
-        new_key = keyword['text']
-        p new_key
-        @new_expense.tag_list.add(new_key)
-        @new_expense.save
-      end
+      # for keyword in response_keyword['keywords']
+      #   new_key = keyword['text']
+      #   p new_key
+      #   @new_expense.tag_list.add(new_key)
+      #   @new_expense.save
+      # end
+
+      # to account for geocoding limit??
+      # 5.times do
+      #   new_key = response_keyword['keywords']['text']
+      #   @new_expense.tag_list.add(new_key)
+      #   @new_expense.save
+      # end
 
     else
       puts 'Error in concept tagging call: ' + response_taxonomy['statusInfo']
