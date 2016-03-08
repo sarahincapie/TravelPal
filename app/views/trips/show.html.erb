@@ -27,8 +27,8 @@
                     <% end %>
                   </ul>
             </li>
-            <li class="active"><a href="#">Add Expense</a></li>
-            <li><a href="#contact">Trip Details</a></li>
+            <li class="active"><%= link_to "Add Expense", new_expense_path %></li>
+            <li><%= link_to "Trip Details", trips_details_path %></li>
             <% if user_signed_in? %>
             <li><%= gravatar_image_tag(current_user.email, :alt => 'Profile Image', :class => 'image_size') %></li>
             <li class="dropdown">
