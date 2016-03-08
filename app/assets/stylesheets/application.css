@@ -16,15 +16,47 @@
  *= require leaflet
  */
 
+#what_we_do_div {
+  height: 100vh;
+}
 
 .navbar-navbar-dark-bg-primary, li {
   list-style-type: none;
   display: inline;
   font-size: 2em;
   padding-top: 5px;
+  padding-bottom: 10px;
+  font-size: 15px;
 }
+
 
 .navbar-navbar-dark-bg-primary ul, ol {
   margin-top: 0;
   margin-bottom: 10px;
+}
+
+.slice text {
+ font-size: 10pt;
+ font-family: Arial;
+}
+
+#pie {
+  width:250px;
+  height:250px;
+  float:left;
+}
+
+#bar {
+  float:left;
+  margin-top:10px;
+}
+
+#bar rect {
+  fill: steelblue;
+}
+
+#bar text {
+  fill: white;
+  font: 10px sans-serif;
+  text-anchor: end;
 }

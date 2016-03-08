@@ -9,10 +9,6 @@
   <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.2/mapbox.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.2/mapbox.css' rel='stylesheet' />
-
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   <!-- Optional theme -->
@@ -20,8 +16,6 @@
   <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
   <link href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css" rel="stylesheet" type="text/css" />
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-
-
 
   </head>
   <body id="body_id">
@@ -48,7 +42,6 @@
                         <li><a href="#">Action</a></li>
                         <li><a href="#">Another action</a></li>
                         <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
                         <li class="dropdown-header">Nav header</li>
                         <li><a href="#">Separated link</a></li>
                         <li><a href="#">One more separated link</a></li>
@@ -62,7 +55,8 @@
                 <li><%= link_to "Sign In", new_user_session_path %></li>
                 <% end %>
               </ul>
-            </nav>
+            </div>
+      </nav>
             <p class="notice"><%= notice %></p>
             <p class="alert"><%= alert %></p>
 
