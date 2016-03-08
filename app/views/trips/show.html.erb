@@ -30,8 +30,13 @@
             <li><a href="#contact">Trip Details</a></li>
             <% if user_signed_in? %>
             <li><%= gravatar_image_tag(current_user.email, :alt => 'Profile Image', :class => 'image_size') %></li>
-            <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
-            <% else %>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Profile<span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><%= link_to('Edit Profile', edit_user_registration_path) %></li>
+                    <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
+                  </ul>
+            </li>            <% else %>
             <li><%= link_to "Sign Up", new_user_registration_path %></li>
             <li><%= link_to "Sign In", new_user_session_path %></li>
             <% end %>
@@ -49,20 +54,23 @@
                     <a href="#">What would you like see?</a>
                 </li>
                 <li>
-                    <a class="glyphicon glyphicon-paperclip" aria-hidden="true" href="#"> Overview</a>
-                </li>
-
-                <li>
                     <a class="glyphicon glyphicon-phone" aria-hidden="true" href="#"> Daily</a>
+
                 </li>
                 <li>
-                    <a class="glyphicon glyphicon-tasks" aria-hidden="true" href="#"> Category</a>
+                    <a class="glyphicon glyphicon-paperclip" aria-hidden="true" href="#"> Overview</a>
                 </li>
                 <li>
                     <a class="glyphicon glyphicon-globe" aria-hidden="true" href="#"> Location</a>
                 </li>
                 <li>
-                    <a class="glyphicon glyphicon-picture" aria-hidden="true" href="#"> Trip</a>
+                    <a class="glyphicon glyphicon-tasks" aria-hidden="true" href="#"> Category</a>
+                </li>
+                <li>
+                    <a class="glyphicon glyphicon-picture" aria-hidden="true" href="#"> Date</a>
+                </li>
+                <li>
+                    <a class="glyphicon glyphicon-picture" aria-hidden="true" href="#"> PhotoBlog</a>
                 </li>
             </ul>
         </div>
@@ -116,20 +124,17 @@
           <%end %>
         </div>
 
-            <!--This is  the  chart from c3-->
-<div id="graphics_top_div">
-<h1> Daily Expenses </h1>
- <div class="progressbar"></div>
 
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 <h1> Expenses by Category </h1>
+
 
         <div id="expense_chart">
           <chart_data id='nightlife' data-nightlife='<%= @donut_data[:nightlife]%>'></chart_data>
@@ -153,7 +158,6 @@
 <br>
 <br>
 <br>
-
 
 <h1> Expenses by Date </h1>
 
