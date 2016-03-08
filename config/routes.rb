@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   get "/pages/:page" => "pages#about"
-  resources :friends, path: :gallery 
+  resources :friends, path: :gallery
   root 'pages#about'
   devise_for :users
 

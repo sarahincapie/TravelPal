@@ -1,3 +1,4 @@
+<body>
 <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -54,23 +55,23 @@
                     <a href="#">What would you like see?</a>
                 </li>
                 <li>
-                    <a class="glyphicon glyphicon-phone" aria-hidden="true" href="#"> Daily</a>
+                    <a id="daily" class="glyphicon glyphicon-phone" aria-hidden="true" href="#"> Daily</a>
 
                 </li>
                 <li>
-                    <a class="glyphicon glyphicon-paperclip" aria-hidden="true" href="#"> Overview</a>
+                    <a id="overview" class="glyphicon glyphicon-paperclip" aria-hidden="true" href="#"> Overview</a>
                 </li>
                 <li>
-                    <a class="glyphicon glyphicon-globe" aria-hidden="true" href="#"> Location</a>
+                    <a id="location" class="glyphicon glyphicon-globe" aria-hidden="true" href="#"> Location</a>
                 </li>
                 <li>
-                    <a class="glyphicon glyphicon-tasks" aria-hidden="true" href="#"> Category</a>
+                    <a id="category" class="glyphicon glyphicon-tasks" aria-hidden="true" href="#"> Category</a>
                 </li>
                 <li>
-                    <a class="glyphicon glyphicon-picture" aria-hidden="true" href="#"> Date</a>
+                    <a id="date" class="glyphicon glyphicon-picture" aria-hidden="true" href="#"> Date</a>
                 </li>
                 <li>
-                    <a class="glyphicon glyphicon-picture" aria-hidden="true" href="#"> PhotoBlog</a>
+                    <a id="photoblog" class="glyphicon glyphicon-picture" aria-hidden="true" href="#"> PhotoBlog</a>
                 </li>
             </ul>
         </div>
@@ -90,23 +91,15 @@
                         </div>
                   </div>
 
-<h1><strong>Trip Analysis :: <%= @trip.name %> </strong></h1>
+<h1><strong>Trip Analysis: <%= @trip.name %> </strong></h1>
 
-          <div id="graphics_top_div">
-<h1> Daily Balance </h1>
- <div class="progressbar"></div>
 
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
+            <!--This is  the  chart from c3-->
 
-  <!--This is  the  MAP from D3-->
-<h1> Places I have been to  </h1>
- <div id="mapid"></div>
+
+<div id="graphics_top_div">
+
+   <div class="progressbar"><h1> Daily Expenses </h1></div>
 
  <br>
  <br>
@@ -116,9 +109,23 @@
  <br>
  <br>
 
-<h1> Expenses by Location </h1>
+ <!--This is  the  MAP from D3-->
 
-        <div id="week_chart">
+<div id="mapid" style="padding-top: 70px;"><h1> Places I have been to  </h1></div>
+
+
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+
+
+
+        <div id="week_chart" style="padding-top: 70px;">
+          <h1> Expenses by Location </h1>
           <% @bar_data.each do |data|  %>
             <%= raw"<chart_data class='week_chart_data' data-location='#{data[:location]}' data-cost='#{data[:cost]}'></chart_data>" %>
           <%end %>
@@ -133,10 +140,23 @@
 <br>
 <br>
 
+<<<<<<< HEAD
+
+<div id="graphics_top_div">
+  <h1> Daily Expenses </h1>
+  <div class="graphback">
+    <div class="progressbar"></div>
+  </div>
+  
+  <div>
 <h1> Expenses by Category </h1>
 
-
+      <div class="graphback">
         <div id="expense_chart">
+
+
+        <div id="expense_chart" style="padding-top: 70px;">
+          <h1> Expenses by Category </h1>
           <chart_data id='nightlife' data-nightlife='<%= @donut_data[:nightlife]%>'></chart_data>
           <chart_data id='food' data-food='<%= @donut_data[:food]%>'></chart_data>
           <chart_data id='accommodation' data-accommodation='<%= @donut_data[:accommodation]%>'></chart_data>
@@ -151,54 +171,62 @@
           <chart_data id='miscellaneous' data-miscellaneous='<%= @donut_data[:miscellaneous]%>'></chart_data>
         </div>
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+      </div>
+        
+<h1> Expenses by Location </h1>
+      <div class="graphback">
+        <div id="week_chart">
+          <% @bar_data.each do |data|  %>
+            <%= raw"<chart_data class='week_chart_data' data-location='#{data[:location]}' data-cost='#{data[:cost]}'></chart_data>" %>
+          <%end %>
+        </div>
+      </div>
 
 <h1> Expenses by Date </h1>
+        
+      <div class="graphback">
 
-        <div id="pink_chart">
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+        <div id="pink_chart" style="padding-top: 70px;">
+        <h1> Expenses by Date </h1>
         <% @pink_data.each do |data|  %>
         <%= raw"<chart_data class='pink_chart_data' data-date='#{data[:date]}' data-cost='#{data[:cost]}'></chart_data>" %>
         <%end %>
         </div>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
 
+      </div>
+
+     
+     </div>    
+
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
      </div>
 
-<!--This is  the end of the responsive containers -->
 
+<!--This is  the end of the responsive containers -->
 
                   </div>
                 </div>
             </div>
         </div>
-
-
-        <!-- /#page-content-wrapper -->
-
-
-<!--         </div>
- -->
-
-                  <!--This is  the end of the responsive containers -->
-
     </div>
     <!--This is  the end of the responsive containers -->
 </div>
-
-
-
 
     <!-- Menu Toggle Script -->
     <script>
@@ -207,7 +235,6 @@
         $("#wrapper").toggleClass("toggled");
     });
     </script>
-
 
 
 
@@ -231,3 +258,4 @@
         return window.SIG_EXT = {};
 
       })()</script>
+</body>
