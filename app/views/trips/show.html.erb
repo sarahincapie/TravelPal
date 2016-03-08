@@ -48,21 +48,27 @@
 
 <h1><strong>Trip Analysis :: <%= @trip.name %> </strong></h1>
 
+          <div id="graphics_top_div">
+<h1> Daily Balance </h1>
+ <div class="progressbar"></div>
 
-            <!--This is  the  chart from c3-->
   <!--This is  the  MAP from D3-->
 <h1> Places I have been to  </h1>
  <div id="mapid">
 
  </div>
 
+<h1> Expenses by Location </h1>
 
-          <div id="graphics_top_div">
-<h1> Daily Expenses </h1>
- <div class="progressbar"></div>
+        <div id="week_chart">
+          <% @bar_data.each do |data|  %>
+            <%= raw"<chart_data class='week_chart_data' data-location='#{data[:location]}' data-cost='#{data[:cost]}'></chart_data>" %>
+          <%end %>
+        </div>
+
+            <!--This is  the  chart from c3-->
 
 <h1> Expenses by Category </h1>
-
 
         <div id="expense_chart">
           <chart_data id='nightlife' data-nightlife='<%= @donut_data[:nightlife]%>'></chart_data>
@@ -78,13 +84,7 @@
           <chart_data id='healthfitness' data-healthfitness='<%= @donut_data[:healthfitness]%>'></chart_data>
           <chart_data id='miscellaneous' data-miscellaneous='<%= @donut_data[:miscellaneous]%>'></chart_data>
         </div>
-<h1> Expenses by Location </h1>
 
-        <div id="week_chart">
-          <% @bar_data.each do |data|  %>
-            <%= raw"<chart_data class='week_chart_data' data-location='#{data[:location]}' data-cost='#{data[:cost]}'></chart_data>" %>
-          <%end %>
-        </div>
 
 <h1> Expenses by Date </h1>
         
