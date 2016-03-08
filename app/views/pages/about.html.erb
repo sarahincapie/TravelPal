@@ -23,7 +23,13 @@
                       </li>
                       <% if user_signed_in? %>
                       <li><%= gravatar_image_tag(current_user.email, :alt => 'Profile Image', :class => 'image_size') %></li>
-                      <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
+                      <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Profile<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                              <li><%= link_to('Edit Profile', edit_user_registration_path) %></li>
+                              <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
+                            </ul>
+                      </li>
                       <% else %>
                       <li><%= link_to "Sign Up", new_user_registration_path %></li>
                       <li><%= link_to "Sign In", new_user_session_path %></li>
@@ -44,9 +50,8 @@
 
                   <div id="travelpal_logo">
 
-
                   </div>
-                  <h2>Claim your TravelPal</h2>
+                  <h2>Registration</h2>
 
                   <%= form_for(User.new, url: user_registration_path) do |f| %>
                     <%# devise_error_messages! %>
@@ -59,10 +64,19 @@
                         </div>
                       </div> -->
 
+                      <div class="field">
+                        <%= f.label :first_name %><br />
+                        <%= f.email_field :first_name, placeholder: "first name", autofocus: true %>
+                      </div>
+
+                      <div class="field">
+                        <%= f.label :last_name %><br />
+                        <%= f.email_field :last_name, placeholder: "last name" %>
+                      </div>
 
                     <div class="field">
                       <%= f.label :email %><br />
-                      <%= f.email_field :email, autofocus: true, placeholder: "email" %><br />
+                      <%= f.email_field :email, placeholder: "email" %><br />
                     </div>
 
                     <div class="field">

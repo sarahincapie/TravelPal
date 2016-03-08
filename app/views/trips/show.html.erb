@@ -1,9 +1,50 @@
-<p id="notice"><%= notice %></p>
-<!--
-<nav class="navbar navbar-full navbar-light bg-faded">
-  <a class="navbar-brand" href="#">Full width</a>
-</nav> -->
+<nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav pull-right">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Select Trip<span class="caret"></span></a>
+                  <ul class="dropdown-menu">
 
+                    <% if user_signed_in? %>
+                      <% current_user.trips.each do |trip| %>
+                        <li><%= link_to trip.name, trip %> </li>
+                      <% end %>
+                      <li class="dropdown-header">_________________________</li>
+                        <li><%= link_to "Create Trip", new_trip_path %></li>
+                    <% else %>
+                      <li><%= link_to "Create Trip", new_trip_path %></li>
+                    <% end %>
+                  </ul>
+            </li>
+            <li class="active"><a href="#">Add Expense</a></li>
+            <li><a href="#contact">Trip Details</a></li>
+            <% if user_signed_in? %>
+            <li><%= gravatar_image_tag(current_user.email, :alt => 'Profile Image', :class => 'image_size') %></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Profile<span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><%= link_to('Edit Profile', edit_user_registration_path) %></li>
+                    <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
+                  </ul>
+            </li>            <% else %>
+            <li><%= link_to "Sign Up", new_user_registration_path %></li>
+            <li><%= link_to "Sign In", new_user_session_path %></li>
+            <% end %>
+          </ul>
+        </div>
+  </nav>
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
 
     <div id="wrapper">
         <!-- Sidebar -->
@@ -13,20 +54,23 @@
                     <a href="#">What would you like see?</a>
                 </li>
                 <li>
-                    <a class="glyphicon glyphicon-paperclip" aria-hidden="true" href="#"> Overview</a>
-                </li>
-
-                <li>
                     <a class="glyphicon glyphicon-phone" aria-hidden="true" href="#"> Daily</a>
+
                 </li>
                 <li>
-                    <a class="glyphicon glyphicon-tasks" aria-hidden="true" href="#"> Category</a>
+                    <a class="glyphicon glyphicon-paperclip" aria-hidden="true" href="#"> Overview</a>
                 </li>
                 <li>
                     <a class="glyphicon glyphicon-globe" aria-hidden="true" href="#"> Location</a>
                 </li>
                 <li>
-                    <a class="glyphicon glyphicon-picture" aria-hidden="true" href="#"> Trip</a>
+                    <a class="glyphicon glyphicon-tasks" aria-hidden="true" href="#"> Category</a>
+                </li>
+                <li>
+                    <a class="glyphicon glyphicon-picture" aria-hidden="true" href="#"> Date</a>
+                </li>
+                <li>
+                    <a class="glyphicon glyphicon-picture" aria-hidden="true" href="#"> PhotoBlog</a>
                 </li>
             </ul>
         </div>
@@ -48,11 +92,46 @@
 
 <h1><strong>Trip Analysis :: <%= @trip.name %> </strong></h1>
 
+          <div id="graphics_top_div">
+<h1> Daily Balance </h1>
+ <div class="progressbar"></div>
 
-            <!--This is  the  chart from c3-->
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+
   <!--This is  the  MAP from D3-->
 <h1> Places I have been to  </h1>
  <div id="mapid"></div>
+
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+
+<h1> Expenses by Location </h1>
+
+        <div id="week_chart">
+          <% @bar_data.each do |data|  %>
+            <%= raw"<chart_data class='week_chart_data' data-location='#{data[:location]}' data-cost='#{data[:cost]}'></chart_data>" %>
+          <%end %>
+        </div>
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 
 <div id="graphics_top_div">
@@ -79,6 +158,7 @@
           <chart_data id='healthfitness' data-healthfitness='<%= @donut_data[:healthfitness]%>'></chart_data>
           <chart_data id='miscellaneous' data-miscellaneous='<%= @donut_data[:miscellaneous]%>'></chart_data>
         </div>
+
       </div>
         
 <h1> Expenses by Location </h1>
@@ -93,15 +173,40 @@
 <h1> Expenses by Date </h1>
         
       <div class="graphback">
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<h1> Expenses by Date </h1>
+
+
         <div id="pink_chart">
         <% @pink_data.each do |data|  %>
         <%= raw"<chart_data class='pink_chart_data' data-date='#{data[:date]}' data-cost='#{data[:cost]}'></chart_data>" %>
         <%end %>
         </div>
+
       </div>
 
      
      </div>    
+
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+     </div>
+
 
 <!--This is  the end of the responsive containers -->
 

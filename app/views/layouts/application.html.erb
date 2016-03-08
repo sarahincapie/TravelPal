@@ -20,49 +20,6 @@
   </head>
   <body id="body_id">
 
-    <nav class="navbar navbar-default navbar-fixed-top">
-          <div class="container">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="#"></a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-              <ul class="nav navbar-nav pull-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Select Trip<span class="caret"></span></a>
-                      <ul class="dropdown-menu">
-
-                        <% if user_signed_in? %>
-                          <% current_user.trips.each do |trip| %>
-                            <li><%= link_to trip.name, trip %> </li>
-                          <% end %>
-                          <li class="dropdown-header">_________________________</li>
-                            <li><%= link_to "Create Trip", new_trip_path %></li>
-                        <% else %>
-                          <li><%= link_to "Create Trip", new_trip_path %></li>
-                        <% end %>
-                      </ul>
-                </li>
-                <li class="active"><a href="#">Add Expense</a></li>
-                <li><a href="#contact">Trip Details</a></li>
-                <% if user_signed_in? %>
-                <li><%= gravatar_image_tag(current_user.email, :alt => 'Profile Image', :class => 'image_size') %></li>
-                <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
-                <% else %>
-                <li><%= link_to "Sign Up", new_user_registration_path %></li>
-                <li><%= link_to "Sign In", new_user_session_path %></li>
-                <% end %>
-              </ul>
-            </div>
-      </nav>
-            <p class="notice"><%= notice %></p>
-            <p class="alert"><%= alert %></p>
-
 
 
   <!-- Navigation -->
