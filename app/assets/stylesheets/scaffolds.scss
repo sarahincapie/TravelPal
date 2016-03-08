@@ -11,7 +11,7 @@
   background-repeat: no-repeat;
   padding-top: 40vh;
   text-align: center;
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Roboto', serif;
 
 }
 
@@ -27,7 +27,7 @@
 
 h1 {
   font-size: 18px;
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Roboto', serif;
 
 }
 
@@ -51,7 +51,7 @@ h1 {
   padding: 15px;
   background-color: rgba(130, 54, 58, 1);
   color: black;
-  border: 2px solid white;
+  border: .5px solid white;
 }
 
 #jumbotron_dropdown > h2 {
@@ -959,4 +959,24 @@ li > a {
 
 #how-div {
   height: 100vh;
+}
+
+#navbar > ul {
+  /*background-color: rgb(175, 142, 123);*/
+  background-color: transparent;
+  border-radius: 6px;
+  /*border: 1px solid black;*/
+}
+
+
+#navbar > ul > li > a {
+  border-radius: 6px;
+  color: white;
+  font-family: 'Roboto Slab', serif;
+  font-size: 20px;
+}
+
+#navbar > ul > li > a:hover {
+  color: black;
+  background-color: white;
 }

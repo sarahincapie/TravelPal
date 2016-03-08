@@ -19,8 +19,8 @@
                   <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav pull-right">
                       <li><a href="#how" id="">Home</a></li>
-                      <li><a href="#how" id="how-button">Our Product</a></li>
-                      <li><a href="#tech" id="tech">Technologies</a></li>
+                      <li><a href="#how" id="how-button">Product</a></li>
+                      <li><a href="#tech" id="tech">About</a></li>
                       </li>
                       <% if user_signed_in? %>
                       <li><%= gravatar_image_tag(current_user.email, :alt => 'Profile Image', :class => 'image_size') %></li>
@@ -49,10 +49,8 @@
               <div class="modal-dialog modal-sm">
                 <div class="modal-content" id="jumbotron_dropdown">
 
-                  <div id="travelpal_logo">
 
-                  </div>
-                  <h2>Registration</h2>
+                  <h2>Claim Your TravelPal!</h2><br/>
 
                   <%= form_for(User.new, url: user_registration_path) do |f| %>
                     <%# devise_error_messages! %>
@@ -66,41 +64,41 @@
                       </div> -->
 
                       <div class="field">
-                        <%= f.label :first_name %><br />
-                        <%= f.email_field :first_name, placeholder: "first name", autofocus: true %>
-                      </div>
+                        <!-- <%= f.label :first_name %><br /> -->
+                        <%= f.text_field :first_name, placeholder: "First Name", autofocus: true, :class => 'form-control' %>
+                      </div><br/>
 
                       <div class="field">
-                        <%= f.label :last_name %><br />
-                        <%= f.email_field :last_name, placeholder: "last name" %>
-                      </div>
+                        <!-- <%= f.label :last_name %><br /> -->
+                        <%= f.text_field :last_name, placeholder: "Last Name", :class => 'form-control' %>
+                      </div><br/>
 
                     <div class="field">
-                      <%= f.label :email %><br />
-                      <%= f.email_field :email, placeholder: "email" %><br />
-                    </div>
+                      <!-- <%= f.label :email %><br /> -->
+                      <%= f.email_field :email, placeholder: "Email", :class => 'form-control' %>
+                    </div><br/>
 
                     <div class="field">
-                      <%= f.label :number %><br />
-                      <%= f.telephone_field :number, placeholder: "number" %><br />
-                    </div>
+                      <!-- <%= f.label :number %> -->
+                      <%= f.text_field :number, placeholder: "Number", :class => 'form-control' %>
+                    </div><br/>
 
                     <div class="field">
-                      <%= f.label :password %>
+                      <!-- <%= f.label :password %> -->
                       <% if @minimum_password_length %>
                       <em>(<%= @minimum_password_length %> characters minimum)</em>
-                      <% end %><br />
-                      <%= f.password_field :password, autocomplete: "off", placeholder: "password" %><br />
-                    </div>
+                      <% end %>
+                      <%= f.password_field :password, autocomplete: "off", placeholder: "Password", :class => 'form-control' %>
+                    </div><br/>
 
                     <div class="field">
-                      <%= f.label :password_confirmation %><br />
-                      <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "re-type password" %><br />
-                    </div>
+                      <!-- <%= f.label :password_confirmation %> -->
+                      <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Password Again", :class => 'form-control' %><br />
+                    </div><br/>
 
-                    <div class="actions"><br />
-                      <%= f.submit "Sign up", :class => 'btn btn-primary btn-lg' %> <br/> or log in
-                    </div>
+                    <div class="actions">
+                      <%= f.submit "Sign up", :class => 'btn btn-primary btn-lg' %>
+                    </div><br/>
                   <% end %>
 
                 </div>
