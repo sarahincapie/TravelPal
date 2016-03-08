@@ -50,26 +50,26 @@
 
 
                 <li>
-                    <a class="glyphicon glyphicon-phone" aria-hidden="true" href="#"> Map </a>
+                    <a id="map" class="glyphicon glyphicon-phone" aria-hidden="true" href="#"> Map </a>
                 </li>
                 <li>
-                    <a class="glyphicon glyphicon-globe" aria-hidden="true" href="#"> Location</a>
+                    <a id="location" class="glyphicon glyphicon-globe" aria-hidden="true" href="#"> Location</a>
                 </li>
                 <li>
-                    <a class="glyphicon glyphicon-tasks" aria-hidden="true" href="#"> Category</a>
+                    <a id="category" class="glyphicon glyphicon-tasks" aria-hidden="true" href="#"> Category</a>
                 </li>
                 <li>
-                    <a class="glyphicon glyphicon-usd" aria-hidden="true" href="#"> Date</a>
+                    <a id="date" class="glyphicon glyphicon-usd" aria-hidden="true" href="#"> Date</a>
                 </li>
                 <li>
-                    <a class="glyphicon glyphicon-picture" aria-hidden="true" href="#"> PhotoBlog</a>
+                    <a id="photoblog" rel=""class="glyphicon glyphicon-picture" aria-hidden="true" href="#"> PhotoBlog</a>
                 </li>
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
 
         <!-- Page Content -->
-        <div id="page-content-wrapper">
+        <div id="page-content-wrapper" style="padding-top: 70px;">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
@@ -85,11 +85,15 @@
 
             <!--This is  the  chart from c3-->
 
-<h1><strong> Your Trips Overall </strong></h1>
+
+
+
 
 <!--This is  the  MAP from D3-->
-        <h1> Places I have been to </h1>
-         <div id="mapid"></div>
+
+
+
+         <div id="mapid" style="padding-top: 60px;"><h1><strong> Your Trips Overall </strong></h1><h1> Places I have been to </h1></div>
 
  <br>
  <br>
@@ -99,8 +103,9 @@
  <br>
  <br>
 
-        <h1> Expenses by Location </h1>
-         <div id="week_chart">
+
+         <div id="week_chart" style="padding-top: 60px;">
+           <h1> Expenses by Location </h1>
            <% @bar_data.each do |data|  %>
              <%= raw"<chart_data class='week_chart_data' data-location='#{data[:location]}' data-cost='#{data[:cost]}'></chart_data>" %>
            <%end %>
@@ -112,8 +117,9 @@
   <br>
   <br>
   <br>
-        <h1>Expenses by Category</h1>
-        <div id="expense_chart">
+
+        <div id="expense_chart" style="padding-top: 60px;">
+          <h1>Expenses by Category</h1>
           <chart_data id='nightlife' data-nightlife='<%= @donut_data[:nightlife]%>'></chart_data>
           <chart_data id='food' data-food='<%= @donut_data[:food]%>'></chart_data>
           <chart_data id='accommodation' data-accommodation='<%= @donut_data[:accommodation]%>'></chart_data>
@@ -136,14 +142,15 @@
 <br>
 
 
-      <h1> Expenses by Date </h1>
-      <div id="pink_chart">
+
+      <div id="pink_chart" style="padding-top: 60px;">
+        <h1> Expenses by Date </h1>
         <% @pink_data.each do |data|  %>
         <%= raw"<chart_data class='pink_chart_data' data-date='#{data[:date]}' data-cost='#{data[:cost]}'></chart_data>" %>
         <%end %>
         </div>
 
-      </div>
+
 <br>
 <br>
 <br>
