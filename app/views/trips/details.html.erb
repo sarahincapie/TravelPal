@@ -8,7 +8,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/pages/about">HOME</a>
+          <a class="navbar-brand" href="/pages/about"><%= image_tag "/assets/botlogo.png", alt: "Bot Logo", class: "logo" %></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav pull-right">
@@ -105,6 +105,7 @@
                     <th>Category</th>
                     <th>Location</th>
                     <th>Date</th>
+                    <th>Tags<th>
                     <th>User</th>
                     <th colspan="3"></th>
                   </tr>
@@ -117,7 +118,9 @@
                       <td><%= expense.category %></td>
                       <td><%= expense.location %></td>
                       <td><%= expense.date %></td>
-
+                      <% if expense.tags.any? %>
+                        <td><%= expense.tags.each { |tag| tag.name } %></td>
+                      <% end %>
                       <td><%= link_to 'Show', expense %></td>
                       <td><%= link_to 'Edit', edit_expense_path(expense) %></td>
                       <td><%= link_to 'Delete', expense, method: :delete, data: { confirm: 'Are you sure?' } %></td>
