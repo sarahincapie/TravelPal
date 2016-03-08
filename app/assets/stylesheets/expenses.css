@@ -15,12 +15,14 @@ html, body {
 
 /* Toggle Styles */
 
+
+
 .progressbar {
     margin: auto;
     width: 300px;
     height: 300px;
     color: '#000';
-    font-size: 40px;    
+    font-size: 40px;
  }
 
 #mapid {
@@ -68,7 +70,7 @@ html, body {
 }
 
 #wrapper.toggled #sidebar-wrapper {
-    width: 250px;
+    width: 150px;
 }
 
 #page-content-wrapper {
@@ -135,19 +137,19 @@ html, body {
 
 @media(min-width:768px) {
     #wrapper {
-        padding-left: 250px;
+        padding-left: 150px;
     }
 
     #wrapper.toggled {
-        padding-left: 0;
+        padding-left: 40px;
     }
 
     #sidebar-wrapper {
-        width: 250px;
+        width: 150px;
     }
 
     #wrapper.toggled #sidebar-wrapper {
-        width: 0;
+        width: 50px;
     }
 
     #page-content-wrapper {
