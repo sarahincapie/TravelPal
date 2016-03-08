@@ -27,12 +27,19 @@
   padding-top: 5px;
   padding-bottom: 10px;
   font-size: 15px;
+
+}
+
+
+.navbar-navbar-dark-bg-primary, li:hover {
+  /*background-color: green;*/
 }
 
 
 .navbar-navbar-dark-bg-primary ul, ol {
   margin-top: 0;
   margin-bottom: 10px;
+
 }
 
 .slice text {
