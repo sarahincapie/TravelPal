@@ -51,8 +51,9 @@
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
+              <br>
                 <li class="sidebar-brand">
-                    <a href="/expenses">Back to Expenses Overall</a>
+                    <a class="glyphicon glyphicon-usd" href="/expenses"></a>
                 </li>
                 <li>
                     <a id="daily" class="glyphicon glyphicon-phone" aria-hidden="true" href="#"> Daily</a>
@@ -68,7 +69,7 @@
                     <a id="category" class="glyphicon glyphicon-tasks" aria-hidden="true" href="#"> Category</a>
                 </li>
                 <li>
-                    <a id="date" class="glyphicon glyphicon-picture" aria-hidden="true" href="#"> Date</a>
+                    <a id="date" class="glyphicon glyphicon-calendar" aria-hidden="true" href="#"> Date</a>
                 </li>
                 <li>
                     <a id="photoblog" class="glyphicon glyphicon-picture" aria-hidden="true" href="/gallery"> PhotoBlog</a>
@@ -93,6 +94,8 @@
 
 <h1 class="pageheader"><strong>Trip Analysis: <%= @trip.name %> </strong></h1>
 
+  <br>
+  <br>
 
     <!--This is  the  chart from c3-->
 
@@ -111,8 +114,8 @@
  <br>
 
  <!--This is  the  MAP from D3-->
-
-<div id="mapid" style="padding-top: 70px;"><h1> Places I have been to  </h1></div>
+<h1 class="pageheader"> Everywhere I've Been </h1>
+<div id="mapid" style="padding-top: 70px;"></div>
 
 
  <br>
@@ -141,25 +144,8 @@
 <br>
 <br>
 
-<<<<<<< HEAD
       <div class="graphback2">
-        <div id="expense_chart" style="padding-top: 60px;">
-=======
-<div id="graphics_top_div">
-  <h1> Daily Expenses </h1>
-  <div class="graphback">
-    <div class="progressbar"></div>
-  </div>
-
-  <div>
-<h1> Expenses by Category </h1>
-
-      <div class="graphback">
-        <div id="expense_chart">
-
-
         <div id="expense_chart" style="padding-top: 70px;">
->>>>>>> ed4ef944dd78d042f47333ccc5828b81b729a830
           <h1> Expenses by Category </h1>
           <chart_data id='nightlife' data-nightlife='<%= @donut_data[:nightlife]%>'></chart_data>
           <chart_data id='food' data-food='<%= @donut_data[:food]%>'></chart_data>
@@ -174,28 +160,9 @@
           <chart_data id='healthfitness' data-healthfitness='<%= @donut_data[:healthfitness]%>'></chart_data>
           <chart_data id='miscellaneous' data-miscellaneous='<%= @donut_data[:miscellaneous]%>'></chart_data>
         </div>
-<<<<<<< HEAD
       </div>
 
-=======
 
-      </div>
-
-<h1> Expenses by Location </h1>
-      <div class="graphback">
-        <div id="week_chart">
-          <% @bar_data.each do |data|  %>
-            <%= raw"<chart_data class='week_chart_data' data-location='#{data[:location]}' data-cost='#{data[:cost]}'></chart_data>" %>
-          <%end %>
-        </div>
-      </div>
-
-<h1> Expenses by Date </h1>
-
-      <div class="graphback">
-
-
->>>>>>> ed4ef944dd78d042f47333ccc5828b81b729a830
 <br>
 <br>
 <br>
@@ -213,12 +180,7 @@
         </div>
       </div>
 
-<<<<<<< HEAD
-=======
 
-     </div>
-
->>>>>>> ed4ef944dd78d042f47333ccc5828b81b729a830
   <br>
   <br>
   <br>

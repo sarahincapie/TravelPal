@@ -68,9 +68,11 @@ html, body {
  }
 
 #mapid {
-
+    margin: auto;
     height: 400px;
-
+    border: 1px solid #999999;
+    border-radius: 6px;
+    width: 95%;
 
  }
 
