@@ -1,13 +1,13 @@
-<h1>Tagged Expenses: <strong><%= @tag %><strong></h1>
+<h1 class="pageheader">Tagged Expenses: <strong><%= @tag %><strong></h1>
 
-  <table>
+  <table class="table">
     <thead>
       <tr>
         <th>Message</th>
         <th>Cost</th>
         <th>Category</th>
-        <th>Date</th>
         <th>Location</th>
+        <th>Date</th>
         <th>User</th>
         <th colspan="3"></th>
       </tr>
@@ -19,8 +19,8 @@
           <td><%= expense.textmsg %></td>
           <td><%= expense.cost %></td>
           <td><%= expense.category %></td>
-          <td><%= expense.date %></td>
           <td><%= expense.location %></td>
+          <td><%= expense.date %></td>
 
           <td><%= link_to 'Show', expense %></td>
           <td><%= link_to 'Edit', edit_expense_path(expense) %></td>
