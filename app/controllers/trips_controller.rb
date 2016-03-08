@@ -2,6 +2,10 @@ class TripsController < ApplicationController
   before_action :set_trip, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
 
+    def details
+      @expenses = current_user.expenses.current_trip_expenses(params[:id])
+    end
+  
   # GET /trips
   # GET /trips.json
   def index

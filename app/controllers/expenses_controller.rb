@@ -71,10 +71,6 @@ class ExpensesController < ApplicationController
     end  
   end
 
-  def details
-    @expenses = current_user.expenses.all
-  end
-
   # GET /expenses/1
   # GET /expenses/1.json
 
