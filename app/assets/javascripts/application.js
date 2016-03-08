@@ -6,6 +6,23 @@
 //= require progressbar
 //= require_tree .
 
+// sidebar-wrapper interactivity
+
+$("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+});
+$("#sidebar-wrapper").hover(
+  function() {
+    $("#wrapper").removeClass("toggled");
+  },
+  function() {
+    $("#wrapper").addClass("toggled");
+  }
+);
+
+// Landing page interactivity
+
 $('#how-button').click(function(){
     $('body').animate({
         scrollTop: $('#how-div').offset().top
