@@ -15,19 +15,43 @@ html, body {
 
 /* Toggle Styles */
 
+.pageheader {
+  text-align: center;
+}
+
+.graphback1 {
+    margin: auto;
+    text-align: center;
+    height: 400px;
+    width: 95%;
+    background-color: #fff;
+    /*box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.75);*/
+    border: 1px solid #999999;
+    border-radius: 6px;
+ }
+
+.graphback2 {
+    margin: auto;
+    text-align: center;
+    height: 440px;
+    width: 95%;
+    background-color: #fff;
+    /*box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.75);*/
+    border: 1px solid #999999;
+    border-radius: 6px;
+ }
+
 .progressbar {
 
     width: 300px;
     height: 300px;
     color: '#000';
     font-size: 40px;
-
-
  }
 
 #mapid {
 
-    height: 200px;
+    height: 400px;
 
 
  }

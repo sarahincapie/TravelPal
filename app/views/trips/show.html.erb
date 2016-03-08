@@ -27,8 +27,8 @@
                     <% end %>
                   </ul>
             </li>
-            <li class="active"><a href="#">Add Expense</a></li>
-            <li><a href="#contact">Trip Details</a></li>
+            <li class="active"><%= link_to "Add Expense", new_expense_path %></li>
+            <li><%= link_to "Trip Details", trip_details_path %> </li>
             <% if user_signed_in? %>
             <li><%= gravatar_image_tag(current_user.email, :alt => 'Profile Image', :class => 'image_size') %></li>
             <li class="dropdown">
@@ -71,7 +71,7 @@
                     <a id="date" class="glyphicon glyphicon-picture" aria-hidden="true" href="#"> Date</a>
                 </li>
                 <li>
-                    <a id="photoblog" class="glyphicon glyphicon-picture" aria-hidden="true" href="#"> PhotoBlog</a>
+                    <a id="photoblog" class="glyphicon glyphicon-picture" aria-hidden="true" href="/gallery"> PhotoBlog</a>
                 </li>
             </ul>
         </div>
@@ -91,16 +91,16 @@
                         </div>
                   </div>
 
-<h1><strong>Trip Analysis: <%= @trip.name %> </strong></h1>
+<h1 class="pageheader"><strong>Trip Analysis: <%= @trip.name %> </strong></h1>
 
 
             <!--This is  the  chart from c3-->
 
 
 <div id="graphics_top_div">
-
-   <div class="progressbar"><h1> Daily Expenses </h1></div>
-
+  <div class="graphback1">
+    <div class="progressbar"><h1> Daily Balance </h1></div>
+  </div>
  <br>
  <br>
  <br>
@@ -123,15 +123,15 @@
  <br>
 
 
-
-        <div id="week_chart" style="padding-top: 70px;">
+      <div class="graphback2">
+        <div id="week_chart" style="padding-top: 20px;">
           <h1> Expenses by Location </h1>
           <% @bar_data.each do |data|  %>
             <%= raw"<chart_data class='week_chart_data' data-location='#{data[:location]}' data-cost='#{data[:cost]}'></chart_data>" %>
           <%end %>
         </div>
+      </div>
 
-
 <br>
 <br>
 <br>
@@ -140,8 +140,8 @@
 <br>
 <br>
 
-
-        <div id="expense_chart" style="padding-top: 70px;">
+      <div class="graphback2">
+        <div id="expense_chart" style="padding-top: 20px;">
           <h1> Expenses by Category </h1>
           <chart_data id='nightlife' data-nightlife='<%= @donut_data[:nightlife]%>'></chart_data>
           <chart_data id='food' data-food='<%= @donut_data[:food]%>'></chart_data>
@@ -156,6 +156,7 @@
           <chart_data id='healthfitness' data-healthfitness='<%= @donut_data[:healthfitness]%>'></chart_data>
           <chart_data id='miscellaneous' data-miscellaneous='<%= @donut_data[:miscellaneous]%>'></chart_data>
         </div>
+      </div>
 
 <br>
 <br>
@@ -165,13 +166,15 @@
 <br>
 <br>
 
-
-        <div id="pink_chart" style="padding-top: 70px;">
+      <div class="graphback2">
+        <div id="pink_chart" style="padding-top: 20px;">
         <h1> Expenses by Date </h1>
         <% @pink_data.each do |data|  %>
         <%= raw"<chart_data class='pink_chart_data' data-date='#{data[:date]}' data-cost='#{data[:cost]}'></chart_data>" %>
         <%end %>
         </div>
+      </div>
+
   <br>
   <br>
   <br>
@@ -201,22 +204,6 @@
 
 
 
-<div class="notify js-notify">
-    <div class="notify__loader">
-    </div>
-    <div class="notify__icon"></div>
-    <div class="notify__body">
-      <div class="notify__body__message">
-        <span class="js-notify-message">There was an error loading this message</span>
-        <span class="notify__body__actions js-notify-action">
-          <a href="https://web.crowdfireapp.com/#/publish/timeline" target="_blank">
-            Go to Timeline
-          </a>
-        </span>
-      </div>
-      <span class="arrow arrow--small">⤴</span>
-    </div>
-  </div>
   <span id="publishImageBtn" style="display: none; position: absolute; z-index: 8675400; width: 100px; height: 25px; opacity: 0.9; cursor: pointer; border-radius: 4px; background-image: url(&quot;chrome-extension://jgnbklefkgedfbpjebhjgibfnobjcbli/images/publish-image.png&quot;); background-size: 100px 25px;"></span><span id="selectedIcon" style="display: none; position: absolute; z-index: 8675400; width: 40px; height: 40px; cursor: pointer; border-radius: 4px; background-image: url(&quot;chrome-extension://jgnbklefkgedfbpjebhjgibfnobjcbli/images/selected-icon.png&quot;); background-size: cover;"></span><script type="text/javascript">(function () {
         return window.SIG_EXT = {};
 
