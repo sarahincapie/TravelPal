@@ -44,20 +44,27 @@
                       <p id="notice"><%= notice %></p>
 
                         </div>
-                          <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                          <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Menu</a>
                         </div>
                   </div>
 
 
             <!--This is  the  chart from c3-->
 
+<h1><strong> Matt's Trips Overall </strong></h1>
 
+  <!--This is  the  MAP from D3-->
+<h1> Places I have been to </h1>
+ <div id="mapid">
 
+ </div>
+
+<!-- 
           <div id="graphics_top_div">
-<h1> Daily expenses </h1>
- <div class="progressbar"></div>
+<h1> Daily Expenses </h1>
+ <div class="progressbar"></div> -->
 
-<h1> Expenses by category </h1>
+<h1> Expenses by Category </h1>
 
 
         <div id="expense_chart">
@@ -82,7 +89,7 @@
           <%end %>
         </div>
 
-<h1> Expenses by date </h1>
+<h1> Expenses by Date </h1>
 
 
 
@@ -92,14 +99,6 @@
         <%= raw"<chart_data class='pink_chart_data' data-date='#{data[:date]}' data-cost='#{data[:cost]}'></chart_data>" %>
         <%end %>
         </div>
-
-
-
-  <!--This is  the  MAP from D3-->
-<h1> Places I have been to  </h1>
- <div id="mapid">
-
- </div>
 
 
 
