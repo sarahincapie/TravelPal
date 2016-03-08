@@ -49,14 +49,16 @@ h1 {
   height: 90vh;
   width: 100%;
   padding: 15px;
-  background-color: rgba(48, 55, 78, 1);
+  background-color: rgba(130, 54, 58, 1);
   color: black;
+  border: 2px solid white;
 }
 
 #jumbotron_dropdown > h2 {
-  padding-top: 10%;
+  padding-top: 0;
   font-size: 2em;
   color: white;
+
 }
 
 #jumbotron_button {
@@ -933,6 +935,8 @@ shake
 
 #landing_page_bottom {
   color: white;
+  padding-top: 100
+  px;
 }
 
 .image_size {
@@ -942,6 +946,11 @@ shake
   border-style: solid;
   border-width: 2px;
   border-color: white;
+
+}
+
+li > a {
+  padding: 0;
 }
 
 #nav_container {
