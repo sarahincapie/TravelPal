@@ -6,6 +6,24 @@
 //= require progressbar
 //= require_tree .
 
+$('#how-button').click(function(){
+    $('body').animate({
+        scrollTop: $('#how-div').offset().top
+    }, 500);
+    return false;
+});
+
+$('#tech').click(function(){
+    $('body').animate({
+        scrollTop: $('#what_we_do_div').offset().top
+    }, 500);
+    return false;
+});
+
+
+// Roberts Code ^^
+
+
 function Broadcaster(){
   this.broadcasting = false;
   this.wave = $('.radio-wave');
@@ -85,7 +103,7 @@ $(function(){
 
   $(window).scroll(function() {
     var topOfWindow = $(window).scrollTop();
-    console.log(topOfWindow);
+    // console.log(topOfWindow);
     $('.radio-wave').each(function(){
       var imagePos = $(this).offset().top;
 
@@ -100,5 +118,3 @@ $(function(){
   });
   $('.btn-chase').click(function(){startChasing();});
 });
-
-
