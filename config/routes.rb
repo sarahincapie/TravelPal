@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   get 'tagged' => 'expenses#tagged', :as => 'tagged'
-  get 'expenses/details' => 'expenses#details'
+  get 'trips/:id/details' => 'trips#details'
 
   get 'messages/index'
   get 'messages/client'
