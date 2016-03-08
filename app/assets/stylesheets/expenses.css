@@ -15,6 +15,15 @@ html, body {
 
 /* Toggle Styles */
 
+.table {
+  background-color: white;
+  opacity: 0.8;
+  width: 40%;
+  margin: 0 auto;
+  border-radius: 25px;
+}
+
+
 .pageheader {
   text-align: center;
 }
@@ -33,7 +42,7 @@ html, body {
 .graphback2 {
     margin: auto;
     text-align: center;
-    height: 440px;
+    height: 500px;
     width: 95%;
     background-color: #fff;
     /*box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.75);*/
