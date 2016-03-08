@@ -21,7 +21,103 @@ $('#tech').click(function(){
 });
 
 
-// Roberts Code ^^
+// trips show
+
+$('#daily').click(function(){
+    $('body').animate({
+        scrollTop: $('#menu-toggle').offset().top
+    }, 500);
+    return false;
+});
+
+$('#overview').click(function(){
+    $('body').animate({
+        scrollTop: $('#mapid').offset().top
+    }, 500);
+    return false;
+});
+
+$('#location').click(function(){
+    $('body').animate({
+        scrollTop: $('#week_chart').offset().top
+    }, 500);
+    return false;
+});
+
+$('#category').click(function(){
+    $('body').animate({
+        scrollTop: $('#expense_chart').offset().top
+    }, 500);
+    return false;
+});
+
+$('#date').click(function(){
+    $('body').animate({
+        scrollTop: $('#pink_chart').offset().top
+    }, 500);
+    return false;
+});
+
+$('#date').click(function(){
+    $('body').animate({
+        scrollTop: $('#pink_chart').offset().top
+    }, 500);
+    return false;
+});
+
+// Expenses index
+
+$('#map').click(function(){
+    $('body').animate({
+        scrollTop: $('#mapid').offset().top
+    }, 500);
+    return false;
+});
+
+$('#location').click(function(){
+    $('body').animate({
+        scrollTop: $('#expenses').offset().top
+    }, 500);
+    return false;
+});
+
+$('#category').click(function(){
+    $('body').animate({
+        scrollTop: $('#expense_chart').offset().top
+    }, 500);
+    return false;
+});
+
+$('#date').click(function(){
+    $('body').animate({
+        scrollTop: $('#pink_chart').offset().top
+    }, 500);
+    return false;
+});
+
+
+
+// Robert' code: for sidewrapper interactivity ^^
+
+// CLICKS >>
+//
+// .daily
+// .overview
+// .location
+// .category
+// .date
+// .photoblog
+//
+//
+// DIV >>
+//
+// .progressbar
+// #mapid
+// #week_chart
+// #expense_chart
+// #pink_chart
+
+
 
 
 function Broadcaster(){
