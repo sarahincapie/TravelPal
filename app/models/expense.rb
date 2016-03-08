@@ -12,7 +12,12 @@ class Expense < ActiveRecord::Base
     :Nightlife, :Shopping, :SportsOutdoor, :NatureEnvironment, :Business, :HealthFitness, :Miscellaneous ]
 
 
-def self.to_json
+  def self.current_trip_expenses(id)
+    where(trip_id: id)
+  end 
+
+
+  def self.to_json
     @expenses = Expense.all
     @geojson = []
     
@@ -36,9 +41,7 @@ def self.to_json
     end
   end
 
-  def self.current_trip_expenses(id)
-    where(trip_id: id)
-  end 
+
 # def get_expense_by_day
 # 	 array = %w(cost date)
 # 	 as_json.inject({}) do | hash, key, value | 
