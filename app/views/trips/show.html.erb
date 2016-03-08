@@ -52,18 +52,19 @@
             <!--This is  the  chart from c3-->
   <!--This is  the  MAP from D3-->
 <h1> Places I have been to  </h1>
- <div id="mapid">
-
- </div>
+ <div id="mapid"></div>
 
 
-          <div id="graphics_top_div">
-<h1> Daily Expenses </h1>
- <div class="progressbar"></div>
-
+<div id="graphics_top_div">
+  <h1> Daily Expenses </h1>
+  <div class="graphback">
+    <div class="progressbar"></div>
+  </div>
+  
+  <div>
 <h1> Expenses by Category </h1>
 
-
+      <div class="graphback">
         <div id="expense_chart">
           <chart_data id='nightlife' data-nightlife='<%= @donut_data[:nightlife]%>'></chart_data>
           <chart_data id='food' data-food='<%= @donut_data[:food]%>'></chart_data>
@@ -78,25 +79,26 @@
           <chart_data id='healthfitness' data-healthfitness='<%= @donut_data[:healthfitness]%>'></chart_data>
           <chart_data id='miscellaneous' data-miscellaneous='<%= @donut_data[:miscellaneous]%>'></chart_data>
         </div>
+      </div>
+        
 <h1> Expenses by Location </h1>
-
+      <div class="graphback">
         <div id="week_chart">
           <% @bar_data.each do |data|  %>
             <%= raw"<chart_data class='week_chart_data' data-location='#{data[:location]}' data-cost='#{data[:cost]}'></chart_data>" %>
           <%end %>
         </div>
+      </div>
 
 <h1> Expenses by Date </h1>
         
-
-
-
+      <div class="graphback">
         <div id="pink_chart">
         <% @pink_data.each do |data|  %>
         <%= raw"<chart_data class='pink_chart_data' data-date='#{data[:date]}' data-cost='#{data[:cost]}'></chart_data>" %>
         <%end %>
         </div>
-
+      </div>
 
      
      </div>    
