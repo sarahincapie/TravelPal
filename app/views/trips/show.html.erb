@@ -98,8 +98,9 @@
 
 
 <div id="graphics_top_div">
-
-   <div class="progressbar"><h1> Daily Expenses </h1></div>
+  <div class="graphback">
+    <div class="progressbar"><h1> Daily Expenses </h1></div>
+  </div>
 
  <br>
  <br>
@@ -123,15 +124,15 @@
  <br>
 
 
-
+      <div class="graphback">
         <div id="week_chart" style="padding-top: 70px;">
           <h1> Expenses by Location </h1>
           <% @bar_data.each do |data|  %>
             <%= raw"<chart_data class='week_chart_data' data-location='#{data[:location]}' data-cost='#{data[:cost]}'></chart_data>" %>
           <%end %>
         </div>
+      </div>
 
-
 <br>
 <br>
 <br>
@@ -139,17 +140,8 @@
 <br>
 <br>
 <br>
-
-<<<<<<< HEAD
-
-<div id="graphics_top_div">
-  <h1> Daily Expenses </h1>
-  <div class="graphback">
-    <div class="progressbar"></div>
-  </div>
   
   <div>
-<h1> Expenses by Category </h1>
 
       <div class="graphback">
         <div id="expense_chart">
@@ -180,11 +172,7 @@
             <%= raw"<chart_data class='week_chart_data' data-location='#{data[:location]}' data-cost='#{data[:cost]}'></chart_data>" %>
           <%end %>
         </div>
-      </div>
-
-<h1> Expenses by Date </h1>
-        
-      <div class="graphback">
+      </div>        
 
 
 <br>
@@ -194,7 +182,6 @@
 <br>
 <br>
 <br>
-
 
         <div id="pink_chart" style="padding-top: 70px;">
         <h1> Expenses by Date </h1>
@@ -202,10 +189,6 @@
         <%= raw"<chart_data class='pink_chart_data' data-date='#{data[:date]}' data-cost='#{data[:cost]}'></chart_data>" %>
         <%end %>
         </div>
-
-      </div>
-
-     
      </div>    
 
   <br>
