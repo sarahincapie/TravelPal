@@ -47,12 +47,6 @@ $('#daily').click(function(){
     return false;
 });
 
-$('#overview').click(function(){
-    $('body').animate({
-        scrollTop: $('#mapid').offset().top
-    }, 500);
-    return false;
-});
 
 $('#location').click(function(){
     $('body').animate({
@@ -75,25 +69,19 @@ $('#date').click(function(){
     return false;
 });
 
-$('#date').click(function(){
-    $('body').animate({
-        scrollTop: $('#pink_chart').offset().top
-    }, 500);
-    return false;
-});
 
 // Expenses index
 
 $('#map').click(function(){
     $('body').animate({
-        scrollTop: $('#mapid').offset().top
+        scrollTop: $('.pageheader').offset().top
     }, 500);
     return false;
 });
 
 $('#location').click(function(){
     $('body').animate({
-        scrollTop: $('#expenses').offset().top
+        scrollTop: $('#week_chart').offset().top
     }, 500);
     return false;
 });
