@@ -270,7 +270,7 @@ class IncomingController < ApplicationController
         r.Message "Alright, thanks anyways! Feel free to register at www.travelpal.herokuapp.com!"
       elsif @body.strip.downcase == "yes"
         r.Message "Woot! What would you rate our app on a scale of 1 to 10?"
-      elsif @body.to_f >= 0 && @body.to_f <= 3
+      elsif @body.to_f >= 0.1 && @body.to_f <= 3
         p "bad rating"
         @feedback_score += @body.to_f
         @count += 1
