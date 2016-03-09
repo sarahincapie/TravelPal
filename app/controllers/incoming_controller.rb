@@ -266,10 +266,6 @@ class IncomingController < ApplicationController
         else 
           "Sorry, that's not a valid option please try again."
         end
-      elsif @all_nums.exclude? @number
-        r.Message "Hey there! Thanks for listening to our pitch on TravelPal. Would you like to provide some feedback? [Yes/No]"
-        @all_nums << @number
-        p @all_nums
       elsif @body.strip.downcase == "no"
         r.Message "Alright, thanks anyways! Feel free to register at www.travelpal.herokuapp.com!"
       elsif @body.strip.downcase == "yes"
@@ -299,6 +295,10 @@ class IncomingController < ApplicationController
         @feedback_score += @body.to_f
         @count += 1
         r.Message feedback_response
+      elsif @all_nums.exclude? @number
+        r.Message "Hey there! Thanks for listening to our pitch on TravelPal. Would you like to provide some feedback? [Yes/No]"
+        @all_nums << @number
+        p @all_nums
       else
         r.Message "Sorry, that's not a valid option please try again."
       end
