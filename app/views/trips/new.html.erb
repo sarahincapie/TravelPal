@@ -1,28 +1,30 @@
-<h1>Create Your New Trip</h1>
+<body class="trips-new">
 
-<%= render 'form' %>
+  <div id="new-form">
+  <h2>Create Your New Trip!</h2><br/>
+  <%= render 'form' %>
+  <!-- <%= link_to 'Back', trips_path %> -->
+  </div>
 
-<%= link_to 'Back', trips_path %>
 
-<span id="welcomenew">
-  <h1>TravelPal at your service!</h1>
-  <br>
-    <h4>Simply text <strong>832-YOURPAL</strong> - interacting with your pal is super easy</h4>
+  <div id="welcomenew">
+    <h1>First, here's how it works</h1>
+    <div id="welcomenew_text">
+
     <br>
-    <p>
-      Whenever you want to log an expense, shoot a text describing what you spent on, where, and how much, like:
-
-      <blockquote>I just went to this amazing modern art gallery in Amsterdam. The current exhibits on display were exquisite. And the entry to the gallery was only $18 for students!</blockquote>
-
-      That's it! Same as you would message your friends or parents. TravelPal will automatically detect your expense category, location, cost, and more. You can also send out quick texts for the expenses on the go:
-
-      <blockquote>18 C Amsterdam</blockquote>
-
-      Request real time status updates on how much you've spent by day, week, or month - or even budget balances if you've provided a trip budget.
-
-      <blockquote>Sara: db</blockquote>
-      <blockquote>TravelPal: You have spent $56.00 today.</blockquote>
-      <blockquote>Sara: wb</blockquote>
-      <blockquote>TravelPal: You have $274.00 left in your weekly budget.</blockquote>
-
-      Lastly, text in photos straight from your phone to your TravelPal to add it to your PhotoBlog!
+      <h3>Text <strong>(305)-832-YOURPAL</strong> - interacting with your pal is easy</h3>
+      <p>
+        Whenever you want to log an expense, shoot a text describing what you spent on, where, and how much, like:
+        <blockquote><em>"I just went to this amazing modern art gallery in Amsterdam. The current exhibits on display were exquisite. And the entry to the gallery was only $18 for students!"</em></blockquote>
+        That's it! Same as you would message your friends or parents. TravelPal will automatically detect your expense category, location, cost, and more. You can also send out quick texts for the expenses on the go:
+        <blockquote><em>"18 C Amsterdam"</em></blockquote>
+        Request real time status updates on how much you've spent by day, week, or month - or even budget balances if you've provided a trip budget.
+        <blockquote><strong>Sara</strong>:<em>"db"</em></br>
+        <strong>TravelPal</strong>:<em> "You have spent $56.00 today.""</em></br>
+        <strong>Sara</strong>:<em>"wb"</em></br>
+        <strong>TravelPal</strong>:<em>"You have $274.00 left in your weekly budget."</em></blockquote>
+          Lastly, text in photos straight from your phone to your TravelPal to add it to your PhotoBlog!
+        </p>
+      </div>
+    </div>
+</div>

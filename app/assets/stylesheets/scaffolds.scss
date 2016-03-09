@@ -23,6 +23,7 @@
 #landing_page_jumbotron > h1 {
   padding-left: 10px;
   color: white;
+  font-family: 'Roboto', serif;
 }
 
 h1 {
@@ -969,14 +970,84 @@ li > a {
 }
 
 
-#navbar > ul > li > a {
+#landing_page_list > li > a {
   border-radius: 6px;
   color: white;
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Roboto', serif;
   font-size: 20px;
+
 }
 
 #navbar > ul > li > a:hover {
   color: black;
   background-color: white;
+}
+
+.trips-new {
+  background: url(image_path('createtrip2.jpeg'));
+  background-position: 0% 10%;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+}
+
+#new-form {
+  position: relative;
+  width: 15%;
+  text-align: right;
+  margin: 120px 60px;
+  /*text-align: left;*/
+  font-size: 16px;
+  float:left;
+  background-color: #aabbbc;
+  color: #3b394a;
+  font-family: Tahoma;
+  padding: 10px;
+  border: solid 1px white;
+  border-radius: 6px;
+
+
+}
+
+#form-font-size {
+  float:left;
+  font-size: 15px;
+  text-align: right;
+
+}
+
+
+#welcomenew {
+  position: relative;
+  float: right;
+  width: 75%;
+  text-align: left;
+  /*background-color: green;*/
+  padding-left: 20px;
+  font-size: 20px;
+    background-color: rgba(255, 255, 255, 0.5);;
+    color: black;
+    font-family: Tahoma;
+}
+
+#welcomenew > h1 {
+  padding-top: 0;
+  border-bottom: 1px solid;
+  padding-bottom: 10px;
+  font-family: 'Roboto', serif;
+  font-size: 60px;
+}
+
+#welcomenew_text {
+  position: relative;
+  width: 70%;
+}
+
+#form_button {
+  text-align: center;
+  padding: 20px;
+}
+
+#body_id {
+  background-color: #d3d3d3;
 }
