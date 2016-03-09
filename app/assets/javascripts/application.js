@@ -47,12 +47,6 @@ $('#daily').click(function(){
     return false;
 });
 
-$('#overview').click(function(){
-    $('body').animate({
-        scrollTop: $('#mapid').offset().top
-    }, 500);
-    return false;
-});
 
 $('#location').click(function(){
     $('body').animate({
@@ -87,7 +81,7 @@ $('#map').click(function(){
 
 $('#location').click(function(){
     $('body').animate({
-        scrollTop: $('week_chart').offset().top
+        scrollTop: $('#week_chart').offset().top
     }, 500);
     return false;
 });
