@@ -105,7 +105,7 @@
                     <th>Category</th>
                     <th>Location</th>
                     <th>Date</th>
-                    <th>Tags<th>
+                    <th width="60" colspan="2">Tags<th>
                     <th>User</th>
                     <th colspan="3"></th>
                   </tr>
@@ -113,13 +113,16 @@
                 <tbody>
                   <% @expenses.each do |expense| %>
                     <tr>
-                      <td><%= truncate(expense.textmsg, length: 100) %></td>
+                      <td><%= truncate(expense.textmsg, length: 60) %></td>
                       <td>$<%= '%.2f' % expense.cost %></td>
                       <td><%= expense.category %></td>
                       <td><%= expense.location %></td>
                       <td><%= expense.date %></td>
                       <% if expense.tags.any? %>
-                        <td><%= expense.tags.each { |tag| tag.name } %></td>
+                        <td><% expense.tags.each do |tag| %>
+                          <%= link_to tag.name, tagged_url(:tag => tag.name) %>
+                          <% end %>
+                        </td>
                       <% end %>
                       <td><%= link_to 'Show', expense %></td>
                       <td><%= link_to 'Edit', edit_expense_path(expense) %></td>
