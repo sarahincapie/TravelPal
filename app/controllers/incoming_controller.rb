@@ -222,7 +222,7 @@ class IncomingController < ApplicationController
 
       @pic_arr = params[:MediaUrl0]
       bot_response = ["Hi there! I'm your TravelPal. You're text is being processed.", "TravelPal at your service! Processing your text now.", "Thanks for the text. I get lonely sometimes.", "Got it! Processing your text now.", "Ooh that sounds fun! I'll go ahead and submit this expense."]
-      feedback_response = "Thanks for the feedback! Feel free to register at www.travelpal.herokuapp.com"
+      feedback_response = "Thanks for the feedback! Feel free to register at mytravelpal.herokuapp.com"
       bot_pictures = ["What a shot! I'll add this to your gallery.", "TravelPal at your service! Photo has been added.", "B-E-A-UTIFUL", "TravelPal likey, keeping this one my private folder. ;)", "This has to be your best picture yet! Submitting photo to gallery."]
       @feedback_score = 0.0
       @count = 0.0
