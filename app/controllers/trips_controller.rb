@@ -20,6 +20,26 @@ class TripsController < ApplicationController
     @bar_data = current_user.bar_data(current_user.expenses.current_trip_expenses(params[:id]))
     @pink_data = current_user.pink_data(current_user.expenses.current_trip_expenses(params[:id]))
     @spent = current_user.spent(current_user.expenses.current_trip_expenses(params[:id]))
+    @geojson = []
+    
+    @expenses.each do |m|
+      if m.latitude 
+        @geojson << {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [m.longitude, m.latitude]
+          },
+          properties: {
+            id: m.id,
+            :'marker-color' => '#00607d',
+            :'marker-symbol' => 'circle',
+            :'marker-size' => 'medium'
+          }
+        }
+
+      end 
+    end 
   end
 
   # GET /trips/new

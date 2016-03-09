@@ -204,26 +204,6 @@ var map = L.map('mapid').fitBounds(geojson.getBounds());
 // progress start 
 
 
-var circle = new ProgressBar.Circle('.progressbar', {
-    color: '#B9CDCA',
-    trailColor: "#1f77b4",
-    textColor: '#1f77b4',
-    strokeWidth: 5,
-    trailWidth: 3,
-    width: '50%',
-    duration: 6500,
-    text: {
-        value: "$"
-
-    },
-    step: function(state, bar) {
-        bar.setText((bar.value() * 100).toFixed(0));
-    }
-});
-
-circle.animate(1, function() {
-    circle.animate(0.56);
-});
 
 
 // progress end 
@@ -263,4 +243,9 @@ circle.animate(1, function() {
 //     }
 //   });
 // });
+
+// sencond progress bar
+
+
+
 
