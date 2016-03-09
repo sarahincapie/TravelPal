@@ -22,6 +22,9 @@ config.paperclip_defaults = {
     :secret_access_key => ENV['AWS_CLIENT_SECRET']
   }
 }
+
+  config.assets.compile = true
+  config.serve_static_assets = true
   # Enable Rack::Cache to put a simple HTTP cache in front of your application
   # Add `rack-cache` to your Gemfile before enabling this.
   # For large-scale production use, consider using a caching reverse proxy like
