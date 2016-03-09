@@ -8,7 +8,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/pages/about">HOME</a>
+          <a class="navbar-brand" href="/expenses"><%= image_tag "/assets/botlogo.png", alt: "Bot Logo", class: "logo" %></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav pull-right">
@@ -44,9 +44,10 @@
           </ul>
         </div>
   </nav>
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
+        <!-- <p class="notice"><%= notice %></p> -->
+        <!-- <p class="alert"><%= alert %></p> -->
 
+<br><br><br>
 <div id="wrapper" class="toggled">
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
@@ -69,7 +70,7 @@
                     <a id="category" class="glyphicon glyphicon-tasks" aria-hidden="true" href="#"> Category</a>
                 </li>
                 <li>
-                    <a id="date" class="glyphicon glyphicon-picture" aria-hidden="true" href="#"> Date</a>
+                    <a id="date" class="glyphicon glyphicon-calendar" aria-hidden="true" href="#"> Date</a>
                 </li>
                 <li>
                     <a id="photoblog" class="glyphicon glyphicon-picture" aria-hidden="true" href="/gallery"> PhotoBlog</a>
@@ -105,6 +106,7 @@
                     <th>Category</th>
                     <th>Location</th>
                     <th>Date</th>
+                    <th width="60" colspan="2">Tags<th>
                     <th>User</th>
                     <th colspan="3"></th>
                   </tr>
@@ -112,12 +114,17 @@
                 <tbody>
                   <% @expenses.each do |expense| %>
                     <tr>
-                      <td><%= truncate(expense.textmsg, length: 100) %></td>
+                      <td><%= truncate(expense.textmsg, length: 60) %></td>
                       <td>$<%= '%.2f' % expense.cost %></td>
                       <td><%= expense.category %></td>
                       <td><%= expense.location %></td>
                       <td><%= expense.date %></td>
-
+                      <% if expense.tags.any? %>
+                        <td><% expense.tags.each do |tag| %>
+                          <%= link_to tag.name, tagged_url(:tag => tag.name) %>
+                          <% end %>
+                        </td>
+                      <% end %>
                       <td><%= link_to 'Show', expense %></td>
                       <td><%= link_to 'Edit', edit_expense_path(expense) %></td>
                       <td><%= link_to 'Delete', expense, method: :delete, data: { confirm: 'Are you sure?' } %></td>

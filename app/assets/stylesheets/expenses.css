@@ -30,8 +30,23 @@ html, body {
     height: 300px;
     color: '#000';
     font-size: 40px;
+    float: left;
  }
 
+
+.progressbar2 {
+    margin: auto;
+    width: 300px;
+    height: 300px;
+    color: '#000';
+    font-size: 40px;
+    float: right;
+ }
+
+ .progressdiv {
+  margin: auto;
+  width:70%;
+}
 
 .pageheader {
   text-align: center;
@@ -59,13 +74,21 @@ html, body {
     border-radius: 6px;
  }
 
-.progressbar {
+/*.progressbar {
 
     width: 300px;
     height: 300px;
     color: '#000';
     font-size: 40px;
  }
+
+ .progressbar2 {
+
+    width: 300px;
+    height: 300px;
+    color: '#000';
+    font-size: 40px;
+ }*/
 
 #mapid {
     margin: auto;
