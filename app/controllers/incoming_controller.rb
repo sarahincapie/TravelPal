@@ -263,7 +263,7 @@ class IncomingController < ApplicationController
           else @current_user.balance('month') < 0
             r.Message "You are $#{ '%.2f' % @current_user.balance('month').abs} over your monthly budget, consider spending less if you can."
           end
-        elsif @body.strip.downcase == "info"
+        elsif @body.strip.downcase == "category"
           r.Message   "f - Food
                        a - Accommodation
                        t - Transportation
