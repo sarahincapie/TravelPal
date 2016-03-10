@@ -1,126 +1,128 @@
+if ($("#expense_chart").length > 0) {
+  var chart = c3.generate({
+      data: {
+          columns: [
+              ['Nightlife', $('#nightlife').data('nightlife')],
+              ['Accommodation', $('#accommodation').data('accommodation')],
+              ['Food', $('#food').data('food')],
+              ['Transportation', $('#transportation').data('transportation')],
+              ['EntertainmentAttractions', $('#entertainmentattractions').data('entertainmentattractions')],
+              ['Culture', $('#culture').data('culture')],
+              ['Shopping', $('#shopping').data('shopping')],
+              // ['SportsOutdoor', $('#sportsoutdoor').data('sportsoutdoor')],
+              // ['NatureEnvironment', $('#natureenvironment').data('natureenvironment')],
+              // ['Business', $('#business').data('business')],
+              // ['HealthFitness', $('#healthfitness').data('healthfitness')],
+              // ['Miscellaneous', $('#miscellaneous').data('miscellaneous')],
+          ],
+          type : 'donut'
+      },
+      donut: {
 
-var chart = c3.generate({
-    data: {
-        columns: [
-            ['Nightlife', $('#nightlife').data('nightlife')],
-            ['Accommodation', $('#accommodation').data('accommodation')],
-            ['Food', $('#food').data('food')],
-            ['Transportation', $('#transportation').data('transportation')],
-            ['EntertainmentAttractions', $('#entertainmentattractions').data('entertainmentattractions')],
-            ['Culture', $('#culture').data('culture')],
-            ['Shopping', $('#shopping').data('shopping')],
-            // ['SportsOutdoor', $('#sportsoutdoor').data('sportsoutdoor')],
-            // ['NatureEnvironment', $('#natureenvironment').data('natureenvironment')],
-            // ['Business', $('#business').data('business')],
-            // ['HealthFitness', $('#healthfitness').data('healthfitness')],
-            // ['Miscellaneous', $('#miscellaneous').data('miscellaneous')],
-        ],
-        type : 'donut'
-    },
-    donut: {
-        
-    },
-      color: {
-        pattern: ['#1f77b4', '#8EBAA8', '#B9CDCA', '#F2DCCB', '#FDAC8A', '#98df8a', '#E38251']
-    },
-     transition: { 
-          duration: 4000 
-        } 
+      },
+        color: {
+          pattern: ['#1f77b4', '#8EBAA8', '#B9CDCA', '#F2DCCB', '#FDAC8A', '#98df8a', '#E38251']
+      },
+       transition: {
+            duration: 4000
+          }
 
-});
+  });
 
-setTimeout(function() { 
-        chart.load({ 
+  setTimeout(function() {
+          chart.load({
+          });
+      }, 500);
 
-        });
+  $("#expense_chart").append(chart.element);
+}
 
-    }, 500); 
-
-$("#expense_chart").append(chart.element);
 
 // end of first chart
-var bar_arr = []; 
+var bar_arr = [];
 $(".week_chart_data").each(function (index, value) {
     var arr = [$(value).data('location'),$(value).data('cost')];
     bar_arr.push(arr);
 });
 
 
-var chart2 = c3.generate({
-    data: {
-        columns: bar_arr,
-        type : 'bar'
-    },
-    bar: {
-        title: "My weekly expenses",
-     },
 
-    color: {
-        pattern: ['#1f77b4', '#8EBAA8', '#B9CDCA', '#F2DCCB', '#FDAC8A', '#98df8a', '#E38251']
-    },
-      transition: { 
-          duration: 4000 
-        } 
+if (("#week_chart").length > 0) {
+  var chart2 = c3.generate({
+      data: {
+          columns: bar_arr,
+          type : 'bar'
+      },
+      bar: {
+          title: "My weekly expenses",
+       },
 
-});
+      color: {
+          pattern: ['#1f77b4', '#8EBAA8', '#B9CDCA', '#F2DCCB', '#FDAC8A', '#98df8a', '#E38251']
+      },
+        transition: {
+            duration: 4000
+          }
 
-setTimeout(function() { 
-        chart2.load({ 
-            data: {
-        columns: bar_arr 
-    }
+  });
 
-        });
+  setTimeout(function() {
+    chart2.load({
+        data: {
+          columns: bar_arr
+        }
+    });
+  }, 500);
 
-    }, 500); 
 
+  $("#week_chart").append(chart2.element);
+}
+// end of 2nd chart
 
-$("#week_chart").append(chart2.element);
-
-// end of 2nd chart 
-
-var bar_array = []; 
+var bar_array = [];
 $(".pink_chart_data").each(function (index, value) {
     var arr = [$(value).data('date'),$(value).data('cost')];
     bar_array.push(arr);
 });
 
-var chart3 = c3.generate({
-    data: {
-        columns: bar_array,
-        type : 'bar'
-    },
-     zoom: {
-        enabled: true
-    },
-    color: {
-        pattern: ['#1f77b4', '#8EBAA8', '#B9CDCA', '#F2DCCB', '#FDAC8A', '#98df8a', '#E38251']
-    },
-        transition: { 
-          duration: 4000 
-        } 
-});
+if ($('#pink_chart').length > 0) {
+  var chart3 = c3.generate({
+      data: {
+          columns: bar_array,
+          type : 'bar'
+      },
+       zoom: {
+          enabled: true
+      },
+      color: {
+          pattern: ['#1f77b4', '#8EBAA8', '#B9CDCA', '#F2DCCB', '#FDAC8A', '#98df8a', '#E38251']
+      },
+          transition: {
+            duration: 4000
+          }
+  });
 
-setTimeout(function() { 
-        chart3.load({ 
-            data: {
-        columns: bar_array 
-    }
+  setTimeout(function() {
+          chart3.load({
+              data: {
+          columns: bar_array
+      }
 
-        });
+          });
 
-    }, 500); 
+      }, 500);
 
 
-$("#pink_chart").append(chart3.element);
+  $("#pink_chart").append(chart3.element);
+}
 
 
 // end of third chart
 
-//MAP START 
+//MAP START
 
 
-$(document).ready(function() { // THIS GETS THE DOCUMENT READY 
+$(document).ready(function() { // THIS GETS THE DOCUMENT READY
 
 
 //var mymap = L.map('mapid').setView([25.5, -80.5], 13);
@@ -135,20 +137,19 @@ var mymap = L.tileLayer('https://api.tiles.mapbox.com/v4/saral85.pbc8hh2h/{z}/{x
 
 
 
-$.getJSON("./expenses.json", function(data) {
-    var geojson = L.geoJson(data, {
-      onEachFeature: function (feature, layer) {
-        layer.bindPopup(feature.properties.name);
-      }
+if ($('#mapid').length > 0) {
+  $.getJSON("./expenses.json", function(data) {
+      var geojson = L.geoJson(data, {
+        onEachFeature: function (feature, layer) {
+          layer.bindPopup(feature.properties.name);
+        }
+      });
 
-    });
-
-var map = L.map('mapid').fitBounds(geojson.getBounds());
-   mymap.addTo(map);
-    geojson.addTo(map);
+      var map = L.map('mapid').fitBounds(geojson.getBounds());
+        mymap.addTo(map);
+        geojson.addTo(map);
   });
-
-
+}
 
 
 //L.geoJson(geojsonFeature).addTo(map);
@@ -172,7 +173,7 @@ var map = L.map('mapid').fitBounds(geojson.getBounds());
 //   });
 
 
-// // THIS IS END FOR ADDED FOT GEO JSON 
+// // THIS IS END FOR ADDED FOT GEO JSON
 
 // AJAX
 
@@ -189,36 +190,36 @@ var map = L.map('mapid').fitBounds(geojson.getBounds());
   });
 
 
-// AJAX END 
+// AJAX END
 
 
 
 //var marker = L.marker([25.5, -80.5]).addTo(mymap);
 
 
-// MAP END 
+// MAP END
 
 
 
 
-// progress start 
+// progress start
 
 
 
 
-// progress end 
+// progress end
 
 
 //GEOJSON
 
 
-// GEOJSON END 
+// GEOJSON END
 
 //  $(document).ready(function() {
 
 //   L.mapbox.accessToken='pk.eyJ1Ijoic2FyYWw4NSIsImEiOiJjaWxobGxzNG8yajZhdmVtMDdmMjEwZGo5In0.VRJjrN4lCTBaLdPV4QhUBw'
 //   var map= L.mapbox('map', 'saral85.pbc8hh2h').setView([39.606810, -116.929677], 7);
-  
+
 
 
 //   var myLayer = L.mapbox.featureLayer().addTo(map);
@@ -245,7 +246,3 @@ var map = L.map('mapid').fitBounds(geojson.getBounds());
 // });
 
 // sencond progress bar
-
-
-
-

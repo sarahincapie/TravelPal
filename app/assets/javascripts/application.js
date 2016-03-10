@@ -136,7 +136,6 @@ Broadcaster.prototype ={
   broadcast: function(animationDelay, broadcastDelay){
     var self = this;
     if (!this.broadcasting){
-      console.log('broadcasting');
       self.wave.addClass('broadcast');
       this.broadcasting = true;
       setTimeout(function(){
@@ -148,7 +147,6 @@ Broadcaster.prototype ={
     }
   },
   rebroadcast: function(animationDelay, broadcastDelay){
-    console.log('rebroadcasting');
     var self = this;
     this.reset();
     this.quietBtn();
@@ -165,7 +163,6 @@ Broadcaster.prototype ={
     this.wave.removeClass('show');
   },
   quietBtn: function(){
-    console.log('off');
     $('.btn-broadcast').off('click');
   },
   activateBtn: function(){
