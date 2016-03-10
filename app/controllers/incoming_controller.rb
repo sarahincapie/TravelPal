@@ -264,18 +264,18 @@ class IncomingController < ApplicationController
             r.Message "You are $#{ '%.2f' % @current_user.balance('month').abs} over your monthly budget, consider spending less if you can."
           end
         elsif @body.strip.downcase == "category"
-          r.Message   "f - Food
-                       a - Accommodation
-                       t - Transportation
-                       e - EntertainmentAttractions
-                       c - Culture
-                       n - Nightlife
-                       s - Shopping
-                       o - SportsOutdoor
-                       ne - NatureEnvironment
-                       b - Business
-                       h - HealthFitness
-                       m - Miscellaneous"
+          r.Message   "(F)ood, 
+                       (A)ccommodation, 
+                       (T)ransportation, 
+                       (E)ntertainmentAttractions, 
+                       (C)ulture, 
+                       (N)ightlife, 
+                       (S)hopping, 
+                       (S)portsOutdoor, 
+                       (NE)atureEnvironment, 
+                       (B)usiness, 
+                       (H)ealthFitness, 
+                       (M)iscellaneous"
         else 
           "Sorry, that's not a valid option please try again."
         end
