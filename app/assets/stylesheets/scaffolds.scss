@@ -12,6 +12,7 @@
   padding-top: 40vh;
   text-align: center;
   font-family: 'Roboto', serif;
+  border-bottom: 2px white solid;
 
 }
 
@@ -47,9 +48,9 @@ h1 {
 
 #jumbotron_dropdown {
   border-radius: 6px;
-  height: 90vh;
+  height: 100%;
   width: 100%;
-  padding: 15px;
+  padding: 30px;
   background-color: rgba(130, 54, 58, 1);
   color: black;
   border: .5px solid white;
@@ -937,7 +938,6 @@ shake
 #landing_page_bottom {
   color: white;
   padding-top: 100
-  px;
 }
 
 .image_size {
