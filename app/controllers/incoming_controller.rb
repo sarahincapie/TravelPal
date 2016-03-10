@@ -5,6 +5,7 @@ class IncomingController < ApplicationController
   prepend_before_filter :get_current_user, only: [:send_message]
   around_action :get_current_user, only: [:process_long_text, :process_short_text, :store_picture]
 
+  ## sets the current user by the number being texted in, checks if we have number in User database ##
   def get_current_user
     @current_user = User.find_by(number: params[:From])
   end
@@ -161,12 +162,12 @@ class IncomingController < ApplicationController
       @new_expense = @current_user.trips.last.expenses.create(textmsg: @body, cost: @cost, location: @location, category: @label, date: Time.now.utc)
       
       ## Adds keyword tags to new expense ##
-      # for keyword in response_keyword['keywords']
-      #   new_key = keyword['text']
-      #   p new_key
-      #   @new_expense.tag_list.add(new_key)
-      #   @new_expense.save
-      # end
+      for keyword in response_keyword['keywords']
+        new_key = keyword['text']
+        p new_key
+        @new_expense.tag_list.add(new_key)
+        @new_expense.save
+      end
 
       # to account for geocoding limit??
       # 5.times do
@@ -180,6 +181,7 @@ class IncomingController < ApplicationController
     end
   end
 
+  ## receives 1 photo at a time, opens the file using open uri from twilio's AWS ##
   def store_picture(pic_arr)
     # p pic_arr
     # @numMedia.times do |n|
@@ -194,7 +196,7 @@ class IncomingController < ApplicationController
     #   end
     #   p create_pic
     # end
-    open_pic = open(pic_arr, :allow_redirections => :all) do |f|
+    open_pic = open(pic_arr, :allow_redirections => :all) do |f|    # using open uri redirections gem to allow redirections while opening image file
       f.each_line { |line| p line }
       base_pic = f.base_uri
       content_type = f.content_type
@@ -222,13 +224,11 @@ class IncomingController < ApplicationController
 
       @pic_arr = params[:MediaUrl0]
       bot_response = ["Hi there! I'm your TravelPal. You're text is being processed.", "TravelPal at your service! Processing your text now.", "Thanks for the text. I get lonely sometimes.", "Got it! Processing your text now.", "Ooh that sounds fun! I'll go ahead and submit this expense."]
-      feedback_response = "Thanks for the feedback! Feel free to register at mytravelpal.herokuapp.com"
+      feedback_response = "Thanks for the feedback! Please feel free to register at mytravelpal.herokuapp.com"
       bot_pictures = ["What a shot! I'll add this to your gallery.", "TravelPal at your service! Photo has been added.", "B-E-A-UTIFUL", "TravelPal likey, keeping this one my private folder. ;)", "This has to be your best picture yet! Submitting photo to gallery."]
-      @feedback_score = 0.0
-      @count = 0.0
-      @all_nums = []
 
-      ## checks if number is current userr ##
+
+      ## checks if number is current user ##
       if @current_user
         if @numMedia > 0
           r.Message bot_pictures.sample
@@ -264,49 +264,26 @@ class IncomingController < ApplicationController
             r.Message "You are $#{ '%.2f' % @current_user.balance('month').abs} over your monthly budget, consider spending less if you can."
           end
         elsif @body.strip.downcase == "category"
-          r.Message "(F)ood, (A)ccommodation, (T)ransportation, (E)ntertainmentAttractions, (C)ulture, (N)ightlife, (S)hopping, (S)portsOutdoor, (NE)atureEnvironment, (B)usiness, (H)ealthFitness, (M)iscellaneous"
+          r.Message "(F)ood, (A)ccommodation, (T)ransportation, (E)ntertainment, (C)ulture, (N)ightlife, (S)hopping, (O)utdoor/Sports, (NE)ature, (B)usiness, (H)ealth, (M)iscellaneous"
         else 
           "Sorry, that's not a valid option please try again."
         end
+
+      ## if not a current user.. asks for feedback ##
+      elsif Rating.find_by(number: @number)
+        r.Message "Why haven't you registered yet at mytravelpal.herokuapp.com?"
       elsif @body.strip.downcase == "no"
         r.Message "Alright, thanks anyways! Feel free to register at mytravelpal.herokuapp.com!"
       elsif @body.strip.downcase == "yes"
-        r.Message "Awesome! What would you rate our app on a scale of 1 to 10?"
-      elsif @body.to_f >= 0.1 && @body.to_f <= 3
-        p "bad rating"
-        @feedback_score += @body.to_f
-        @count += 1
+        r.Message "Awesome! On a scale of 1 to 10, what would you rate TravelPal in terms of pitch, utility, and design?"
+      elsif @body.to_f >= 0.1 && @body.to_f <= 100
+        @feedback = Rating.create(score: @body.to_f, number: @number)
         r.Message feedback_response
-      elsif @body.to_f > 3 && @body.to_f <= 5
-        p "OK rating"
-        @feedback_score += @body.to_f
-        @count += 1
-        r.Message feedback_response
-      elsif @body.to_f > 5 && @body.to_f <= 8
-        p "pretty good rating"
-        @feedback_score += @body.to_f
-        @count += 1
-        r.Message feedback_response
-      elsif @body.to_f > 8 && @body.to_f <= 10
-        p "Awesome rating!"
-        @feedback_score += @body.to_f
-        @count += 1
-        r.Message feedback_response
-      elsif @body.to_f > 10
-        p "CRAZY RATING"
-        @feedback_score += @body.to_f
-        @count += 1
-        r.Message feedback_response
-      elsif @all_nums.exclude? @number
+      elsif 
         r.Message "Hey there! We hope you enjoy listening to our pitch on TravelPal, the personal travel management tool in your pocket. Would you like to provide us some feedback at the end? [Yes/No]"
-        @all_nums << @number
-        p @all_nums
       else
         r.Message "Sorry, that's not a valid option please try again."
       end
-    p @feedback_score
-    p @count
-    p @feedback_score/@count
     end
     # render 'send_message.xml.erb', :content_type => 'text/xml'
     render xml: @twiml.text
