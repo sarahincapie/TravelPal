@@ -56,20 +56,20 @@
                     <a class="glyphicon glyphicon-usd" href="/expenses"></a>
                 </li>
                 <li>
-                    <a id="daily" class="glyphicon glyphicon-phone" aria-hidden="true" href="#"> Daily</a>
+                    <a id="daily" class="glyphicon glyphicon-phone" aria-hidden="true" href="/expenses"> Daily</a>
 
                 </li>
                 <li>
-                    <a id="overview" class="glyphicon glyphicon-paperclip" aria-hidden="true" href="#"> Map</a>
+                    <a id="overview" class="glyphicon glyphicon-paperclip" aria-hidden="true" href="/expenses"> Map</a>
                 </li>
                 <li>
-                    <a id="location" class="glyphicon glyphicon-globe" aria-hidden="true" href="#"> Location</a>
+                    <a id="location" class="glyphicon glyphicon-globe" aria-hidden="true" href="/expenses"> Location</a>
                 </li>
                 <li>
-                    <a id="category" class="glyphicon glyphicon-tasks" aria-hidden="true" href="#"> Category</a>
+                    <a id="category" class="glyphicon glyphicon-tasks" aria-hidden="true" href="/expenses"> Category</a>
                 </li>
                 <li>
-                    <a id="date" class="glyphicon glyphicon-calendar" aria-hidden="true" href="#"> Date</a>
+                    <a id="date" class="glyphicon glyphicon-calendar" aria-hidden="true" href="/expenses"> Date</a>
                 </li>
                 <li>
                     <a id="photoblog" class="glyphicon glyphicon-picture" aria-hidden="true" href="/gallery"> PhotoBlog</a>
@@ -120,7 +120,7 @@
 
           <td><%= link_to 'Show', expense %></td>
           <td><%= link_to 'Edit', edit_expense_path(expense) %></td>
-          <td><%= link_to 'Destroy', expense, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Delete', expense, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>
     </tbody>

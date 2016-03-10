@@ -53,6 +53,11 @@ html, body {
   width:70%;
 }
 
+.photoheader {
+  font-size: 32px;
+  font-family: "Roboto", "Helvetica", sans-serif;
+}
+
 .pageheader {
   font-size: 32px;
   text-align: center;
