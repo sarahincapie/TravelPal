@@ -16,9 +16,10 @@
  *= require leaflet
  */
 
+/*
 #what_we_do_div {
   height: 100vh;
-}
+}*/
 
 .navbar-navbar-dark-bg-primary, li {
   list-style-type: none;
@@ -66,4 +67,26 @@
   fill: white;
   font: 10px sans-serif;
   text-anchor: end;
+}
+
+
+#sign-parent {
+  padding-top: 10vh;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(to bottom right, lightgrey, lightblue)
+}
+
+#sign-child {
+  text-align: center;
+  width: 20%;
+  position: relative;
+  margin: 0 auto;
+  /*background-color: blue;*/
+  color: black;
+  font-size: 18px;
+}
+
+.field {
+  text-align: left;
 }

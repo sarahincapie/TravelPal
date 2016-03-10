@@ -12,7 +12,7 @@
   padding-top: 40vh;
   text-align: center;
   font-family: 'Roboto', serif;
-  border-bottom: 2px white solid;
+  border-bottom: .5px white solid;
 
 }
 
@@ -959,7 +959,17 @@ li > a {
 }
 
 #how-div {
-  height: 100vh;
+  height: 90vh;
+}
+
+.col-sm-4 > h2, p {
+  text-align: center;
+}
+
+.background-circle {
+  position: relative;
+  margin: 0 auto;
+  text-align: center;
 }
 
 #navbar > ul {
