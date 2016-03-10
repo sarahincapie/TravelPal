@@ -11,7 +11,7 @@
   background-repeat: no-repeat;
   padding-top: 40vh;
   text-align: center;
-  font-family: 'Roboto', serif;
+  font-family: 'Roboto', sans-serif;
   border-bottom: 2px white solid;
 
 }
@@ -24,12 +24,12 @@
 #landing_page_jumbotron > h1 {
   padding-left: 10px;
   color: white;
-  font-family: 'Roboto', serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 h1 {
   font-size: 18px;
-  font-family: 'Roboto', serif;
+  font-family: 'Roboto', sans-serif;
 
 }
 
@@ -973,7 +973,7 @@ li > a {
 #landing_page_list > li > a {
   border-radius: 6px;
   color: white;
-  font-family: 'Roboto', serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 20px;
 
 }
@@ -994,14 +994,14 @@ li > a {
 #new-form {
   position: relative;
   width: 15%;
-  text-align: right;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
   margin: 120px 60px;
   /*text-align: left;*/
   font-size: 16px;
   float:left;
   background-color: #aabbbc;
   color: #3b394a;
-  font-family: Tahoma;
   padding: 10px;
   border: solid 1px white;
   border-radius: 6px;
@@ -1023,24 +1023,25 @@ li > a {
   width: 75%;
   text-align: left;
   /*background-color: green;*/
-  padding-left: 20px;
+  padding-left: 40px;
   font-size: 20px;
     background-color: rgba(255, 255, 255, 0.5);;
     color: black;
-    font-family: Tahoma;
+    font-family: 'Roboto', sans-serif;
 }
 
 #welcomenew > h1 {
   padding-top: 0;
   border-bottom: 1px solid;
   padding-bottom: 10px;
-  font-family: 'Roboto', serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 60px;
 }
 
 #welcomenew_text {
   position: relative;
-  width: 70%;
+  font-size: 14px;
+  width: 80%;
 }
 
 #form_button {
