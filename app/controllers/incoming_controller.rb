@@ -222,7 +222,7 @@ class IncomingController < ApplicationController
 
       @pic_arr = params[:MediaUrl0]
       bot_response = ["Hi there! I'm your TravelPal. You're text is being processed.", "TravelPal at your service! Processing your text now.", "Thanks for the text. I get lonely sometimes.", "Got it! Processing your text now.", "Ooh that sounds fun! I'll go ahead and submit this expense."]
-      feedback_response = "Thanks for the feedback! Feel free to register at www.travelpal.herokuapp.com"
+      feedback_response = "Thanks for the feedback! Feel free to register at mytravelpal.herokuapp.com"
       bot_pictures = ["What a shot! I'll add this to your gallery.", "TravelPal at your service! Photo has been added.", "B-E-A-UTIFUL", "TravelPal likey, keeping this one my private folder. ;)", "This has to be your best picture yet! Submitting photo to gallery."]
       @feedback_score = 0.0
       @count = 0.0
@@ -266,15 +266,11 @@ class IncomingController < ApplicationController
         else 
           "Sorry, that's not a valid option please try again."
         end
-      elsif @all_nums.exclude? @number
-        r.Message "Hey there! Thanks for listening to our pitch on TravelPal. Would you like to provide some feedback? [Yes/No]"
-        @all_nums << @number
-        p @all_nums
       elsif @body.strip.downcase == "no"
-        r.Message "Alright, thanks anyways! Feel free to register at www.travelpal.herokuapp.com!"
+        r.Message "Alright, thanks anyways! Feel free to register at mytravelpal.herokuapp.com!"
       elsif @body.strip.downcase == "yes"
-        r.Message "Woot! What would you rate our app on a scale of 1 to 10?"
-      elsif @body.to_f >= 0 && @body.to_f <= 3
+        r.Message "Awesome! What would you rate our app on a scale of 1 to 10?"
+      elsif @body.to_f >= 0.1 && @body.to_f <= 3
         p "bad rating"
         @feedback_score += @body.to_f
         @count += 1
@@ -299,6 +295,10 @@ class IncomingController < ApplicationController
         @feedback_score += @body.to_f
         @count += 1
         r.Message feedback_response
+      elsif @all_nums.exclude? @number
+        r.Message "Hey there! We hope you enjoy listening to our pitch on TravelPal, the personal travel management tool in your pocket. Would you like to provide us some feedback at the end? [Yes/No]"
+        @all_nums << @number
+        p @all_nums
       else
         r.Message "Sorry, that's not a valid option please try again."
       end

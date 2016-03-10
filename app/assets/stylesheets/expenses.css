@@ -15,6 +15,11 @@ html, body {
 
 /* Toggle Styles */
 
+.travelpallogo {
+   color: #00134d;
+  font-weight: bold;
+}
+
 .table {
   background-color: white;
   opacity: 0.8;
