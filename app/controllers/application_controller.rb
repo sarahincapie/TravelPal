@@ -6,7 +6,8 @@ class ApplicationController < ActionController::Base
 
 
   def after_sign_up_path_for(resource)
-    request.env['omniauth.origin'] || stored_location_for(resource) || new_trip_path
+    # request.env['omniauth.origin'] || stored_location_for(resource) || new_trip_path
+    new_trip_path
   end
 
   protected
