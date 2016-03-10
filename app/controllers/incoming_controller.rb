@@ -273,14 +273,14 @@ class IncomingController < ApplicationController
       elsif Rating.find_by(number: @number)
         r.Message "Why haven't you registered yet at mytravelpal.herokuapp.com?"
       elsif @body.strip.downcase == "no"
-        r.Message "Alright, thanks anyways! Feel free to register at mytravelpal.herokuapp.com!"
+        r.Message "Alright, thanks anyways! Feel free to register for our service at mytravelpal.herokuapp.com!"
       elsif @body.strip.downcase == "yes"
         r.Message "Awesome! On a scale of 1 to 10, what would you rate TravelPal in terms of pitch, utility, and design?"
       elsif @body.to_f >= 0.1 && @body.to_f <= 100
         @feedback = Rating.create(score: @body.to_f, number: @number)
         r.Message feedback_response
       elsif 
-        r.Message "Hey there! We hope you enjoy listening to our pitch on TravelPal, the personal travel management tool in your pocket. Would you like to provide us some feedback at the end? [Yes/No]"
+        r.Message "Hey there! We hope you enjoy our pitch on TravelPal, the personal travel management tool in your pocket. Care to give us some feedback at the end? [Yes/No]"
       else
         r.Message "Sorry, that's not a valid option please try again."
       end
