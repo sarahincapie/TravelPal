@@ -23,9 +23,9 @@ html, body {
 .table {
   background-color: white;
   opacity: 0.8;
-  width: 40%;
+  width: 70%;
   margin: 0 auto;
-  border-radius: 25px;
+  border-radius: 7px;
 }
 
 
@@ -53,8 +53,15 @@ html, body {
   width:70%;
 }
 
+.photoheader {
+  font-size: 32px;
+  font-family: "Roboto", "Helvetica", sans-serif;
+}
+
 .pageheader {
+  font-size: 32px;
   text-align: center;
+  font-family: "Roboto", "Helvetica", sans-serif;
 }
 
 .graphback1 {
@@ -65,7 +72,7 @@ html, body {
     background-color: #fff;
     /*box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.75);*/
     border: 1px solid #999999;
-    border-radius: 6px;
+    border-radius: 7px;
  }
 
 .graphback2 {
@@ -76,7 +83,7 @@ html, body {
     background-color: #fff;
     /*box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.75);*/
     border: 1px solid #999999;
-    border-radius: 6px;
+    border-radius: 7px;
  }
 
 /*.progressbar {
