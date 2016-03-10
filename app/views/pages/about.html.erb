@@ -43,8 +43,11 @@
               <p class="lead" id="jumbo_subheadline">Don't do it alone.</p>
 
               <% if user_signed_in? %>
-                <a href="/expenses"><button id="jumbotron_button" type="button" class="btn btn-secondary btn-lg" data-toggle="modal" data-target=".bs-example-modal-sm">Enter Dashboard</button></a>
-
+                <% if current_user.trips.empty? %>
+                  <a href="/trips/new"><button id="jumbotron_button" type="button" class="btn btn-secondary btn-lg" data-toggle="modal" data-target=".bs-example-modal-sm">Create Your Trip</button></a>
+                <% else %>
+                  <a href="/expenses"><button id="jumbotron_button" type="button" class="btn btn-secondary btn-lg" data-toggle="modal" data-target=".bs-example-modal-sm">Enter Dashboard</button></a>
+                <% end %>
               <% else %>
                 <button id="jumbotron_button" type="button" class="btn btn-secondary btn-lg" data-toggle="modal" data-target=".bs-example-modal-sm">Learn more</button>
                   <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
