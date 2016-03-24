@@ -93,4 +93,10 @@
 
 #robot_options_div {
   text-align: center;
+  margin: auto;
+}
+
+.background-circle, .robot {
+  text-align: center; 
+  margin: auto;
 }
