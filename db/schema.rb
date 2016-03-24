@@ -27,7 +27,6 @@ ActiveRecord::Schema.define(version: 20160310081256) do
     t.datetime "updated_at",             null: false
     t.integer  "category",   default: 0
     t.integer  "trip_id"
-    t.integer  "user_id"
   end
 
   add_index "expenses", ["trip_id"], name: "index_expenses_on_trip_id", using: :btree
