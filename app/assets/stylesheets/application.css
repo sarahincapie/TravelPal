@@ -90,3 +90,7 @@
 .field {
   text-align: left;
 }
+
+#robot_options_div {
+  text-align: center;
+}
