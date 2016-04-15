@@ -8,6 +8,13 @@ class User < ActiveRecord::Base
   has_many :expenses, :through => :trips
   has_many :friends, dependent: :destroy
 
+  validates :first_name, presense: true
+  validates :last_name, presense: true
+  validates :number, presense: true
+  validates_uniqueness_of :number
+  validates :email, presense: true
+  validates_uniqueness_of :email
+
 
   scope :last_location, -> { find(current_user.id).trips.last.expenses.last.location }
  
