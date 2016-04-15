@@ -76,12 +76,12 @@
 
                       <span class="field">
                         <!-- <%= f.label :country %> -->
-                        <%= f.select :country, options_for_select([1..100].map { |n| "+" + n.to_s } ), placeholder: "Country Code", :class => 'form-control' %>
+                        <%= f.select :country, options_for_select((1..150).map { |n| "+".concat(n.to_s) } ), placeholder: "Country Code", :class => 'form-control' %>
                       </span><br/>
 
                       <span class="field">
                         <!-- <%= f.label :number %> -->
-                        <%= f.text_field :number, placeholder: "(+1) Number", :class => 'form-control' %>
+                        <%= f.text_field :number, placeholder: "Number", :class => 'form-control' %>
                       </span><br/>
 
                       <div class="field">
@@ -94,7 +94,7 @@
 
                       <div class="field">
                         <!-- <%= f.label :password_confirmation %> -->
-                        <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Password Again", :class => 'form-control' %><br />
+                        <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirm Password", :class => 'form-control' %><br />
                       </div><br/>
 
                       <div class="actions">
