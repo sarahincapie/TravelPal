@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   root 'pages#about'
 
   devise_for :users, controllers: { sessions: "users/sessions" }
-  devise_for :users, controllers: { registrations: "registrations" }
+  # devise_for :users, controllers: { registrations: "users/registrations" }
 
   get 'tagged' => 'expenses#tagged', :as => 'tagged'
   get 'trips/:id/details' => 'trips#details', :as => 'trip_details'

@@ -17,6 +17,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :country %>
+    <%= f.select :country, options_for_select((1..150).map { |n| "+".concat(n.to_s) } ) %><br />
+  </div>
+
+  <div class="field">
     <%= f.label :number %><br />
     <%= f.telephone_field :number %>
   </div>
